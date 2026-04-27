@@ -1,0 +1,1267 @@
+:root {
+    --primary-blue: #004b87;
+    --accent-blue: #006bb3;
+    --light-blue: #eef5fc;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-gray: #555555;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--white);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Estilos de la página de Nosotros */
+body.aboutus {
+    background-color: var(--white);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+body.aboutus .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+body.aboutus .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-dark);
+    gap: 10px;
+}
+
+body.aboutus .logo-img {
+    height: 50px;
+    width: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+body.aboutus .logo:hover .logo-img {
+    transform: scale(1.05);
+}
+
+body.aboutus .logo-text {
+    font-size: 1.2rem;
+    font-weight: 800;
+    
+}
+
+body.aboutus .text-blue {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+body.aboutus .nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    margin: 0 15px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+body.aboutus .nav-links a:hover,
+body.aboutus .nav-links a.active {
+    color: var(--primary-blue);
+}
+
+body.aboutus .btn-primary {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+body.aboutus .btn-primary:hover {
+    background-color: var(--accent-blue);
+}
+
+body.aboutus .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+body.aboutus .menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-blue);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+body.aboutus .content-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 10%;
+    gap: 50px;
+    border-radius: 15px;
+    margin: 20px 5%;
+    transition: all 0.5s ease;
+}
+
+body.aboutus .content-section.reverse {
+    flex-direction: row-reverse;
+}
+
+body.aboutus .bg-light {
+    background-color: var(--light-blue);
+}
+
+body.aboutus .text-content {
+    flex: 1;
+}
+
+body.aboutus .text-content h1 {
+    font-size: 42px;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+}
+
+body.aboutus .text-content h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+body.aboutus .text-content p {
+    color: var(--text-gray);
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+body.aboutus .image-content {
+    flex: 1;
+}
+
+body.aboutus .image-content img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+}
+
+body.aboutus .numbers-section {
+    text-align: center;
+    padding: 80px 10%;
+    background-color: var(--light-blue);
+}
+
+body.aboutus .numbers-section h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: var(--primary-blue);
+}
+
+body.aboutus .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+body.aboutus .number-card {
+    background-color: var(--white);
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+}
+
+body.aboutus .number-card .icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+body.aboutus .number-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+body.aboutus .number-card a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+body.aboutus .interactive-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 75, 135, 0.08);
+}
+
+body.aboutus .interactive-section:hover .image-content img {
+    transform: scale(1.02);
+}
+
+body.aboutus .interactive-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 75, 135, 0.15);
+    border-bottom: 4px solid var(--primary-blue);
+}
+
+body.aboutus footer {
+    text-align: center;
+    padding: 30px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+@media (max-width: 850px) {
+    body.aboutus .navbar {
+        position: relative;
+        flex-wrap: wrap;
+    }
+
+    body.aboutus .logo-img {
+        height: 40px;
+    }
+
+    body.aboutus .logo-text {
+        font-size: 18px;
+    }
+
+    body.aboutus .menu-toggle {
+        display: flex;
+        order: 2;
+        margin-left: 15px;
+    }
+
+    body.aboutus .nav-cta {
+        order: 1;
+        margin-left: auto;
+    }
+
+    body.aboutus .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: var(--white);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+        padding: 15px 0;
+        text-align: center;
+        z-index: 99;
+    }
+
+    body.aboutus .nav-links.active {
+        display: flex;
+    }
+
+    body.aboutus .nav-links a {
+        margin: 15px 0;
+        display: block;
+    }
+
+    body.aboutus .content-section,
+    body.aboutus .content-section.reverse {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 5%;
+    }
+
+    body.aboutus .text-content h1 {
+        font-size: 32px;
+    }
+}
+
+/* Estilos de la página de inicio */
+body.home {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #eef3fb;
+    color: #1b2d56;
+}
+
+body.home .logo-text {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: black;
+}
+
+body.home .text-blue {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+    font-weight: 800;
+    
+}
+body.home header {
+    background: #ffffffee;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid rgba(0, 102, 213, 0.12);
+}
+
+body.home nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+body.home .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+body.home .brand img {
+    width: 52px;
+    height: auto;
+}
+
+body.home .menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+body.home .menu a {
+    color: #1e417b;
+    text-decoration: none;
+    font-size: 0.96rem;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+body.home .menu a:hover {
+    color: #0050af;
+}
+
+body.home .cta {
+    background: #0066d5;
+    color: #fff;
+    padding: 0.85rem 1.3rem;
+    border-radius: 999px;
+}
+
+body.home hr {
+    border: none;
+    height: 4px;
+    background: #0066d5;
+    margin: 0;
+}
+
+body.home .fondo-seccion {
+    position: relative;
+    padding: 4.5rem 1rem 4rem;
+    background-image: url(/imgn/fondoDifuminado.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body.home .fondo-seccion::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 35, 85, 0.55);
+}
+
+body.home .contenido {
+    position: relative;
+    z-index: 1;
+    max-width: 1080px;
+    margin: 0 auto;
+    text-align: center;
+    color: #f5f8ff;
+}
+
+body.home .contenido h1 {
+    font-size: clamp(2.5rem, 4vw, 4.4rem);
+    line-height: 1.02;
+    margin-bottom: 0.75rem;
+}
+
+body.home .contenido h3 {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: rgba(246, 249, 255, 0.92);
+}
+
+body.home .form-busqueda {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+    align-items: stretch;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+body.home .buscador-select {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    background: #ffffff;
+    color: #1b2d56;
+    font-size: 1rem;
+    outline: none;
+}
+
+body.home .boton-select {
+    width: 72px;
+    min-height: 52px;
+    border-radius: 999px;
+    border: none;
+    background: #0066d5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+body.home .boton-select img {
+    width: 24px;
+    height: auto;
+    filter: invert(1);
+}
+
+body.home main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+}
+
+body.home .Content-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+    gap: 1.75rem;
+    margin-top: -4rem;
+    position: relative;
+    z-index: 2;
+}
+
+body.home .cards {
+    position: relative;
+    background: linear-gradient(135deg, #0f3f90 0%, #1f5aaa 100%);
+    border-radius: 28px;
+    padding: 2rem;
+    box-shadow: 0 22px 48px rgba(15, 43, 93, 0.18);
+    overflow: hidden;
+    color: #fff;
+}
+
+body.home .Imagen {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 96px;
+    max-width: 30%;
+}
+
+body.home .card-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+}
+
+body.home .card-text {
+    font-size: 1rem;
+    opacity: 0.9;
+    line-height: 1.7;
+}
+
+body.home .btn1 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.7rem;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    background: #0077f5;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.home .btn1:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+}
+
+body.home .section-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+    margin-top: 2rem;
+    margin: 15px;
+    background-color:#e7eefc;
+    border-radius: 20px;
+}
+
+body.home .recientes
+body.home .Empresas {
+    background: #e7eefc;
+    border-radius: 28px;
+    padding: 1.75rem;
+}
+body.home .btn-VerMDestacadas {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    background: #0066d5;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    margin-top: 1.25rem;
+    font-weight: 700;
+}
+body.home .section-header h2 {
+    margin: 0 0 1rem;
+    font-size: 1.75rem;
+    color: #0f2b5d;
+}
+
+body.home .ofertasRecientes {
+    display: grid;
+    gap: 1rem;
+}
+
+body.home .card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 102, 213, 0.18);
+    border-radius: 28px;
+    padding: 1.75rem;
+    display: grid;
+    gap: 1rem;
+    box-shadow: 0 18px 40px rgba(33, 87, 166, 0.08);
+}
+
+body.home .card-body {
+    display: grid;
+    gap: 1rem;
+}
+
+body.home .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+body.home .card-titles {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #153766;
+}
+
+body.home .job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    color: #4a5d7a;
+    font-size: 0.98rem;
+}
+
+body.home .job-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+body.home .job-meta img {
+    width: 18px;
+    height: auto;
+}
+
+body.home .btn-action {
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    background: #0077f5;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+body.home .btn-action:hover {
+    background: #0056b3;
+}
+
+body.home .botonVer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    background: #0077f5;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.home .botonVer:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+}
+
+body.home .EmpresasDestacadas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    gap: 1rem;
+    align-items: center;
+}
+
+body.home .cardlogos {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 18px 40px rgba(33, 87, 166, 0.06);
+}
+
+body.home .cardlogos img {
+    max-width: 100%;
+    height: auto;
+}
+
+body.home .fondo-seccion2 {
+    background: url(/imgn/fondoNosotros.jpg) center/cover no-repeat;
+    border-radius: 25px;
+    padding: 4rem 1rem;
+}
+
+body.home .sobreN {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+body.home .cardNos {
+    max-width: 560px;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 2rem;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.12);
+}
+body.home .cardNos h2 {
+    margin-bottom: 1rem;
+}
+
+body.home .leerNos {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 1.6rem;
+    border-radius: 999px;
+    background: #0066d5;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    margin-top: 1.25rem;
+    font-weight: 700;
+}
+
+body.home footer {
+    background: white;
+    padding: 2rem 0;
+}
+
+body.home .footer-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+body.home .footer-inner img {
+    width: 120px;
+    height: auto;
+}
+
+body.home .footer-text p {
+    color: #1b2d56;
+    margin-bottom: 0.5rem;
+}
+
+/* Estilos de la página de Empleos */
+body.empleos {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f6fa;
+    color: #333;
+}
+
+body.empleos .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E417B;
+    padding: 10px 20px;
+    color: white;
+}
+
+body.empleos .back-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+body.empleos .logo-header {
+    width: 52px;
+    height: auto;
+    background-color: white;
+    border-radius: 25px;
+}
+
+body.empleos .brand-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+body.empleos .vacantes-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+body.empleos .vacantes-container h1 {
+    text-align: center;
+    color: #1E417B;
+    margin-bottom: 30px;
+}
+
+body.empleos .vacante {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+body.empleos .vacante h2 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+body.empleos .vacante p {
+    margin: 5px 0;
+    color: #555;
+}
+
+body.empleos .vacante-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+body.empleos .btn-ver {
+    background-color: #007bff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+body.empleos .btn-ver:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    body.empleos .vacantes-container {
+        padding: 10px;
+    }
+
+    body.empleos .vacante h2 {
+        font-size: 1rem;
+    }
+
+    body.empleos .btn-ver {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Estilos de la página de Descripción de Empleo */
+body.desempleo {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f6fa;
+    color: #333;
+}
+
+body.desempleo .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E417B;
+    padding: 10px 20px;
+    color: white;
+}
+
+body.desempleo .back-btn {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+body.desempleo .brand-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+body.desempleo .logo-header {
+    width: 52px;
+    height: auto;
+    background-color: white;
+    border-radius: 25px;
+}
+
+body.desempleo .Contenedor1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    gap: 1px;
+}
+
+body.desempleo .empresa-logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+body.desempleo .logo-header {
+    width: 52px;
+    height: auto;
+    background-color: white;
+    border-radius: 25px;
+}
+
+body.desempleo .vacante-container {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.desempleo .vacante-container h1 {
+    text-align: center;
+    color: #1E417B;
+}
+
+body.desempleo .vacante-header h2 {
+    display: inline-block;
+    margin: 10px 0;
+    color: #333;
+}
+
+body.desempleo .vacante-header p {
+    font-style: italic;
+    color: #555;
+}
+
+body.desempleo .vacante-info {
+    margin-top: 20px;
+}
+
+body.desempleo .vacante-info h3 {
+    color: #1E417B;
+    margin-bottom: 10px;
+}
+
+body.desempleo .vacante-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+body.desempleo .vacante-info ul li {
+    margin-bottom: 5px;
+}
+
+body.desempleo .vacante-accion {
+    text-align: center;
+    margin-top: 30px;
+}
+
+body.desempleo .btn-postular {
+    background-color: #1E417B;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+body.desempleo .btn-postular:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    body.desempleo .vacante-container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    body.desempleo .vacante-header h2 {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    body.desempleo .btn-postular {
+        width: 100%;
+    }
+}
+
+/* Estilos de la página Perfil Candidato */
+body.pcandidato {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f6fa;
+    color: #1E417B;
+}
+
+body.pcandidato .hr,
+body.pcandidato hr {
+    color: #0066D5;
+    background-color: #0066D5;
+    border: 1px solid #0066D5;
+    margin: 10px 5px;
+}
+
+body.pcandidato .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E417B;
+    padding: 10px 20px;
+    color: white;
+}
+
+body.pcandidato .back-btn {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+body.pcandidato .brand-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+body.pcandidato .btn-editar {
+    background-color: white;
+    color: #1E417B;
+    border: 1px solid #1E417B;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+body.pcandidato .perfil-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+body.pcandidato .perfil-left {
+    width: 300px;
+    text-align: center;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+body.pcandidato .perfil-foto {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
+    object-fit: cover;
+}
+
+body.pcandidato .btn-cv {
+    width: 80%;
+    padding-top: 50px;
+    margin-top: 50px;
+    background-color: #0066D5;
+    color: white;
+    padding: 12px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+body.pcandidato .btn-dowd {
+    align-content: center;
+    width: 10%;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+body.pcandidato .perfil-right {
+    flex: 2 1 500px;
+    padding: 10px;
+}
+
+body.pcandidato .perfil-right section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+body.pcandidato .perfil-header h2 {
+    margin: 0;
+    color: #1E417B;
+}
+
+body.pcandidato .titulo {
+    font-style: italic;
+    color: #555;
+    margin: 1px;
+}
+
+body.pcandidato section h3 {
+    color: #1E417B;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+body.pcandidato .contenedor-tabla {
+    align-items: center;
+    padding: 10px 20px;
+}
+
+body.pcandidato .contenedor-tabla h3 {
+    font-size: 30px;
+}
+
+body.pcandidato .tabla-ofertas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+body.pcandidato .tabla-ofertas th,
+body.pcandidato .tabla-ofertas td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+body.pcandidato .tabla-ofertas th {
+    background-color: #1E417B;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    body.pcandidato .perfil-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    body.pcandidato .perfil-right {
+        text-align: center;
+    }
+
+    body.pcandidato .tabla-ofertas th,
+    body.pcandidato .tabla-ofertas td {
+        font-size: 14px;
+    }
+}
+
+/* Estilos de la página Perfil Empresa */
+body.pempresa {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f5f6fa;
+    color: #1E417B;
+}
+
+body.pempresa .hr,
+body.pempresa hr {
+    color: #0066D5;
+    background-color: #0066D5;
+    border: 1px solid #0066D5;
+    margin: 10px 5px;
+}
+
+body.pempresa .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E417B;
+    padding: 10px 20px;
+    color: white;
+}
+
+body.pempresa .back-btn {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+body.pempresa .brand-name {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+body.pempresa .btn-editar {
+    background-color: white;
+    color: #1E417B;
+    border: 1px solid #1E417B;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+body.pempresa .perfil-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 40px;
+}
+
+body.pempresa .perfil-left {
+    width: 260px;
+    text-align: center;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+body.pempresa .perfil-foto {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
+    object-fit: cover;
+}
+
+body.pempresa .link-claro {
+    width: 80%;
+    padding-top: 40px;
+    margin-top: 100px;
+    background-color: #0066D5;
+    color: white;
+    padding: 6px 6px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+body.pempresa .perfil-right {
+    flex: 2 1 500px;
+    padding: 10px;
+}
+
+body.pempresa .perfil-right section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+body.pempresa .perfil-header h2 {
+    margin: 0;
+    color: #1E417B;
+}
+
+body.pempresa .titulo {
+    font-style: italic;
+    color: #555;
+    margin: 1px;
+}
+
+body.pempresa section h3 {
+    color: #1E417B;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+body.pempresa .contenedor-tabla {
+    align-items: center;
+    padding: 10px 20px;
+}
+
+body.pempresa .contenedor-tabla h3 {
+    font-size: 30px;
+}
+
+body.pempresa .tabla-ofertas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+body.pempresa .tabla-ofertas th,
+body.pempresa .tabla-ofertas td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+body.pempresa .tabla-ofertas th {
+    background-color: #1E417B;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    body.pempresa .perfil-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    body.pempresa .perfil-right {
+        text-align: center;
+    }
+
+    body.pempresa .tabla-ofertas th,
+    body.pempresa .tabla-ofertas td {
+        font-size: 14px;
+    }
+}
