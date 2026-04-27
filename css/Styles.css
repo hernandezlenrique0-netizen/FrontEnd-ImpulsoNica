@@ -61,7 +61,7 @@ body.aboutus .logo:hover .logo-img {
 body.aboutus .logo-text {
     font-size: 1.2rem;
     font-weight: 800;
-    
+
 }
 
 body.aboutus .text-blue {
@@ -305,8 +305,9 @@ body.home .text-blue {
     color: var(--primary-blue);
     font-size: 1.2rem;
     font-weight: 800;
-    
+
 }
+
 body.home header {
     background: #ffffffee;
     position: sticky;
@@ -358,10 +359,11 @@ body.home .menu a:hover {
 }
 
 body.home .cta {
-    background: #0066d5;
+    background: white;
     color: #fff;
     padding: 0.85rem 1.3rem;
     border-radius: 999px;
+    border: 1px solid #0f2b5d;
 }
 
 body.home hr {
@@ -518,29 +520,16 @@ body.home .section-grid {
     gap: 1.75rem;
     margin-top: 2rem;
     margin: 15px;
-    background-color:#e7eefc;
+    background-color: #e7eefc;
     border-radius: 20px;
 }
 
-body.home .recientes
-body.home .Empresas {
+body.home .recientes body.home .Empresas {
     background: #e7eefc;
     border-radius: 28px;
     padding: 1.75rem;
 }
-body.home .btn-VerMDestacadas {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.95rem 1.6rem;
-    border-radius: 999px;
-    background: #0066d5;
-    color: #fff;
-    text-decoration: none;
-    border: none;
-    margin-top: 1.25rem;
-    font-weight: 700;
-}
+
 body.home .section-header h2 {
     margin: 0 0 1rem;
     font-size: 1.75rem;
@@ -673,6 +662,7 @@ body.home .cardNos {
     padding: 2rem;
     box-shadow: 0 22px 50px rgba(0, 0, 0, 0.12);
 }
+
 body.home .cardNos h2 {
     margin-bottom: 1rem;
 }
@@ -715,6 +705,50 @@ body.home .footer-text p {
     color: #1b2d56;
     margin-bottom: 0.5rem;
 }
+
+@media (max-width: 768px) {
+    body.home .form-busqueda {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body.home .Content-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body.home .section-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    body.home .EmpresasDestacadas {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body.home .Imagen {
+        position: static;
+        /* ya no será absoluta */
+        display: block;
+        margin: 0 auto 1rem;
+        /* centrada arriba del texto */
+        width: 64px;
+        /* más pequeña */
+    }
+
+    body.home .cards {
+        text-align: center;
+        /* centra el contenido */
+        padding-top: 3rem;
+        /* espacio extra arriba */
+    }
+}
+
 
 /* Estilos de la página de Empleos */
 body.empleos {
