@@ -13,15 +13,18 @@
         <nav>
             <div class="brand">
                 <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo">
-                
+
                 <span class="logo-text">Impulso<span class="text-blue">Nica</span></span>
             </div>
+            <!-- Botón hamburguesa -->
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
+
             <div class="menu">
                 <a href="#">Inicio</a>
-                <a href="#">Buscar empleo</a>
+                <a href="Empleos.html">Buscar empleo</a>
                 <a href="#">Publicar vacante</a>
-                <a href="#">Inicia sesión</a>
                 <a href="AboutUs.html">Acerca de Nosotros</a>
+                <a href="admin.html">Inicia sesión</a>
                 <a href="#" class="cta">Regístrate</a>
             </div>
         </nav>
@@ -82,12 +85,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-header">
-                                <h3 class="card-titles">Desarrollador web</h3>
+                                <h3 class="card-titles">Atención al cliente</h3>
                                 <a href="#" class="btn-action">Ver</a>
                             </div>
                             <div class="job-meta">
                                 <span><img src="/imgn/CompanyA.webp" class="imgs" alt="Empresa">Claro</span>
-                                <span><img src="/imgn/LocationA.webp" class="imgs" alt="Ubicación">Managua, Managua</span>
+                                <span><img src="/imgn/LocationA.webp" class="imgs" alt="Ubicación">Managua,
+                                    Managua</span>
                             </div>
                         </div>
                     </div>
@@ -99,7 +103,8 @@
                             </div>
                             <div class="job-meta">
                                 <span><img src="/imgn/CompanyA.webp" class="imgs" alt="Empresa">Tigo</span>
-                                <span><img src="/imgn/LocationA.webp" class="imgs" alt="Ubicación">Rivas, San Jorge</span>
+                                <span><img src="/imgn/LocationA.webp" class="imgs" alt="Ubicación">Rivas, San
+                                    Jorge</span>
                             </div>
                         </div>
                     </div>
@@ -111,7 +116,8 @@
                             </div>
                             <div class="job-meta">
                                 <span><img src="/imgn/CompanyA.webp" class="imgs" alt="Empresa">Seguridad CyB</span>
-                                <span><img src="/imgn/LocationA.webp" class="imgs" alt="Ubicación">Managua, Managua</span>
+                                <span><img src="/imgn/LocationA.webp" class="imgs" alt="Ubicación">Managua,
+                                    Managua</span>
                             </div>
                         </div>
                     </div>
@@ -124,8 +130,10 @@
                 </div>
                 <div class="EmpresasDestacadas">
                     <div class="cardlogos"><img src="/imgn/LogoBanpro.jpg" title="Logo Banpro" alt="Logo Banpro"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoCasaPellas.png" title="Logo Casa Pellas" alt="Logo Casa Pellas"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoCyB.png" title="Logo Seguridad CyB" alt="Logo Seguridad CyB"></div>
+                    <div class="cardlogos"><img src="/imgn/LogoCasaPellas.png" title="Logo Casa Pellas"
+                            alt="Logo Casa Pellas"></div>
+                    <div class="cardlogos"><img src="/imgn/LogoCyB.png" title="Logo Seguridad CyB"
+                            alt="Logo Seguridad CyB"></div>
                     <div class="cardlogos"><img src="/imgn/LogoTigo.jpg" title="Logo Tigo" alt="Logo Tigo"></div>
                     <div class="cardlogos"><img src="/imgn/LogoSinsa.png" title="Logo Sinsa" alt="Logo Sinsa"></div>
                     <div class="cardlogos"><img src="/imgn/LogoClaro.jpg" title="Logo Claro" alt="Logo Claro"></div>
@@ -136,7 +144,9 @@
             <div class="sobreN">
                 <div class="cardNos">
                     <h2>Acerca de Nosotros</h2>
-                    <p>La cultura y el equipo de ImpulsoNica son el corazón de nuestra plataforma. Estamos diseñados, no improvisados, para ofrecer una experiencia excepcional tanto a candidatos como a empresas nicaragüenses.</p>
+                    <p>La cultura y el equipo de ImpulsoNica son el corazón de nuestra plataforma. Estamos diseñados, no
+                        improvisados, para ofrecer una experiencia excepcional tanto a candidatos como a empresas
+                        nicaragüenses.</p>
                     <a href="AboutUs.html" class="leerNos">Leer más</a>
                 </div>
             </div>
@@ -152,44 +162,11 @@
             </div>
         </div>
     </footer>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('show');
+        }
+    </script>
 </body>
 
 </html>

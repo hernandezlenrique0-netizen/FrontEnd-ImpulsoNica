@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ImpulsoNica - Panel de Administración</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/Styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="admin">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="/imgn/LogoImpulsoNica.png" alt="Logo ImpulsoNica">
+            <span class="logo-text">Impulso<span class="text-blue">Nica</span></span>
+        </div>
+        <nav>
+            <a href="#" class="active">Inicio</a>
+            <a href="Pcandidato.html">Candidatos</a>
+            <a href="Pempresa.html">Empresas</a>
+            <a href="Empleos.html">Vacantes</a>
+            <a href="#">Postulaciones</a>
+            <a href="index.html">Cerrar sesión</a>
+        </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="dashboard">
+        <header>
+            <h1>Panel de Administración</h1>
+        </header>
+
+        <!-- Tarjetas resumen -->
+        <section class="summary-cards">
+            <div class="card">
+                <h3>Candidatos</h3>
+                <p>120</p>
+            </div>
+            <div class="card">
+                <h3>Empresas</h3>
+                <p>35</p>
+            </div>
+            <div class="card">
+                <h3>Vacantes</h3>
+                <p>58</p>
+            </div>
+            <div class="card">
+                <h3>Postulaciones</h3>
+                <p>210</p>
+            </div>
+        </section>
+
+        <!-- Gráficos -->
+        <section class="charts">
+            <div class="chart-box"><canvas id="graficoCandidatos"></canvas></div>
+            <div class="chart-box"><canvas id="graficoEmpresas"></canvas></div>
+            <div class="chart-box"><canvas id="graficoVacantes"></canvas></div>
+            <div class="chart-box"><canvas id="graficoPostulaciones"></canvas></div>
+        </section>
+    </main>
+
+    <script>
+        // Ejemplo gráfico candidatos
+        new Chart(document.getElementById('graficoCandidatos'), {
+            type: 'bar',
+            data: {
+                labels: ['Managua', 'León', 'Granada', 'Matagalpa'],
+                datasets: [{ label: 'Candidatos', data: [50, 30, 20, 25], backgroundColor: '#007bff' }]
+            }
+        });
+
+        // Ejemplo gráfico empresas
+        new Chart(document.getElementById('graficoEmpresas'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Pequeñas', 'Medianas', 'Grandes'],
+                datasets: [{ data: [15, 12, 8], backgroundColor: ['#28a745', '#ffc107', '#007bff'] }]
+            }
+        });
+
+        // Ejemplo gráfico vacantes
+        new Chart(document.getElementById('graficoVacantes'), {
+            type: 'pie',
+            data: {
+                labels: ['Presencial', 'Remoto', 'Híbrido'],
+                datasets: [{ data: [40, 10, 8], backgroundColor: ['#007bff', '#17a2b8', '#ffc107'] }]
+            }
+        });
+
+        // Ejemplo gráfico postulaciones
+        new Chart(document.getElementById('graficoPostulaciones'), {
+            type: 'bar',
+            data: {
+                labels: ['Pendientes', 'En revisión', 'Aceptadas'],
+                datasets: [{ label: 'Postulaciones', data: [80, 50, 30], backgroundColor: '#6f42c1' }]
+            }
+        });
+    </script>
+</body>
+
+</html>
