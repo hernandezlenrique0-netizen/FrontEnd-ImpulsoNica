@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>ImpulsoNica - Panel de Administración</title>
+    <title>Dashboard Gerencial - ImpulsoNica</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/Styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,91 +13,109 @@
 
     <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="brand">
-            <img src="/imgn/LogoImpulsoNica.png" alt="Logo ImpulsoNica">
-            <span class="logo-text">Impulso<span class="text-blue">Nica</span></span>
-        </div>
+        <h2>ImpulsoNica</h2>
         <nav>
             <a href="#" class="active">Inicio</a>
-            <a href="Pcandidato.html">Candidatos</a>
-            <a href="Pempresa.html">Empresas</a>
-            <a href="Empleos.html">Vacantes</a>
+            <a href="#">Candidatos</a>
+            <a href="#">Empresas</a>
+            <a href="#">Vacantes</a>
             <a href="#">Postulaciones</a>
             <a href="index.html">Cerrar sesión</a>
         </nav>
     </aside>
 
-    <!-- Contenido principal -->
+    <!-- Dashboard -->
     <main class="dashboard">
         <header>
-            <h1>Panel de Administración</h1>
+            <h1>DASHBOARD GERENCIAL</h1>
         </header>
 
         <!-- Tarjetas resumen -->
         <section class="summary-cards">
             <div class="card">
-                <h3>Candidatos</h3>
-                <p>120</p>
+                <h3>Salario más alto</h3>
+                <p>$1501 (Tecnología y Sistemas)</p>
             </div>
             <div class="card">
-                <h3>Empresas</h3>
-                <p>35</p>
+                <h3>Vacantes Remotas</h3>
+                <p>30.8%</p>
             </div>
             <div class="card">
-                <h3>Vacantes</h3>
-                <p>58</p>
+                <h3>Tiempo promedio cierre</h3>
+                <p>25–34 días</p>
             </div>
             <div class="card">
-                <h3>Postulaciones</h3>
-                <p>210</p>
+                <h3>Vacantes publicadas en diciembre</h3>
+                <p>95</p>
             </div>
         </section>
 
-        <!-- Gráficos -->
         <section class="charts">
-            <div class="chart-box"><canvas id="graficoCandidatos"></canvas></div>
-            <div class="chart-box"><canvas id="graficoEmpresas"></canvas></div>
-            <div class="chart-box"><canvas id="graficoVacantes"></canvas></div>
-            <div class="chart-box"><canvas id="graficoPostulaciones"></canvas></div>
+            <div class="chart-box"><canvas id="salariosSector"></canvas></div>
+            <div class="chart-box"><canvas id="eficienciaVacantes"></canvas></div>
+            <div class="chart-box"><canvas id="vacantesModalidad"></canvas></div>
+            <div class="chart-box"><canvas id="tendenciaMeses"></canvas></div>
         </section>
+
     </main>
 
     <script>
-        // Ejemplo gráfico candidatos
-        new Chart(document.getElementById('graficoCandidatos'), {
+        // 1. Salario Promedio por Sector Industrial
+        new Chart(document.getElementById('salariosSector'), {
             type: 'bar',
             data: {
-                labels: ['Managua', 'León', 'Granada', 'Matagalpa'],
-                datasets: [{ label: 'Candidatos', data: [50, 30, 20, 25], backgroundColor: '#007bff' }]
+                labels: ['Tecnología y Sistemas', 'Construcción', 'Call Center y BPO', 'Salud y Medicina', 'Banca y Finanzas', 'Comercio y Retail'],
+                datasets: [{
+                    label: 'Salario Promedio ($)',
+                    data: [1501, 1025, 929, 871, 863, 590],
+                    backgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                indexAxis: 'y'
             }
         });
 
-        // Ejemplo gráfico empresas
-        new Chart(document.getElementById('graficoEmpresas'), {
-            type: 'doughnut',
+        // 2. Eficiencia: Días para cerrar vacantes
+        new Chart(document.getElementById('eficienciaVacantes'), {
+            type: 'bar',
             data: {
-                labels: ['Pequeñas', 'Medianas', 'Grandes'],
-                datasets: [{ data: [15, 12, 8], backgroundColor: ['#28a745', '#ffc107', '#007bff'] }]
+                labels: ['Managua', 'Masaya', 'León', 'Estelí', 'Granada', 'Matagalpa'],
+                datasets: [{
+                    label: 'Días promedio',
+                    data: [25, 26, 27, 29, 30, 34],
+                    backgroundColor: '#28a745'
+                }]
             }
         });
 
-        // Ejemplo gráfico vacantes
-        new Chart(document.getElementById('graficoVacantes'), {
+        // 3. Distribución de Vacantes por Modalidad
+        new Chart(document.getElementById('vacantesModalidad'), {
             type: 'pie',
             data: {
-                labels: ['Presencial', 'Remoto', 'Híbrido'],
-                datasets: [{ data: [40, 10, 8], backgroundColor: ['#007bff', '#17a2b8', '#ffc107'] }]
+                labels: ['Remoto', 'Híbrido', 'Presencial'],
+                datasets: [{
+                    data: [30.8, 35.6, 33.6],
+                    backgroundColor: ['#17a2b8', '#ffc107', '#6f42c1']
+                }]
             }
         });
 
-        // Ejemplo gráfico postulaciones
-        new Chart(document.getElementById('graficoPostulaciones'), {
-            type: 'bar',
+        // 4. Tendencia de Publicación por Mes
+        new Chart(document.getElementById('tendenciaMeses'), {
+            type: 'line',
             data: {
-                labels: ['Pendientes', 'En revisión', 'Aceptadas'],
-                datasets: [{ label: 'Postulaciones', data: [80, 50, 30], backgroundColor: '#6f42c1' }]
+                labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Noviembre', 'Diciembre'],
+                datasets: [{
+                    label: 'Cantidad de Vacantes',
+                    data: [40, 55, 70, 65, 80, 95],
+                    borderColor: '#dc3545',
+                    fill: false,
+                    tension: 0.3
+                }]
             }
         });
+        
     </script>
 </body>
 

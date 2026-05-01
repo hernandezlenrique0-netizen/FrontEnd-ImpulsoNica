@@ -345,6 +345,7 @@ body.home .menu {
     gap: 0.1rem;
     /* espacio entre enlaces */
 }
+
 body.home .menu .cta {
     color: #0066d5;
 }
@@ -731,7 +732,8 @@ body.home .footer-text p {
         padding: 15px 0;
         text-align: center;
         z-index: 99;
-        align-items: center; /* centra los elementos */
+        align-items: center;
+        /* centra los elementos */
     }
 
     .menu.show {
@@ -1344,22 +1346,9 @@ body.admin {
     color: #1b2d56;
 }
 
-body.admin .logo-text {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: black;
-}
-
-body.admin .text-blue {
-    color: var(--primary-blue);
-    font-size: 1.2rem;
-    font-weight: 800;
-
-}
-
 /* Sidebar */
 .sidebar {
-    width: 240px;
+    width: 220px;
     background: #1e417b;
     color: #fff;
     min-height: 100vh;
@@ -1367,17 +1356,8 @@ body.admin .text-blue {
     position: fixed;
 }
 
-.sidebar .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    background-color: white;
-}
-
-.sidebar img {
-    width: 40px;
-    background-color: white;
+.sidebar h2 {
+    margin-bottom: 1.5rem;
 }
 
 .sidebar nav {
@@ -1392,27 +1372,25 @@ body.admin .text-blue {
     font-weight: 600;
     padding: 0.5rem;
     border-radius: 6px;
-    transition: background 0.2s;
 }
 
-.sidebar nav a:hover,
-.sidebar nav a.active {
+.sidebar nav a.active,
+.sidebar nav a:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
 /* Dashboard */
 .dashboard {
-    margin-left: 240px;
+    margin-left: 220px;
     padding: 2rem;
     flex: 1;
 }
 
 .dashboard header h1 {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     color: #1e417b;
 }
 
-/* Tarjetas resumen */
 .summary-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1431,15 +1409,17 @@ body.admin .text-blue {
 .card h3 {
     margin: 0;
     color: #1e417b;
+    font-size: 1.1rem;
 }
 
 .card p {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: bold;
     margin-top: 0.5rem;
+    color: #1b2d56;
 }
 
-/* Gráficos */
+/* Charts */
 .charts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1451,17 +1431,4 @@ body.admin .text-blue {
     border-radius: 12px;
     padding: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .sidebar {
-        position: relative;
-        width: 100%;
-        min-height: auto;
-    }
-
-    .dashboard {
-        margin-left: 0;
-    }
 }
