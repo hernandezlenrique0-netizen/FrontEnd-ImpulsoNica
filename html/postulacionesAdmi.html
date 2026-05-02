@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Postulaciones - ImpulsoNica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="admin">
+    <!-- Sidebar lateral -->
+    <aside class="sidebar">
+        <nav>
+            <div class="brand">
+                <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo">
+
+                <span class="logo-text">Impulso<span class="text-blue">Nica</span></span>
+            </div>
+            <a href="/html/admin.html">Inicio</a>
+            <a href="/html/candidatosAdmi.html">Candidatos</a>
+            <a href="/html/empresasAdmi.html">Empresas</a>
+            <a href="/html/vacantesAdmi.html">Vacantes</a>
+            <a href="#" class="active">Postulaciones</a>
+            <a href="/index.html">Cerrar sesión</a>
+        </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="dashboard">
+        <header>
+            <h1>Postulaciones</h1>
+            <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        </header>
+
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Candidato</th>
+                        <th>Vacante</th>
+                        <th>Empresa</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Juan Pérez</td>
+                        <td>Desarrollador Web</td>
+                        <td>Claro Nicaragua</td>
+                        <td>Pendiente</td>
+                    </tr>
+                    <tr>
+                        <td>María López</td>
+                        <td>Asesor de Ventas</td>
+                        <td>Tigo</td>
+                        <td>Aceptada</td>
+                    </tr>
+                    <tr>
+                        <td>Carlos Gómez</td>
+                        <td>Analista Financiero</td>
+                        <td>Banpro</td>
+                        <td>En revisión</td>
+                    </tr>
+                    <tr>
+                        <td>Ana Torres</td>
+                        <td>Diseñador Gráfico</td>
+                        <td>La Colonia</td>
+                        <td>Rechazada</td>
+                    </tr>
+                </tbody>
+            </table>
+            <section class="charts">
+                <div class="chart-box"><canvas id="graficoPostulacionesEstado"></canvas></div>
+                <div class="chart-box"><canvas id="graficoPostulacionesEmpresa"></canvas></div>
+            </section>
+    </main>
+
+    <script>
+        // Función para alternar el menú lateral en dispositivos móviles//
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        }
+
+        // Gráfico de postulaciones por estado
+        new Chart(document.getElementById('graficoPostulacionesEstado'), {
+            type: 'bar',
+            data: {
+                labels: ['Pendientes', 'En revisión', 'Aceptadas', 'Rechazadas'],
+                datasets: [{
+                    label: 'Postulaciones',
+                    data: [40, 25, 30, 10],
+                    backgroundColor: ['#007bff', '#ffc107', '#28a745', '#dc3545']
+                }]
+            }
+        });
+        // Gráfico de postulaciones por empresa
+        new Chart(document.getElementById('graficoPostulacionesEmpresa'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Claro Nicaragua', 'Tigo', 'Banpro', 'La Colonia'],
+                datasets: [{
+                    data: [50, 30, 15, 5],
+                    backgroundColor: ['#007bff', '#28a745', '#ffc107', '#6c757d']
+                }]
+            }
+        });
+    </script>
+</body>
+
+</html>

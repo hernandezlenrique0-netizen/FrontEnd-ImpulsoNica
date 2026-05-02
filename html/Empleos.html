@@ -14,13 +14,31 @@
             <a href="/index.html" class="back-btn">
                 <img src="/imgn/BackB.webp" alt="Atrás">
             </a>
-            <span class="brand-name">ImpulsoNica</span>
+            <span class="brand-name">Ofertas de Empleo</span>
             <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo" class="logo-header">
         </nav>
     </header>
 
     <main class="vacantes-container">
-        <h1>Ofertas de Empleo</h1>
+        <div class="contenedor-busqueda">
+            <form class="form-busqueda">
+                <select name="rubro" class="buscador-select">
+                    <option value="">Todos los rubros</option>
+                    <option value="tecnologia">Tecnología</option>
+                    <option value="salud">Salud</option>
+                    <option value="educacion">Educación</option>
+                    <option value="servicios">Servicios</option>
+                </select>
+                <select name="ubicacion" class="buscador-select">
+                    <option value="">Ubicación</option>
+                    <option value="managua">Managua</option>
+                    <option value="leon">León</option>
+                    <option value="granada">Granada</option>
+                    <option value="masaya">Masaya</option>
+                </select>
+                <button type="submit" class="boton-select">Buscar</button>
+            </form>
+        </div>
 
         <div class="vacante">
             <h2>ASESOR DE VENTAS CASA A CASA MANAGUA</h2>

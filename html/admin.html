@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Gerencial - ImpulsoNica</title>
+    <title>Dashboard Administrativo - ImpulsoNica</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/Styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -13,21 +13,25 @@
 
     <!-- Sidebar -->
     <aside class="sidebar">
-        <h2>ImpulsoNica</h2>
         <nav>
+            <div class="brand">
+                <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo">
+
+                <span class="logo-text">Impulso<span class="text-blue">Nica</span></span>
+            </div>
             <a href="#" class="active">Inicio</a>
-            <a href="#">Candidatos</a>
-            <a href="#">Empresas</a>
-            <a href="#">Vacantes</a>
-            <a href="#">Postulaciones</a>
+            <a href="/html/candidatosAdmi.html">Candidatos</a>
+            <a href="/html/empresasAdmi.html">Empresas</a>
+            <a href="/html/vacantesAdmi.html">Vacantes</a>
+            <a href="/html/postulacionesAdmi.html">Postulaciones</a>
             <a href="/index.html">Cerrar sesión</a>
         </nav>
     </aside>
-
     <!-- Dashboard -->
     <main class="dashboard">
         <header>
-            <h1>DASHBOARD GERENCIAL</h1>
+            <h1>Dashboard Administrativo</h1>
+            <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
         </header>
 
         <!-- Tarjetas resumen -->
@@ -60,6 +64,10 @@
     </main>
 
     <script>
+        // Función para alternar el menú lateral en dispositivos móviles//
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        }
         // 1. Salario Promedio por Sector Industrial
         new Chart(document.getElementById('salariosSector'), {
             type: 'bar',
@@ -74,6 +82,7 @@
             options: {
                 indexAxis: 'y'
             }
+            
         });
 
         // 2. Eficiencia: Días para cerrar vacantes
@@ -115,7 +124,7 @@
                 }]
             }
         });
-        
+
     </script>
 </body>
 

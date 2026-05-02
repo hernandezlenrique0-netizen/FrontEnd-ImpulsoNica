@@ -822,6 +822,51 @@ body.empleos .brand-name {
     color: white;
 }
 
+body.empleos .contenedor-busqueda {
+    position: flex;
+    padding: 1rem 1rem 2rem;
+    background-position: center;
+    background-size: cover;
+}
+
+body.empleos .form-busqueda {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+    gap: 1rem;
+    justify-items: center;
+    align-items: stretch;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+body.empleos .buscador-select {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 1rem;
+    border-radius: 15px;
+    border: 1px solid #004b87;
+    background: #ffffff;
+    color: #1b2d56;
+    font-size: 1rem;
+    outline: none;
+
+}
+
+body.empleos .boton-select {
+    width: 100%;
+    min-height: 52px;
+    border-radius: 20px;
+    background: #0066d5;
+    color: white;
+    font-weight: 800;
+    border: 1px solid black;
+    display: inline-flex;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
 body.empleos .vacantes-container {
     max-width: 900px;
     margin: 20px auto;
@@ -886,6 +931,12 @@ body.empleos .btn-ver:hover {
     body.empleos .btn-ver {
         width: 100%;
         text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    body.empleos .form-busqueda {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1336,7 +1387,7 @@ body.pempresa .tabla-ofertas th {
     }
 }
 
-/*Estilos del panel administrativo */
+/*Vista de administrador dashboard - candidatos - empresas - vacantes y postulaciones*/
 
 body.admin {
     margin: 0;
@@ -1346,14 +1397,44 @@ body.admin {
     color: #1b2d56;
 }
 
+body.admin .brand {
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 0px;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-align: center;
+}
+
+body.admin .brand img {
+    width: 52px;
+    height: auto;
+}
+
+body.admin .logo-text {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: black;
+}
+
+body.admin .text-blue {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+    font-weight: 800;
+
+}
+
 /* Sidebar */
 .sidebar {
-    width: 220px;
+    width: 240px;
     background: #1e417b;
     color: #fff;
-    min-height: 100vh;
+    min-height: 1500px;
     padding: 1rem;
     position: fixed;
+    z-index: 100;        /* 👈 asegura que esté por encima del header */
 }
 
 .sidebar h2 {
@@ -1379,6 +1460,24 @@ body.admin {
     background: rgba(255, 255, 255, 0.2);
 }
 
+body.admin .menu-toggle {
+    position: absolute;
+    /* relativo al header */
+    right: 0rem;
+    /* esquina derecha */
+    top: 40%;
+    transform: translateY(-50%);
+    /* centrado vertical */
+    background: transparent;
+    color: #1e417b;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1.6rem;
+    cursor: pointer;
+    border-radius: 6px;
+    z-index: 5;
+}
+
 /* Dashboard */
 .dashboard {
     margin-left: 220px;
@@ -1386,9 +1485,23 @@ body.admin {
     flex: 1;
 }
 
+body.admin .dashboard header {
+    position: relative;
+    /* 👈 importante para que el botón se posicione dentro */
+    display: flex;
+    justify-content: space-between;
+    /* 👈 título a la izquierda, botón a la derecha */
+    align-items: center;
+    z-index: 10;         /* 👈 menor que el sidebar */
+
+}
+
 .dashboard header h1 {
-    margin-bottom: 2rem;
-    color: #1e417b;
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 2rem;
+    color: black;
+
 }
 
 .summary-cards {
@@ -1431,4 +1544,59 @@ body.admin {
     border-radius: 12px;
     padding: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background: #1e417b;
+    color: #fff;
+}
+
+th,
+td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        /* 👈 se oculta hacia la derecha */
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+        /* 👈 se muestra cuando se activa */
+    }
+
+    .dashboard {
+        margin-left: 0;
+        /* 👈 quita margen en móviles */
+        margin-right: 0;
+        padding: 1rem;
+    }
+
+    body.admin .menu-toggle {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    body.admin .menu-toggle {
+        display: none;
+    }
 }
