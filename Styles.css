@@ -746,27 +746,22 @@ body.home .footer-text p {
     body.home .form-busqueda {
         grid-template-columns: 1fr;
     }
-}
-
-@media (max-width: 768px) {
+    body.home .footer-inner img {
+    display: none;
+    }
+    body.home footer {
+    background: #1e417b;
+    }
+    body.home .footer-text p {
+    color: white;
+    margin-bottom: 0.5rem;
+    }
     body.home .Content-cards {
         grid-template-columns: 1fr;
     }
-}
-
-@media (max-width: 768px) {
     body.home .section-grid {
         grid-template-columns: 1fr;
     }
-}
-
-@media (max-width: 500px) {
-    body.home .EmpresasDestacadas {
-        grid-template-columns: 1fr 1fr;
-    }
-}
-
-@media (max-width: 768px) {
     body.home .Imagen {
         position: static;
         /* ya no será absoluta */
@@ -783,7 +778,15 @@ body.home .footer-text p {
         padding-top: 3rem;
         /* espacio extra arriba */
     }
+
 }
+
+@media (max-width: 500px) {
+    body.home .EmpresasDestacadas {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
 
 
 /* Estilos de la página de Empleos */
@@ -1465,14 +1468,14 @@ body.admin .menu-toggle {
     /* relativo al header */
     right: 0rem;
     /* esquina derecha */
-    top: 40%;
+    top: 30%;
     transform: translateY(-50%);
     /* centrado vertical */
     background: transparent;
     color: #1e417b;
     border: none;
     padding: 0.5rem 1rem;
-    font-size: 1.6rem;
+    font-size: 1.9rem;
     cursor: pointer;
     border-radius: 6px;
     z-index: 5;
