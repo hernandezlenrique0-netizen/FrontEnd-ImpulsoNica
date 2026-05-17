@@ -24,7 +24,7 @@
                 <a href="html/Empleos.html">Buscar empleo</a>
                 <a href="#">Publicar vacante</a>
                 <a href="html/AboutUs.html">Acerca de Nosotros</a>
-                <a href="html/admin.html">Inicia sesión</a>
+                <a href="#" id="linkLogin">Inicia sesión</a>
                 <a href="#" class="cta">Regístrate</a>
             </div>
         </nav>
@@ -153,6 +153,25 @@
         </section>
     </main>
     <hr>
+    <!-- Ventana modal inicio sesión-->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+
+            <!-- Selector de tipo de usuario -->
+            <select id="userType" class="perfil-select">
+                <option value="candidato">Candidato</option>
+                <option value="empresa">Empresa</option>
+                <option value="admin">Administrador</option>
+            </select>
+
+            <!-- Campos de login -->
+            <input type="text" id="username" placeholder="Usuario">
+            <input type="password" id="password" placeholder="Contraseña">
+            <button id="btnLogin">Entrar</button>
+        </div>
+    </div>
     <footer>
         <div class="footer-inner">
             <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo">
@@ -162,11 +181,7 @@
             </div>
         </div>
     </footer>
-    <script>
-        function toggleMenu() {
-            document.querySelector('.menu').classList.toggle('show');
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

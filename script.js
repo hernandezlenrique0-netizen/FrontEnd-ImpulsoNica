@@ -65,3 +65,44 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollObserver.observe(section);
     });
 });
+function toggleMenu() {
+    document.querySelector('.menu').classList.toggle('show');
+}
+const modal = document.getElementById("loginModal");
+const link = document.getElementById("linkLogin");
+const span = document.querySelector(".close");
+
+link.onclick = function (event) {
+    event.preventDefault(); // evita que el ancla recargue la página
+    modal.style.display = "flex"; //flex para centrar
+}
+
+span.onclick = function () {
+    modal.style.display = "none"; // cierra el modal
+}
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none"; // cierra si clic fuera
+    }
+}
+document.getElementById("btnLogin").addEventListener("click", function () {
+    const tipo = document.getElementById("userType").value;
+    const usuario = document.getElementById("username").value;
+    const clave = document.getElementById("password").value;
+
+    // Aquí decides qué hacer según el tipo de usuario
+    if (tipo === "candidato") {
+        alert("Bienvenido candidato: " + usuario);
+        // Redirigir a dashboard de candidatos
+        window.location.href = "/html/PCandidato.html";
+    } else if (tipo === "empresa") {
+        alert("Bienvenida empresa: " + usuario);
+        // Redirigir a dashboard de empresas
+        window.location.href = "/html/PEmpresa.html";
+    } else if (tipo === "admin") {
+        alert("Bienvenido administrador: " + usuario);
+        // Redirigir a dashboard de administrador
+        window.location.href = "/html/admin.html";
+    }
+});
