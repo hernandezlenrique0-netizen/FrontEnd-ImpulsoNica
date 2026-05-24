@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function toggleMenu() {
     document.querySelector('.menu').classList.toggle('show');
 }
+
+//funcion para el modal de login
 const modal = document.getElementById("loginModal");
 const link = document.getElementById("linkLogin");
 const span = document.querySelector(".close");
@@ -88,21 +90,131 @@ window.onclick = function (event) {
 }
 document.getElementById("btnLogin").addEventListener("click", function () {
     const tipo = document.getElementById("userType").value;
-    const usuario = document.getElementById("username").value;
+    const usuario = document.getElementById("correo").value;
     const clave = document.getElementById("password").value;
 
-    // Aquí decides qué hacer según el tipo de usuario
+    //tipo de usuario
     if (tipo === "candidato") {
         alert("Bienvenido candidato: " + usuario);
-        // Redirigir a dashboard de candidatos
+        //candidatos
         window.location.href = "/html/PCandidato.html";
     } else if (tipo === "empresa") {
         alert("Bienvenida empresa: " + usuario);
-        // Redirigir a dashboard de empresas
+        //empresas
         window.location.href = "/html/PEmpresa.html";
     } else if (tipo === "admin") {
         alert("Bienvenido administrador: " + usuario);
-        // Redirigir a dashboard de administrador
+        //administrador
         window.location.href = "/html/admin.html";
     }
 });
+
+//modal de registro empresa y candidato
+// Referencias al modal y elementos
+const registerModal = document.getElementById("registerModal");
+const btnOpenRegister = document.getElementById("btnOpenRegister"); // enlace "Regístrate"
+const closeRegister = registerModal.querySelector(".close");
+const btnRegister = document.getElementById("btnRegister");
+
+// Mostrar fecha actual en ambos formularios
+const hoy = new Date().toLocaleDateString("es-NI", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+});
+document.getElementById("fechaCandidato").textContent = hoy;
+document.getElementById("fechaEmpresa").textContent = hoy;
+
+// Abrir modal al tocar el enlace
+btnOpenRegister.onclick = function (event) {
+    event.preventDefault();
+    registerModal.style.display = "flex";
+};
+
+// Cerrar modal con la X
+closeRegister.onclick = function () {
+    registerModal.style.display = "none";
+};
+
+// Cerrar modal si se hace clic fuera
+window.onclick = function (event) {
+    if (event.target === registerModal) {
+        registerModal.style.display = "none";
+    }
+};
+
+// Alternar campos según tipo de usuario
+const userTypeSelect = document.getElementById("registerUserType");
+const candidatoFields = document.getElementById("candidatoFields");
+const empresaFields = document.getElementById("empresaFields");
+
+userTypeSelect.onchange = function () {
+    if (userTypeSelect.value === "empresa") {
+        candidatoFields.style.display = "none";
+        empresaFields.style.display = "block";
+    } else {
+        candidatoFields.style.display = "block";
+        empresaFields.style.display = "none";
+    }
+};
+
+// Capturar datos al presionar "Registrarse"
+btnRegister.onclick = function () {
+    const userType = userTypeSelect.value;
+
+    if (userType === "candidato") {
+        // Datos de candidato
+        const nombre = document.getElementById("nombre").value;
+        const apellido = document.getElementById("apellido").value;
+        const email = document.getElementById("Email").value;
+        const telefono = document.getElementById("telefono").value;
+        const direccion = document.getElementById("direccion").value;
+        const genero = document.getElementById("genero").value;
+        const fechaNacimiento = document.getElementById("fechaNacimiento").value;
+        const nacionalidad = document.getElementById("nacionalidad").value;
+        const municipio = document.getElementById("municipio").value;
+        const contraseña = document.getElementById("contraseña").value;
+        const curriculum = document.getElementById("curriculum").files[0];
+
+        console.log({
+            tipo: "candidato",
+            nombre,
+            apellido,
+            email,
+            telefono,
+            direccion,
+            genero,
+            fechaNacimiento,
+            nacionalidad,
+            municipio,
+            contraseña,
+            curriculum
+        });
+
+        alert("Registro de candidato: " + nombre + " " + apellido);
+    } else {
+        // Datos de empresa
+        const empresaNombre = document.getElementById("empresaNombre").value;
+        const tipoempresa = document.getElementById("tipoempresa").value;
+        const empresaSector = document.getElementById("empresaSector").value;
+        const empresaEmail = document.getElementById("empresaEmail").value;
+        const empresaTelefono = document.getElementById("empresaTelefono").value;
+        const empresaDireccion = document.getElementById("empresaDireccion").value;
+        const empresaMunicipio = document.getElementById("empresaMunicipio").value;
+        const empresaContraseña = document.getElementById("empresaContraseña").value;
+
+        console.log({
+            tipo: "empresa",
+            empresaNombre,
+            tipoempresa,
+            empresaSector,
+            empresaEmail,
+            empresaTelefono,
+            empresaDireccion,
+            empresaMunicipio,
+            empresaContraseña
+        });
+
+        alert("Registro de empresa: " + empresaNombre + " (" + empresaEmail + ")");
+    }
+};

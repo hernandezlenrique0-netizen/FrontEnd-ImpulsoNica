@@ -25,7 +25,7 @@
                 <a href="#">Publicar vacante</a>
                 <a href="html/AboutUs.html">Acerca de Nosotros</a>
                 <a href="#" id="linkLogin">Inicia sesión</a>
-                <a href="#" class="cta">Regístrate</a>
+                <a href="#" class="cta" id="btnOpenRegister">Regístrate</a>
             </div>
         </nav>
     </header>
@@ -166,12 +166,61 @@
                 <option value="admin">Administrador</option>
             </select>
 
-            <!-- Campos de login -->
-            <input type="text" id="username" placeholder="Usuario">
+            <!-- Campos de inicio de sesión -->
+            <input type="email" id="correo" placeholder="Correo electrónico">
             <input type="password" id="password" placeholder="Contraseña">
             <button id="btnLogin">Entrar</button>
         </div>
     </div>
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Registro</h2>
+
+            <!-- Selector de tipo de usuario -->
+            <select id="registerUserType" class="perfil-select">
+                <option value="candidato">Candidato</option>
+                <option value="empresa">Empresa</option>
+            </select>
+
+            <!-- Campos de candidato -->
+            <div id="candidatoFields">
+                <time class="fecha">Fecha: <span id="fechaCandidato"></span></time> 
+                <input type="text" id="nombre" placeholder="Nombre">
+                <input type="text" id="apellido" placeholder="Apellido">
+                <input type="email" id="Email" placeholder="Correo electrónico">
+                <input type="text" id="telefono" placeholder="Teléfono">
+                <input type="text" id="direccion" placeholder="Dirección">
+                <select name="genero" id="genero">
+                    <option value="">Género</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                </select>
+                <input type="date" id="fechaNacimiento" placeholder="Fecha de nacimiento">
+                <input type="text" id="nacionalidad" placeholder="Nacionalidad">
+                <input type="text" id="municipio" placeholder="Municipio">
+                <input type="password" id="contraseña" placeholder="Contraseña">
+                <p class="subir-cv">Sube tu currículum</p>
+                <input type="file" id="curriculum" placeholder="Subir currículum">
+            </div>
+
+            <!-- Campos de empresa -->
+            <div id="empresaFields" style="display:none;">
+                <time class="fecha">Fecha: <span id="fechaEmpresa"></span></time>
+                <input type="text" id="empresaNombre" placeholder="Nombre de la empresa">
+                <input type="text" id="tipoempresa" placeholder="Tipo de empresa">
+                <input type="text" id="empresaSector" placeholder="Sector">
+                <input type="email" id="empresaEmail" placeholder="Correo">
+                <input type="tel" id="empresaTelefono" placeholder="Teléfono">
+                <input type="text" id="empresaDireccion" placeholder="Dirección">
+                <input type="text" id="empresaMunicipio" placeholder="Municipio">
+                <input type="password" id="empresaContraseña" placeholder="Contraseña">
+            </div>
+
+            <button id="btnRegister">Registrarse</button>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-inner">
             <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo">

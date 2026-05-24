@@ -741,7 +741,9 @@ body.home .footer-text p {
     width: 40%;
     padding: 8px;
     margin: 8px 0;
+    background: #e1e0e0;
     border: none;
+    border-radius: 5px;
 }
 .close {
     float: right;
@@ -754,6 +756,7 @@ input {
     padding: 8px;
     margin: 8px 0;
     border-radius: 10px;
+    font-size: 16px;
 }
 
 button {
@@ -1640,17 +1643,17 @@ tbody tr:nth-child(even) {
 @media (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);
-        /* 👈 se oculta hacia la derecha */
+        /*se oculta hacia la derecha */
     }
 
     .sidebar.open {
         transform: translateX(0);
-        /* 👈 se muestra cuando se activa */
+        /* se muestra cuando se activa */
     }
 
     .dashboard {
         margin-left: 0;
-        /* 👈 quita margen en móviles */
+        /*quita margen en móviles */
         margin-right: 0;
         padding: 1rem;
     }
