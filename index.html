@@ -82,45 +82,8 @@
                     <h2>Ofertas de empleos recientes</h2>
                 </div>
                 <div class="ofertasRecientes">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-header">
-                                <h3 class="card-titles">Atención al cliente</h3>
-                                <a href="#" class="btn-action">Ver</a>
-                            </div>
-                            <div class="job-meta">
-                                <span><img src="imgn/CompanyA.webp" class="imgs" alt="Empresa">Claro</span>
-                                <span><img src="imgn/LocationA.webp" class="imgs" alt="Ubicación">Managua,
-                                    Managua</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-header">
-                                <h3 class="card-titles">Asesor de ventas</h3>
-                                <a href="#" class="btn-action">Ver</a>
-                            </div>
-                            <div class="job-meta">
-                                <span><img src="imgn/CompanyA.webp" class="imgs" alt="Empresa">Tigo</span>
-                                <span><img src="imgn/LocationA.webp" class="imgs" alt="Ubicación">Rivas, San
-                                    Jorge</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-header">
-                                <h3 class="card-titles">Jefe de operaciones</h3>
-                                <a href="#" class="btn-action">Ver</a>
-                            </div>
-                            <div class="job-meta">
-                                <span><img src="imgn/CompanyA.webp" class="imgs" alt="Empresa">Seguridad CyB</span>
-                                <span><img src="imgn/LocationA.webp" class="imgs" alt="Ubicación">Managua,
-                                    Managua</span>
-                            </div>
-                        </div>
-                    </div>
+
+                    
                 </div>
                 <a href="html/Empleos.html" class="botonVer">Ver más...</a>
             </section>
@@ -153,73 +116,7 @@
         </section>
     </main>
     <hr>
-    <!-- Ventana modal inicio sesión-->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Iniciar Sesión</h2>
 
-            <!-- Selector de tipo de usuario -->
-            <select id="userType" class="perfil-select">
-                <option value="candidato">Candidato</option>
-                <option value="empresa">Empresa</option>
-                <option value="admin">Administrador</option>
-            </select>
-
-            <!-- Campos de inicio de sesión -->
-            <input type="email" id="correo" placeholder="Correo electrónico">
-            <input type="password" id="password" placeholder="Contraseña">
-            <button id="btnLogin">Entrar</button>
-        </div>
-    </div>
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Registro</h2>
-
-            <!-- Selector de tipo de usuario -->
-            <select id="registerUserType" class="perfil-select">
-                <option value="candidato">Candidato</option>
-                <option value="empresa">Empresa</option>
-            </select>
-
-            <!-- Campos de candidato -->
-            <div id="candidatoFields">
-                <time class="fecha">Fecha: <span id="fechaCandidato"></span></time> 
-                <input type="text" id="nombre" placeholder="Nombre">
-                <input type="text" id="apellido" placeholder="Apellido">
-                <input type="email" id="Email" placeholder="Correo electrónico">
-                <input type="text" id="telefono" placeholder="Teléfono">
-                <input type="text" id="direccion" placeholder="Dirección">
-                <select name="genero" id="genero">
-                    <option value="">Género</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="femenino">Femenino</option>
-                </select>
-                <input type="date" id="fechaNacimiento" placeholder="Fecha de nacimiento">
-                <input type="text" id="nacionalidad" placeholder="Nacionalidad">
-                <input type="text" id="municipio" placeholder="Municipio">
-                <input type="password" id="contraseña" placeholder="Contraseña">
-                <p class="subir-cv">Sube tu currículum</p>
-                <input type="file" id="curriculum" placeholder="Subir currículum">
-            </div>
-
-            <!-- Campos de empresa -->
-            <div id="empresaFields" style="display:none;">
-                <time class="fecha">Fecha: <span id="fechaEmpresa"></span></time>
-                <input type="text" id="empresaNombre" placeholder="Nombre de la empresa">
-                <input type="text" id="tipoempresa" placeholder="Tipo de empresa">
-                <input type="text" id="empresaSector" placeholder="Sector">
-                <input type="email" id="empresaEmail" placeholder="Correo">
-                <input type="tel" id="empresaTelefono" placeholder="Teléfono">
-                <input type="text" id="empresaDireccion" placeholder="Dirección">
-                <input type="text" id="empresaMunicipio" placeholder="Municipio">
-                <input type="password" id="empresaContraseña" placeholder="Contraseña">
-            </div>
-
-            <button id="btnRegister">Registrarse</button>
-        </div>
-    </div>
 
     <footer>
         <div class="footer-inner">
@@ -230,7 +127,8 @@
             </div>
         </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="Scripts/script.js"></script>
+    <script src="Scripts/auth.js"></script>
 </body>
 
 </html>

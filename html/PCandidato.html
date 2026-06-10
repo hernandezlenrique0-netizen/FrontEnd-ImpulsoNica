@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImpulsoNica - Perfil Candidato</title>
-    <link rel="stylesheet" href="/Styles.css">
+    <link rel="stylesheet" href="../Styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="pcandidato">
@@ -14,92 +15,171 @@
             <a href="/html/AboutUs.html" class="back-btn">
                 <img src="/imgn/BackB.webp" alt="Atrás">
             </a>
-            <span class="brand-name">Perfil Candidato</span>
-            <button type="button" class="btn-editar">Editar</button>
+            <span class="brand-name">Mi Perfil</span>
+            <button type="button" class="btn-editar" id="btnAbrirEdicion"><i class="fas fa-pen"></i> Editar Perfil</button>
         </nav>
     </header>
 
     <main class="perfil-container">
-        <!-- Columna izquierda -->
+        <!-- Columna izquierda: Foto y Acciones -->
         <aside class="perfil-left">
-            <img src="/imgn/fotoCandidato.jpg" alt="Foto del candidato" class="perfil-foto">
-            <a href="ruta/de/tu/cv.pdf" download="CV_Juan_Ramirez.pdf" class="btn-cv">
-                Descargar CV <img src="/imgn/downloadWithe.webp" alt="Descargar CV" class="btn-dowd">
-            </a>
+            <div class="foto-container" style="position: relative; width: 180px; height: 180px; margin: 0 auto 30px;">
+                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" alt="Foto del candidato" class="perfil-foto" id="fotoPerfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                
+                <button class="btn-cambiar-foto" id="btnCambiarFoto" title="Cambiar foto de perfil" style="position: absolute; bottom: 5px; right: 10px; background-color: #0066d5; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <input type="file" id="inputFoto" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;">
+            </div>
         </aside>
 
-        <!-- Columna derecha -->
+        <!-- Columna derecha: Información y Currículum -->
         <section class="perfil-right">
             <div class="perfil-header">
-                <h2>Juan Ricardo Ramirez Noriega</h2>
-                <p class="titulo">Ingeniero en Sistemas</p>
+                <h2 id="lblNombre">Cargando perfil... ⏳</h2>
+                <p class="titulo-profesional" id="lblTitulo">Sin título profesional registrado</p>
+                
+                <!-- Datos de contacto actualizados para mostrar los catálogos -->
+                <div class="datos-contacto" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <p><i class="fas fa-envelope"></i> <span id="lblCorreo">Cargando...</span></p>
+                    <p><i class="fas fa-phone"></i> <span id="lblTelefono">No especificado</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="lblUbicacion">No especificada (País/Depto)</span></p>
+                    <p><i class="fas fa-home"></i> <span id="lblDireccion">No especificada (Dirección exacta)</span></p>
+                    <p><i class="fas fa-venus-mars"></i> <span id="lblGenero">Género no especificado</span></p>
+                    <p><i class="fas fa-birthday-cake"></i> <span id="lblFechaNac">Fecha de Nac. no especificada</span></p>
+                </div>
             </div>
-            <hr>
-            <section>
-                <h3>Experiencia</h3>
-                <ul>
-                    <li>Desarrollador Full Stack - Empresa XYZ (2020-2024)</li>
-                    <li>Ingeniero de Software Junior - Empresa ABC (2018-2020)</li>
-                </ul>
-            </section>
+            
+            <div class="cv-section sobre-mi">
+                <h3><i class="fas fa-user"></i> Sobre mí</h3>
+                <p id="lblSobreMi">Aún no has añadido una descripción profesional.</p>
+            </div>
 
-            <section>
-                <h3>Educación</h3>
-                <ul>
-                    <li>Licenciatura en Informática - Universidad Nacional (2014-2018)</li>
-                </ul>
-            </section>
+            <div class="cv-container">
+                <section class="cv-section">
+                    <h3><i class="fas fa-briefcase"></i> Experiencia Laboral</h3>
+                    <div id="listaExperiencia">
+                        <p style="color: #666; font-style: italic;">No hay experiencia laboral registrada.</p>
+                    </div>
+                </section>
+                <section class="cv-section">
+                    <h3><i class="fas fa-graduation-cap"></i> Educación</h3>
+                    <div id="listaEducacion">
+                        <p style="color: #666; font-style: italic;">No hay educación registrada.</p>
+                    </div>
+                </section>
+            </div>
 
-            <section>
-                <h3>Habilidades</h3>
-                <ul>
-                    <li>Programación en Python - Avanzado</li>
-                    <li>Desarrollo Web - Intermedio</li>
-                </ul>
-            </section>
-
-            <section>
-                <h3>Idiomas</h3>
-                <ul>
-                    <li>Español - Nativo</li>
-                    <li>English - Intermedio</li>
-                </ul>
-            </section>
-
-            <section>
-                <h3>Sobre mí</h3>
-                <p>Apasionado por la tecnología y el desarrollo de soluciones eficientes.</p>
-            </section>
+            <div class="cv-container-dos-columnas">
+                <section class="cv-section">
+                    <h3><i class="fas fa-tools"></i> Habilidades</h3>
+                    <ul class="lista-skills" id="listaHabilidades">
+                        <li style="background-color: transparent; color: #666; padding: 0; font-style: italic;">Sin habilidades registradas.</li>
+                    </ul>
+                </section>
+                <section class="cv-section">
+                    <h3><i class="fas fa-language"></i> Idiomas</h3>
+                    <ul class="lista-idiomas" id="listaIdiomas">
+                        <li style="border: none; color: #666; font-style: italic;">Sin idiomas registrados.</li>
+                    </ul>
+                </section>
+            </div>
         </section>
     </main>
+
     <hr>
     <section class="contenedor-tabla">
-            <h3>Ofertas de trabajos solicitados</h3>
-            <table class="tabla-ofertas">
-                <thead>
-                    <tr>
-                        <th>Vacante</th>
-                        <th>Empresa</th>
-                        <th>Fecha solicitud</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Desarrollador Backend</td>
-                        <td>Empresa XYZ</td>
-                        <td>01/05/2024</td>
-                        <td>En revisión</td>
-                    </tr>
-                    <tr>
-                        <td>Ingeniero de Software</td>
-                        <td>Empresa ABC</td>
-                        <td>15/04/2024</td>
-                        <td>Aceptada</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-</body>
+        <h3>Mis Postulaciones Recientes</h3>
+        <table class="tabla-ofertas">
+            <thead>
+                <tr>
+                    <th>Vacante</th>
+                    <th>Empresa</th>
+                    <th>Fecha solicitud</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="tablaPostulaciones">
+                <tr>
+                    <td colspan="4" style="text-align: center; color: #666; font-style: italic; padding: 20px;">
+                        Aún no te has postulado a ninguna oferta.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
 
+    <!-- MODAL PARA EDITAR PERFIL ACTUALIZADO CON CATÁLOGOS -->
+    <div id="modalEditarPerfil" class="modal" style="display: none;">
+        <div class="modal-content modal-editar">
+            <span class="close" id="closeEditar">&times;</span>
+            <h2><i class="fas fa-user-edit"></i> Editar Mi Perfil</h2>
+            <form id="formEditarPerfil">
+                <div class="form-group">
+                    <label for="editNombre">Nombre *</label>
+                    <input type="text" id="editNombre" placeholder="Tu Nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="editApellido">Apellido *</label>
+                    <input type="text" id="editApellido" placeholder="Tu Apellido" required>
+                </div>
+                
+                <!-- Nuevos campos: Fecha y Género -->
+                <div class="form-group">
+                    <label for="editFechaNac">Fecha de Nacimiento</label>
+                    <input type="date" id="editFechaNac">
+                </div>
+                <div class="form-group">
+                    <label for="editGenero">Género</label>
+                    <select id="editGenero" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
+                        <option value="">Cargando...</option>
+                    </select>
+                </div>
+
+                <!-- Campos de Catálogo Geográfico -->
+                <div class="form-group">
+                    <label for="editPais">País</label>
+                    <select id="editPais" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
+                        <option value="">Cargando países...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editDepartamento">Departamento / Estado</label>
+                    <select id="editDepartamento" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;" disabled>
+                        <option value="">Seleccione un país primero</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editMunicipio">Municipio / Ciudad</label>
+                    <select id="editMunicipio" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;" disabled>
+                        <option value="">Seleccione un departamento primero</option>
+                    </select>
+                </div>
+
+                <!-- Datos de contacto y detalles -->
+                <div class="form-group">
+                    <label for="editTelefono">Teléfono</label>
+                    <input type="tel" id="editTelefono" placeholder="Tu Teléfono">
+                </div>
+                <div class="form-group full-width">
+                    <label for="editDireccion">Dirección Exacta</label>
+                    <input type="text" id="editDireccion" placeholder="Ej. Residencial Los Robles, Casa 12">
+                </div>
+                <div class="form-group full-width">
+                    <label for="editTitulo">Título Profesional</label>
+                    <input type="text" id="editTitulo" placeholder="Ej. Desarrollador Web Full Stack">
+                </div>
+                <div class="form-group full-width">
+                    <label for="editSobreMi">Sobre mí</label>
+                    <textarea id="editSobreMi" rows="4" placeholder="Escribe una breve descripción profesional..."></textarea>
+                </div>
+                
+                <button type="submit" id="btnGuardarPerfil" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../Scripts/auth.js"></script>
+    <script src="../Scripts/pcandidato.js"></script>
+</body>
 </html>

@@ -1,0 +1,19 @@
+<!-- Modal de Registro (Se inyecta dinámicamente) -->
+<div id="registerModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 style="color: #0f2b5d; margin-bottom: 20px;">Crear Cuenta</h2>
+        
+        <label for="registerUserType" style="font-weight: bold; margin-bottom: 5px; display: block; color: #333;">¿Qué perfil deseas crear?</label>
+        <select id="registerUserType" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; font-size: 15px;">
+            <option value="candidato">Soy Candidato (Busco empleo)</option>
+            <option value="empresa">Soy Empresa (Busco talento)</option>
+        </select>
+        
+        <input type="email" id="regCorreo" placeholder="Correo electrónico" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 15px;" required>
+        
+        <input type="password" id="regPassword" placeholder="Crea una contraseña" style="width: 100%; padding: 12px; margin-bottom: 25px; border-radius: 5px; border: 1px solid #ccc; font-size: 15px;" required>
+        
+        <button id="btnRegister" class="btn-primary" style="width: 100%; padding: 12px; border-radius: 5px; border: none; background-color: #0066d5; color: white; cursor: pointer; font-weight: bold; font-size: 16px;">Registrarse</button>
+    </div>
+</div>

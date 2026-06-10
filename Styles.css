@@ -1143,164 +1143,347 @@ body.desempleo .btn-postular:hover {
 }
 
 /* Estilos de la página Perfil Candidato */
-body.pcandidato {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f5f6fa;
-    color: #1E417B;
+.pcandidato {
+    background-color: #f4f7fa; /* Fondo gris muy claro */
 }
 
-body.pcandidato .hr,
-body.pcandidato hr {
-    color: #0066D5;
-    background-color: #0066D5;
-    border: 1px solid #0066D5;
-    margin: 10px 5px;
-}
-
-body.pcandidato .navbar {
+.perfil-container {
     display: flex;
-    justify-content: space-between;
+    max-width: 1200px;
+    margin: 2rem auto;
+    gap: 2rem;
+    padding: 0 1.5rem;
+    align-items: flex-start;
+}
+
+/* Columna Izquierda */
+.perfil-left {
+    flex: 1;
+    max-width: 300px;
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.foto-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 1.5rem;
+}
+
+.perfil-foto {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-blue);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-cambiar-foto {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
     align-items: center;
-    background-color: #1E417B;
-    padding: 10px 20px;
-    color: white;
+    justify-content: center;
 }
 
-body.pcandidato .back-btn {
+.btn-cambiar-foto:hover {
+    background-color: var(--accent-blue);
+}
+
+.btn-cv {
+    display: inline-block;
+    background-color: var(--accent-blue);
+    color: var(--white);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-cv:hover {
+    background-color: #005bb5;
+}
+
+.btn-cv i {
+    margin-left: 8px;
+}
+
+/* Columna Derecha */
+.perfil-right {
+    flex: 3;
+}
+
+.perfil-header {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+}
+
+.perfil-header h2 {
+    color: var(--primary-blue);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.titulo-profesional {
+    color: var(--text-gray);
     font-size: 1.2rem;
-    cursor: pointer;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
 }
 
-body.pcandidato .brand-name {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: white;
+.datos-contacto p {
+    color: var(--text-dark);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
 }
 
-body.pcandidato .btn-editar {
-    background-color: white;
-    color: #1E417B;
-    border: 1px solid #1E417B;
-    padding: 10px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 20px;
+.datos-contacto i {
+    color: var(--accent-blue);
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
 }
 
-body.pcandidato .perfil-container {
+/* Estilos para el Currículum Moderno */
+.cv-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.cv-section {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.cv-section h3 {
+    color: var(--primary-blue);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--light-blue);
+    padding-bottom: 0.8rem;
+}
+
+.cv-section h3 i {
+    margin-right: 12px;
+}
+
+.cv-item {
+    margin-bottom: 1.5rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent-blue);
+}
+
+.cv-item:last-child {
+    margin-bottom: 0;
+}
+
+.cv-item h4 {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.cv-lugar {
+    display: block;
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+}
+
+.cv-item p {
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.cv-container-dos-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.lista-skills, .lista-idiomas {
+    list-style: none;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 20px;
+    gap: 10px;
 }
 
-body.pcandidato .perfil-left {
-    width: 300px;
-    text-align: center;
-    max-height: 600px;
-    overflow-y: auto;
+.lista-skills li {
+    background-color: var(--light-blue);
+    color: var(--primary-blue);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.9rem;
 }
 
-body.pcandidato .perfil-foto {
-    margin-top: 50px;
-    margin-bottom: 20px;
-    width: 200px;
-    height: 200px;
-    border-radius: 10%;
-    object-fit: cover;
-}
-
-body.pcandidato .btn-cv {
-    width: 80%;
-    padding-top: 50px;
-    margin-top: 50px;
-    background-color: #0066D5;
-    color: white;
-    padding: 12px 12px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-size: 1.5rem;
-}
-
-body.pcandidato .btn-dowd {
-    align-content: center;
-    width: 10%;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-body.pcandidato .perfil-right {
-    flex: 2 1 500px;
-    padding: 10px;
-}
-
-body.pcandidato .perfil-right section ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-body.pcandidato .perfil-header h2 {
-    margin: 0;
-    color: #1E417B;
-}
-
-body.pcandidato .titulo {
-    font-style: italic;
-    color: #555;
-    margin: 1px;
-}
-
-body.pcandidato section h3 {
-    color: #1E417B;
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-
-body.pcandidato .contenedor-tabla {
-    align-items: center;
-    padding: 10px 20px;
-}
-
-body.pcandidato .contenedor-tabla h3 {
-    font-size: 30px;
-}
-
-body.pcandidato .tabla-ofertas {
+.lista-idiomas li {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    color: var(--text-dark);
 }
 
-body.pcandidato .tabla-ofertas th,
-body.pcandidato .tabla-ofertas td {
+.lista-idiomas .nivel {
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+.sobre-mi p {
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-size: 1.05rem;
+}
+
+/* Estilos para la tabla de postulaciones */
+.estado-pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.estado-visto {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Estilos para el Modal de Edición */
+.modal-editar {
+    max-width: 600px;
+    width: 90%;
+}
+
+.modal-editar h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#formEditarPerfil {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px;
     border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
-body.pcandidato .tabla-ofertas th {
-    background-color: #1E417B;
-    color: white;
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
 }
 
-@media (max-width: 768px) {
-    body.pcandidato .perfil-container {
+#btnGuardarPerfil {
+    grid-column: 1 / -1;
+    padding: 12px;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+/* Botón Editar en el Navbar */
+.btn-editar {
+    background-color: transparent;
+    border: 2px solid var(--primary-blue);
+    color: var(--primary-blue);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-editar:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .perfil-container {
         flex-direction: column;
         align-items: center;
     }
-
-    body.pcandidato .perfil-right {
-        text-align: center;
+    
+    .perfil-left, .perfil-right {
+        max-width: 100%;
+        width: 100%;
     }
 
-    body.pcandidato .tabla-ofertas th,
-    body.pcandidato .tabla-ofertas td {
-        font-size: 14px;
+    .cv-container-dos-columnas {
+        grid-template-columns: 1fr;
     }
 }
 
+@media (max-width: 600px) {
+    #formEditarPerfil {
+        grid-template-columns: 1fr;
+    }
+}
 /* Estilos de la página Perfil Empresa */
 body.pempresa {
     font-family: Arial, sans-serif;
