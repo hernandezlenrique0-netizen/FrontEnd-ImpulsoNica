@@ -6,6 +6,8 @@
     <title>ImpulsoNica</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Styles.css">
+    <!-- Iconos para el menú desplegable -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="home">
@@ -21,8 +23,8 @@
 
             <div class="menu">
                 <a href="#">Inicio</a>
-                <a href="html/Empleos.html">Buscar empleo</a>
-                <a href="#">Publicar vacante</a>
+                <a href="html/Empleos.html" id="navBuscarEmpleo">Buscar empleo</a>
+                <a href="#" id="navPublicarVacante">Publicar vacante</a>
                 <a href="html/AboutUs.html">Acerca de Nosotros</a>
                 <a href="#" id="linkLogin">Inicia sesión</a>
                 <a href="#" class="cta" id="btnOpenRegister">Regístrate</a>
@@ -34,29 +36,10 @@
         <div class="contenido">
             <h1>Conectamos talento y empresas</h1>
             <h3>Encuentra tu camino hacia nuevas oportunidades laborales.</h3>
-            <form class="form-busqueda">
-                <select name="rubro" class="buscador-select">
-                    <option value="">Todos los rubros</option>
-                    <option value="tecnologia">Tecnología</option>
-                    <option value="salud">Salud</option>
-                    <option value="educacion">Educación</option>
-                    <option value="servicios">Servicios</option>
-                </select>
-                <select name="ubicacion" class="buscador-select">
-                    <option value="">Ubicación</option>
-                    <option value="managua">Managua</option>
-                    <option value="leon">León</option>
-                    <option value="granada">Granada</option>
-                    <option value="masaya">Masaya</option>
-                </select>
-                <button type="submit" class="boton-select">
-                    <img src="imgn/SearchB.webp" class="img-botn" alt="Buscar">
-                </button>
-            </form>
         </div>
     </section>
     <main>
-        <section class="crearcuentas">
+        <section class="crearcuentas" id="seccionCrearCuentas">
             <div class="Content-cards">
                 <article class="Card1">
                     <div class="cards">
