@@ -6,24 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImpulsoNica - Oferta de Empleo</title>
     <link rel="stylesheet" href="../Styles.css">
+    <!-- Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="desempleo">
     <header>
-        <nav class="navbar">
-            <a href="/html/Empleos.html" class="back-btn">
-                <img src="/imgn/BackB.webp" alt="Atrás">
-            </a>
-            <span class="brand-name">Descripción del Puesto</span>
-            <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo" class="logo-header">
+        <nav class="navbar" style="position: relative;">
+            <!-- Logo a la izquierda -->
+            <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo" class="logo-header" style="cursor: pointer; height: 50px;" onclick="window.location.href='/html/Empleos.html'" title="Volver a Ofertas">
+            
+            <!-- Texto forzado al centro matemático exacto de la pantalla -->
+            <span class="brand-name" style="position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap;">Descripción del Puesto</span>
         </nav>
     </header>
 
-    <main class="vacante-container">
-        <!-- El JavaScript desempleo.js inyectará aquí los datos reales de la vacante -->
+    <main class="vacante-container" id="contenidoVacante">
+        <!-- El JavaScript inyectará aquí los datos reales de la vacante -->
+        <div id="contenidoVacante" style="text-align: center; padding: 50px;">
+            <p style="color: #0066d5; font-weight: bold; font-size: 1.2rem;">Cargando información del puesto... ⏳</p>
+        </div>
     </main>
 
-    <!-- Llamamos al JS específico de esta página -->
+    <!-- Cargamos auth.js para gestionar la sesión y desEmpleo.js para la lógica -->
+    <script src="../Scripts/auth.js"></script>
     <script src="../Scripts/desEmpleo.js"></script>
 </body>
 

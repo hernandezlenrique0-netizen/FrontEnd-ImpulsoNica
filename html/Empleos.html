@@ -21,25 +21,19 @@
 
     <main class="vacantes-container">
         <div class="contenedor-busqueda">
-            <form class="form-busqueda">
-                <select name="rubro" class="buscador-select">
-                    <option value="">Todos los rubros</option>
-                    <option value="tecnologia">Tecnología</option>
-                    <option value="salud">Salud</option>
-                    <option value="educacion">Educación</option>
-                    <option value="servicios">Servicios</option>
+            <form class="form-busqueda" id="formBusquedaEmpleos">
+                <select id="searchRubro" class="buscador-select">
+                    <option value="">Todos los rubros...</option>
                 </select>
-                <select name="ubicacion" class="buscador-select">
-                    <option value="">Ubicación</option>
-                    <option value="managua">Managua</option>
-                    <option value="leon">León</option>
-                    <option value="granada">Granada</option>
-                    <option value="masaya">Masaya</option>
+                <select id="searchUbicacion" class="buscador-select">
+                    <option value="">Todas las ubicaciones...</option>
                 </select>
                 <button type="submit" class="boton-select">Buscar</button>
             </form>
         </div>
 
+        <!-- AQUÍ SE DIBUJARÁN LOS EMPLEOS DINÁMICAMENTE -->
+        <div id="contenedorListaEmpleos"></div>
         
     </main>
     <script src="../Scripts/empleos.js"></script>

@@ -1,19 +1,28 @@
 <!-- Modal de Registro (Se inyecta dinámicamente) -->
-<div id="registerModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2 style="color: #0f2b5d; margin-bottom: 20px;">Crear Cuenta</h2>
+<div id="registerModal" class="modal-overlay-reg" style="display: none;">
+    <div class="modal-content-reg">
+        <span class="close close-btn-reg">&times;</span>
         
-        <label for="registerUserType" style="font-weight: bold; margin-bottom: 5px; display: block; color: #333;">¿Qué perfil deseas crear?</label>
-        <select id="registerUserType" style="width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; font-size: 15px;">
-            <option value="candidato">Soy Candidato (Busco empleo)</option>
-            <option value="empresa">Soy Empresa (Busco talento)</option>
-        </select>
+        <h2 class="modal-title-reg"><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
         
-        <input type="email" id="regCorreo" placeholder="Correo electrónico" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; font-size: 15px;" required>
+        <div class="form-group-reg">
+            <label for="registerUserType">¿Qué perfil deseas crear?</label>
+            <select id="registerUserType" class="input-reg">
+                <option value="candidato">Soy Candidato (Busco empleo)</option>
+                <option value="empresa">Soy Empresa (Busco talento)</option>
+            </select>
+        </div>
         
-        <input type="password" id="regPassword" placeholder="Crea una contraseña" style="width: 100%; padding: 12px; margin-bottom: 25px; border-radius: 5px; border: 1px solid #ccc; font-size: 15px;" required>
+        <div class="form-group-reg">
+            <label for="regCorreo">Correo electrónico</label>
+            <input type="email" id="regCorreo" class="input-reg" placeholder="ejemplo@correo.com" required>
+        </div>
         
-        <button id="btnRegister" class="btn-primary" style="width: 100%; padding: 12px; border-radius: 5px; border: none; background-color: #0066d5; color: white; cursor: pointer; font-weight: bold; font-size: 16px;">Registrarse</button>
+        <div class="form-group-reg">
+            <label for="regPassword">Contraseña</label>
+            <input type="password" id="regPassword" class="input-reg" placeholder="Crea una contraseña segura" required>
+        </div>
+        
+        <button id="btnRegister" class="btn-submit-reg">Registrarse</button>
     </div>
-</div>
+</div>  

@@ -4,92 +4,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImpulsoNica - Perfil Empresa</title>
-    <link rel="stylesheet" href="/Styles.css">
+    <title>ImpulsoNica - Perfil de Empresa</title>
+    <link rel="stylesheet" href="../Styles.css">
+    <!-- Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body class="pempresa">
-    <header>
-        <nav class="navbar">
-            <a href="/html/AboutUs.html" class="back-btn">
-                <img src="/imgn/BackB.webp" alt="Atrás">
-            </a>
-            <span class="brand-name">Perfil Empresa</span>
-            <button type="button" class="btn-editar">Editar</button>
-        </nav>
-    </header>
+<body class="pcandidato"> <!-- Reutilizamos la clase base para mantener el mismo fondo unificado -->
 
     <main class="perfil-container">
-        <!-- Columna izquierda -->
+        <!-- Columna izquierda: Logo y Acciones -->
         <aside class="perfil-left">
-            <img src="/imgn/LogoClaro.jpg" alt="Foto de la empresa" class="perfil-foto">
-            <a href="https://www.claro.com.ni/personas/tiendaenlinea/categories/prepago/celulares?utm_source=Google&utm_medium=Paid&utm_campaign=Punto_Rojo_TEL&utm_term=Prepago_CPA&utm_content=Punto_Rojo&gad_source=1&gad_campaignid=23253533986&gbraid=0AAAAA-Z44qFWbGwWfomGYRx5JsPKMhN2-&gclid=CjwKCAjwhqfPBhBWEiwAZo196lSBX59tjFGKFt9SA2KA75rxlqjpC-xv6j3-6DvrwarZSKV8tcuthRoCcrwQAvD_BwE" class="link-claro" target="_blank">Página oficial</a>
+            <div class="foto-container" style="position: relative; width: 180px; height: 180px; margin: 0 auto 15px;">
+                <img src="/imgn/CompanyA.webp" alt="Logo de la Empresa" class="perfil-foto" id="fotoPerfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #0066d5;">
+                
+                <button class="btn-cambiar-foto" id="btnCambiarFoto" title="Cambiar logo de la empresa" style="position: absolute; bottom: 5px; right: 10px; background-color: #0066d5; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <input type="file" id="inputFoto" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;">
+            </div>
+
+            <button type="button" class="btn-editar" id="btnAbrirEdicion" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 1.05rem; padding: 12px; margin-top: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fas fa-pen"></i> Editar Perfil</button>
         </aside>
 
-        <!-- Columna derecha -->
+        <!-- Columna derecha: Información de la Empresa -->
         <section class="perfil-right">
             <div class="perfil-header">
-                <h2>Claro</h2>
+                <h2 id="lblNombreEmpresa">Cargando perfil de empresa... ⏳</h2>
+                <p class="titulo-profesional" id="lblTipoEmpresa"><i class="fas fa-building"></i> Tipo de empresa no especificado</p>
+                
+                <div class="datos-contacto" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                    <p><i class="fas fa-envelope"></i> <span id="lblCorreo">Cargando...</span></p>
+                    <p><i class="fas fa-phone"></i> <span id="lblTelefono">No especificado</span></p>
+                    <p><i class="fas fa-industry"></i> <span id="lblSector">Sector no especificado</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="lblUbicacion">Ubicación no especificada</span></p>
+                    <p style="grid-column: 1 / -1;"><i class="fas fa-map-signs"></i> <span id="lblDireccion">Dirección exacta no especificada</span></p>
+                </div>
             </div>
-            <hr>
-            <section>
-                <h3>Sector</h3>
-                <ul>
-                    <li>Telecomunicaciones</li>
-                </ul>
-            </section>
 
-            <section>
-                <h3>Ubicación</h3>
-                <ul>
-                    <li>Managua, Nicaragua</li>
-                </ul>
-            </section>
-
-            <section>
-                <h3>Descripción</h3>
-                <ul>
-                    <li>Claro es una empresa líder en telecomunicaciones que ofrece servicios de telefonía móvil, internet y televisión en Nicaragua.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h3>Contacto</h3>
-                <ul>
-                    <li>Correo: info@claro.com</li>
-                    <li>Teléfono: +505 2222 2222</li>
-                </ul>
-            </section>
+            <!-- SECCIÓN MIS VACANTES -->
+            <div class="cv-container">
+                <section class="cv-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--light-blue); padding-bottom: 0.8rem; margin-bottom: 1.5rem;">
+                        <h3 style="border: none; padding: 0; margin: 0;"><i class="fas fa-briefcase"></i> Mis Vacantes Publicadas</h3>
+                        <button class="btn-editar" id="btnAbrirVacante" style="font-size: 0.9rem; padding: 0.4rem 0.8rem;"><i class="fas fa-plus"></i> Publicar Vacante</button>
+                    </div>
+                    
+                    <div id="listaMisVacantes">
+                        <p style="color: #666; font-style: italic;">Aún no has publicado ninguna vacante de empleo.</p>
+                        <!-- Aquí se insertarán las vacantes en el futuro -->
+                    </div>
+                </section>
+            </div>
         </section>
     </main>
-    <hr>
-    <section class="contenedor-tabla">
-            <h3>Vacantes publicadas</h3>
-            <table class="tabla-ofertas">
-                <thead>
-                    <tr>
-                        <th>Puesto</th>
-                        <th>Fecha de publicación</th>
-                        <th>Estado</th>
-                        <th>Candidatos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Técnico en Telecomunicaciones</td>
-                        <td>01/05/2024</td>
-                        <td>Activa</td>
-                        <td>Juan Pérez</td>
-                    </tr>
-                    <tr>
-                        <td>Jefe de operaciones</td>
-                        <td>15/04/2024</td>
-                        <td>Activa</td>
-                        <td>Maria García</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-</body>
 
+    <!-- 1. MODAL PARA EDITAR PERFIL EMPRESA -->
+    <div id="modalEditarPerfil" class="modal" style="display: none;">
+        <div class="modal-content modal-editar">
+            <span class="close" id="closeEditar">&times;</span>
+            <h2 style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-building"></i> Editar Perfil de Empresa</h2>
+            
+            <form id="formEditarPerfil">
+                <div class="form-group full-width">
+                    <label for="editNombreEmpresa">Nombre de la Empresa *</label>
+                    <input type="text" id="editNombreEmpresa" placeholder="Ej. ImpulsoNica S.A." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editSector">Sector Comercial</label>
+                    <select id="editSector" class="input-reg">
+                        <option value="">Cargando sectores...</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editTipoEmpresa">Tipo de Empresa</label>
+                    <select id="editTipoEmpresa" class="input-reg">
+                        <option value="">Cargando tipos...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editDepartamento">Departamento Sede</label>
+                    <select id="editDepartamento" class="input-reg">
+                        <option value="">Cargando departamentos...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editMunicipio">Municipio Sede</label>
+                    <select id="editMunicipio" class="input-reg" disabled>
+                        <option value="">Seleccione un departamento primero</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editTelefono">Teléfono de Contacto</label>
+                    <input type="tel" id="editTelefono" placeholder="Teléfono de la empresa">
+                </div>
+                <div class="form-group full-width">
+                    <label for="editDireccion">Dirección Exacta</label>
+                    <input type="text" id="editDireccion" placeholder="Dirección física de las oficinas">
+                </div>
+                
+                <button type="submit" id="btnGuardarPerfil" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. MODAL PARA PUBLICAR / EDITAR VACANTE -->
+    <div id="modalVacante" class="modal" style="display: none;">
+        <div class="modal-content modal-editar" style="max-width: 700px;">
+            <span class="close" id="closeVacante">&times;</span>
+            <h2 id="tituloModalVacante" style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-briefcase"></i> Publicar Nueva Vacante</h2>
+            
+            <form id="formNuevaVacante">
+                <div class="form-group full-width">
+                    <label for="vacNombre">Título del Empleo *</label>
+                    <input type="text" id="vacNombre" placeholder="Ej. Desarrollador WEB Full Stack" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="vacTipoEmpleo">Tipo de Empleo *</label>
+                    <select id="vacTipoEmpleo" class="input-reg" required></select>
+                </div>
+                <div class="form-group">
+                    <label for="vacModalidad">Modalidad *</label>
+                    <select id="vacModalidad" class="input-reg" required></select>
+                </div>
+
+                <!-- SELECTORES DE UBICACIÓN INDEPENDIENTES PARA EL EMPLEO -->
+                <div class="form-group">
+                    <label for="vacDepartamento">Departamento del Puesto</label>
+                    <select id="vacDepartamento" class="input-reg"><option value="">Cargando...</option></select>
+                </div>
+                <div class="form-group">
+                    <label for="vacMunicipio">Municipio del Puesto</label>
+                    <select id="vacMunicipio" class="input-reg" disabled><option value="">Seleccione depto primero</option></select>
+                </div>
+
+                <div class="form-group">
+                    <label for="vacSalario">Salario Mensual (Opcional)</label>
+                    <input type="number" id="vacSalario" placeholder="C$">
+                </div>
+                <!-- LÍMITE DE VACANTES -->
+                <div class="form-group">
+                    <label for="vacCantidad">Límite de Postulantes (Opcional)</label>
+                    <input type="number" id="vacCantidad" placeholder="Ej. 50" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="vacFechaCierre">Fecha de Cierre (Opcional)</label>
+                    <input type="date" id="vacFechaCierre">
+                </div>
+                <div class="form-group">
+                    <label for="vacEstado">Estado de la Publicación *</label>
+                    <select id="vacEstado" class="input-reg" required></select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="vacDescripcion">Descripción del Puesto *</label>
+                    <textarea id="vacDescripcion" rows="4" placeholder="Detalla las responsabilidades y funciones..." required></textarea>
+                </div>
+
+                <!-- SECCIÓN DE REQUISITOS DINÁMICOS CON COMBOBOX -->
+                <div class="form-group full-width" style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <label><i class="fas fa-list-check"></i> Requisitos del Puesto</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px; align-items: center;">
+                        <select id="vacRequisitoText" class="input-reg" style="flex: 2;">
+                            <option value="">Seleccione un requisito común...</option>
+                            <option value="Título Universitario requerido">Título Universitario requerido</option>
+                            <option value="Experiencia mínima de 1 año">Experiencia mínima de 1 año</option>
+                            <option value="Experiencia de 2 a 3 años">Experiencia de 2 a 3 años</option>
+                            <option value="Disponibilidad inmediata">Disponibilidad inmediata</option>
+                            <option value="Inglés Intermedio/Avanzado">Inglés Intermedio/Avanzado</option>
+                            <option value="Vehículo propio">Vehículo propio</option>
+                            <option value="Manejo de Paquete Office">Manejo de Paquete Office</option>
+                        </select>
+                        <label style="display:flex; align-items:center; gap:5px; font-size:14px; flex:1;">
+                            <input type="checkbox" id="vacReqObligatorio" style="width: auto; margin:0;"> ¿Es obligatorio?
+                        </label>
+                        <button type="button" id="btnAgregarRequisito" class="btn-primary" style="padding: 10px 15px; border-radius: 8px;"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <ul id="listaRequisitosModal" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px;">
+                        <li style="color:#666; font-style:italic; font-size: 0.9rem;">Sin requisitos añadidos.</li>
+                    </ul>
+                </div>
+
+                <button type="submit" id="btnGuardarVacante" class="btn-primary" style="margin-top:15px; width:100%;">Publicar Vacante</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. MODAL PARA VER POSTULANTES -->
+    <div id="modalPostulantes" class="modal" style="display: none;">
+        <div class="modal-content modal-editar" style="max-width: 600px;">
+            <span class="close" id="closePostulantes">&times;</span>
+            <h2 style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-users"></i> Postulantes a la Vacante</h2>
+            <div id="listaPostulantesUI" style="max-height: 400px; overflow-y: auto;">
+                <p>Cargando postulantes...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cargar auth.js para el control de sesión global y el menú oculto superior -->
+    <script src="../Scripts/auth.js"></script>
+    <script src="../Scripts/pempresa.js"></script>
+</body>
 </html>

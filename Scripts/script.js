@@ -1,7 +1,6 @@
-// URL base de tu API en Django (Ajustado para incluir /api)
 const API_URL = 'http://127.0.0.1:8000/api';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. Lógica del Menú Hamburguesa
     const mobileMenu = document.getElementById('mobile-menu');
@@ -22,8 +21,60 @@ document.addEventListener('DOMContentLoaded', () => {
         cargarEmpleosRecientes();
     }
 
+    // 4. Ajustar la vista dependiendo de si es Empresa o Candidato
+    ajustarVistaPorRol();
 });
 
+// --- FUNCIÓN PARA OCULTAR ELEMENTOS SEGÚN EL ROL ---
+function ajustarVistaPorRol() {
+    // Usamos un intervalo para dar tiempo a que auth.js termine de reconstruir el menú
+    const comprobacion = setInterval(() => {
+        // Leemos las variables de sesión (cubrimos varios nombres por seguridad)
+        const token = localStorage.getItem('auth_token') || localStorage.getItem('token') || localStorage.getItem('access');
+        const userType = localStorage.getItem('user_type') || localStorage.getItem('tipo_usuario') || localStorage.getItem('rol') || localStorage.getItem('tipo');
+        
+        // Extraemos todos los enlaces del menú
+        const menuLinks = Array.from(document.querySelectorAll('.menu a'));
+        
+        // Sabemos que está logueado si hay token o si auth.js dibujó el botón "Cerrar sesión"
+        const estaLogueado = token || menuLinks.some(a => a.textContent.toLowerCase().includes('cerrar sesi'));
+
+        // Buscamos directamente por la clase CSS original, es infalible
+        const seccionCuentas = document.querySelector('.crearcuentas');
+
+        // Identificar los enlaces de Buscar y Publicar (por ID o por texto)
+        let linkBuscar = document.getElementById('navBuscarEmpleo') || menuLinks.find(a => a.textContent.toLowerCase().includes('buscar empleo'));
+        let linkPublicar = document.getElementById('navPublicarVacante') || menuLinks.find(a => a.textContent.toLowerCase().includes('publicar vacante'));
+
+        if (estaLogueado) {
+            // 1. Ocultar las tarjetas gigantes si YA inició sesión
+            if (seccionCuentas) {
+                seccionCuentas.style.display = 'none';
+                
+                // Subimos la cuadrícula para que no quede un hueco en blanco
+                const gridRecientes = document.querySelector('.section-grid');
+                if (gridRecientes) {
+                    gridRecientes.style.marginTop = '2rem';
+                }
+            }
+
+            // 2. Ocultar opciones según el rol (estando logueado)
+            if (userType === 'candidato') {
+                if (linkPublicar) linkPublicar.style.display = 'none';
+            } else if (userType === 'empresa') {
+                if (linkBuscar) linkBuscar.style.display = 'none';
+            }
+        } else {
+            // 3. SI NO ESTÁ LOGUEADO: Ocultar ambas opciones
+            if (linkBuscar) linkBuscar.style.display = 'none';
+            if (linkPublicar) linkPublicar.style.display = 'none';
+        }
+
+    }, 100); // Se ejecuta rapidísimo cada 100ms
+
+    // Detenemos la búsqueda después de 2 segundos para liberar memoria
+    setTimeout(() => clearInterval(comprobacion), 2000);
+}
 function toggleMenu() {
     const menu = document.querySelector('.menu');
     if(menu) menu.classList.toggle('show');
@@ -144,57 +195,3 @@ async function cargarEmpleosRecientes() {
         `;
     }
 }
-
-// -------------------------------------------------------------
-// LÓGICA DE MODALES (Global para todas las páginas que lo incluyan)
-// -------------------------------------------------------------
-const modalLogin = document.getElementById("loginModal");
-const linkLogin = document.getElementById("linkLogin");
-const btnLogin = document.getElementById("btnLogin");
-const spanClose = document.querySelector(".close");
-
-if(linkLogin && modalLogin && spanClose) {
-    linkLogin.onclick = (e) => { e.preventDefault(); modalLogin.style.display = "flex"; }
-    spanClose.onclick = () => { modalLogin.style.display = "none"; }
-    window.addEventListener('click', (e) => { if (e.target == modalLogin) modalLogin.style.display = "none"; });
-}
-
-if(btnLogin){
-    btnLogin.addEventListener("click", async function () {
-        const tipo = document.getElementById("userType").value;
-        const usuario = document.getElementById("correo").value;
-        const clave = document.getElementById("password").value;
-
-        btnLogin.innerText = "Iniciando...";
-        btnLogin.disabled = true;
-
-        try {
-            const response = await fetch(`${API_URL}/token/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: usuario, password: clave })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert("¡Inicio de sesión exitoso!");
-                localStorage.setItem('auth_token', data.access);
-                localStorage.setItem('user_type', tipo);
-
-                if (tipo === "candidato") window.location.href = "/html/PCandidato.html";
-                else if (tipo === "empresa") window.location.href = "/html/PEmpresa.html";
-                else if (tipo === "admin") window.location.href = "/html/admin.html";
-            } else {
-                alert("Error al iniciar sesión: Revisa tus credenciales.");
-            }
-        } catch (error) {
-            console.error('Error de red:', error);
-            alert("Error de conexión con el servidor.");
-        } finally {
-            btnLogin.innerText = "Entrar";
-            btnLogin.disabled = false;
-        }
-    });
-}
-
