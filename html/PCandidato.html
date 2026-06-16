@@ -6,31 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImpulsoNica - Perfil Candidato</title>
     <link rel="stylesheet" href="../Styles.css">
+    <!-- Iconos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="pcandidato">
-    <header>
-        <nav class="navbar">
-            <a href="/html/AboutUs.html" class="back-btn">
-                <img src="/imgn/BackB.webp" alt="Atrás">
-            </a>
-            <span class="brand-name">Mi Perfil</span>
-            <button type="button" class="btn-editar" id="btnAbrirEdicion"><i class="fas fa-pen"></i> Editar Perfil</button>
-        </nav>
-    </header>
-
+    
     <main class="perfil-container">
         <!-- Columna izquierda: Foto y Acciones -->
         <aside class="perfil-left">
-            <div class="foto-container" style="position: relative; width: 180px; height: 180px; margin: 0 auto 30px;">
-                <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" alt="Foto del candidato" class="perfil-foto" id="fotoPerfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <div class="foto-container" style="position: relative; width: 180px; height: 180px; margin: 0 auto 15px;">
+                <img src="/imgn/cv.png" alt="Foto del candidato" class="perfil-foto" id="fotoPerfil" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                 
                 <button class="btn-cambiar-foto" id="btnCambiarFoto" title="Cambiar foto de perfil" style="position: absolute; bottom: 5px; right: 10px; background-color: #0066d5; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">
                     <i class="fas fa-camera"></i>
                 </button>
                 <input type="file" id="inputFoto" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;">
             </div>
+
+            <button type="button" class="btn-editar" id="btnAbrirEdicion" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 1.05rem; padding: 12px; margin-top: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fas fa-pen"></i> Editar Perfil</button>
+            
+            <button type="button" id="btnEliminarCuenta" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 1.05rem; padding: 12px; margin-top: 15px; border-radius: 8px; background-color: #dc3545; color: white; border: none; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: background 0.3s;"><i class="fas fa-user-times"></i> Eliminar Cuenta</button>
         </aside>
 
         <!-- Columna derecha: Información y Currículum -->
@@ -39,14 +35,15 @@
                 <h2 id="lblNombre">Cargando perfil... ⏳</h2>
                 <p class="titulo-profesional" id="lblTitulo">Sin título profesional registrado</p>
                 
-                <!-- Datos de contacto actualizados para mostrar los catálogos -->
                 <div class="datos-contacto" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
                     <p><i class="fas fa-envelope"></i> <span id="lblCorreo">Cargando...</span></p>
                     <p><i class="fas fa-phone"></i> <span id="lblTelefono">No especificado</span></p>
-                    <p><i class="fas fa-map-marker-alt"></i> <span id="lblUbicacion">No especificada (País/Depto)</span></p>
-                    <p><i class="fas fa-home"></i> <span id="lblDireccion">No especificada (Dirección exacta)</span></p>
+                    <p><i class="fas fa-graduation-cap"></i> <span id="lblNivelEducativo">Nivel Educativo no especificado</span></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <span id="lblUbicacion">Ubicación no especificada</span></p>
+                    <p><i class="fas fa-flag"></i> <span id="lblNacionalidad">Nacionalidad no especificada</span></p>
                     <p><i class="fas fa-venus-mars"></i> <span id="lblGenero">Género no especificado</span></p>
                     <p><i class="fas fa-birthday-cake"></i> <span id="lblFechaNac">Fecha de Nac. no especificada</span></p>
+                    <p><i class="fas fa-home"></i> <span id="lblDireccion">Dirección exacta no especificada</span></p>
                 </div>
             </div>
             
@@ -55,26 +52,37 @@
                 <p id="lblSobreMi">Aún no has añadido una descripción profesional.</p>
             </div>
 
+            <!-- SECCIÓN EXPERIENCIA LABORAL -->
             <div class="cv-container">
                 <section class="cv-section">
-                    <h3><i class="fas fa-briefcase"></i> Experiencia Laboral</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--light-blue); padding-bottom: 0.8rem; margin-bottom: 1.5rem;">
+                        <h3 style="border: none; padding: 0; margin: 0;"><i class="fas fa-briefcase"></i> Experiencia Laboral</h3>
+                        <button class="btn-editar" style="font-size: 0.9rem; padding: 0.4rem 0.8rem;" id="btnAgregarExperiencia"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
                     <div id="listaExperiencia">
                         <p style="color: #666; font-style: italic;">No hay experiencia laboral registrada.</p>
                     </div>
                 </section>
+            </div>
+
+            <!-- SECCIÓN REFERENCIAS -->
+            <div class="cv-container">
                 <section class="cv-section">
-                    <h3><i class="fas fa-graduation-cap"></i> Educación</h3>
-                    <div id="listaEducacion">
-                        <p style="color: #666; font-style: italic;">No hay educación registrada.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--light-blue); padding-bottom: 0.8rem; margin-bottom: 1.5rem;">
+                        <h3 style="border: none; padding: 0; margin: 0;"><i class="fas fa-address-book"></i> Referencias</h3>
+                        <button class="btn-editar" style="font-size: 0.9rem; padding: 0.4rem 0.8rem;" id="btnAgregarReferencia"><i class="fas fa-plus"></i> Añadir</button>
+                    </div>
+                    <div id="listaReferencias">
+                        <p style="color: #666; font-style: italic;">No hay referencias registradas.</p>
                     </div>
                 </section>
             </div>
 
             <div class="cv-container-dos-columnas">
                 <section class="cv-section">
-                    <h3><i class="fas fa-tools"></i> Habilidades</h3>
+                    <h3><i class="fas fa-tools"></i> Habilidades Técnicas</h3>
                     <ul class="lista-skills" id="listaHabilidades">
-                        <li style="background-color: transparent; color: #666; padding: 0; font-style: italic;">Sin habilidades registradas.</li>
+                        <li style="background-color: transparent; color: #666; padding: 0; font-style: italic;">Cargando habilidades...</li>
                     </ul>
                 </section>
                 <section class="cv-section">
@@ -84,36 +92,45 @@
                     </ul>
                 </section>
             </div>
+
+            <!-- TABLA DE POSTULACIONES INTEGRADA AL DISEÑO -->
+            <div class="cv-container" style="margin-top: 20px;">
+                <section class="cv-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--light-blue); padding-bottom: 0.8rem; margin-bottom: 1.5rem;">
+                        <h3 style="border: none; padding: 0; margin: 0;"><i class="fas fa-paper-plane"></i> Mis Postulaciones Recientes</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr style="background-color: #0f2b5d; color: white;">
+                                    <th style="padding: 12px; border-top-left-radius: 8px;">Vacante</th>
+                                    <th style="padding: 12px;">Empresa</th>
+                                    <th style="padding: 12px;">Fecha solicitud</th>
+                                    <th style="padding: 12px;">Estado</th>
+                                    <th style="padding: 12px; border-top-right-radius: 8px; text-align: center;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaPostulaciones">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: #666; font-style: italic; padding: 20px;">
+                                        Aún no te has postulado a ninguna oferta.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
         </section>
     </main>
 
-    <hr>
-    <section class="contenedor-tabla">
-        <h3>Mis Postulaciones Recientes</h3>
-        <table class="tabla-ofertas">
-            <thead>
-                <tr>
-                    <th>Vacante</th>
-                    <th>Empresa</th>
-                    <th>Fecha solicitud</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody id="tablaPostulaciones">
-                <tr>
-                    <td colspan="4" style="text-align: center; color: #666; font-style: italic; padding: 20px;">
-                        Aún no te has postulado a ninguna oferta.
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-
-    <!-- MODAL PARA EDITAR PERFIL ACTUALIZADO CON CATÁLOGOS -->
+    <!-- 1. MODAL PARA EDITAR PERFIL GENERAL -->
     <div id="modalEditarPerfil" class="modal" style="display: none;">
         <div class="modal-content modal-editar">
             <span class="close" id="closeEditar">&times;</span>
-            <h2><i class="fas fa-user-edit"></i> Editar Mi Perfil</h2>
+            <h2 style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-user-edit"></i> Editar Mi Perfil</h2>
+            
             <form id="formEditarPerfil">
                 <div class="form-group">
                     <label for="editNombre">Nombre *</label>
@@ -124,57 +141,157 @@
                     <input type="text" id="editApellido" placeholder="Tu Apellido" required>
                 </div>
                 
-                <!-- Nuevos campos: Fecha y Género -->
                 <div class="form-group">
                     <label for="editFechaNac">Fecha de Nacimiento</label>
                     <input type="date" id="editFechaNac">
                 </div>
                 <div class="form-group">
                     <label for="editGenero">Género</label>
-                    <select id="editGenero" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
+                    <select id="editGenero" class="input-reg">
                         <option value="">Cargando...</option>
                     </select>
                 </div>
 
-                <!-- Campos de Catálogo Geográfico -->
-                <div class="form-group">
-                    <label for="editPais">País</label>
-                    <select id="editPais" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
-                        <option value="">Cargando países...</option>
+                <div class="form-group full-width">
+                    <label for="editNacionalidad">Nacionalidad</label>
+                    <select id="editNacionalidad" class="input-reg">
+                        <option value="">Cargando nacionalidades...</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="editDepartamento">Departamento / Estado</label>
-                    <select id="editDepartamento" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;" disabled>
-                        <option value="">Seleccione un país primero</option>
+                    <select id="editDepartamento" class="input-reg">
+                        <option value="">Cargando departamentos...</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="editMunicipio">Municipio / Ciudad</label>
-                    <select id="editMunicipio" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;" disabled>
+                    <select id="editMunicipio" class="input-reg" disabled>
                         <option value="">Seleccione un departamento primero</option>
                     </select>
                 </div>
 
-                <!-- Datos de contacto y detalles -->
                 <div class="form-group">
                     <label for="editTelefono">Teléfono</label>
                     <input type="tel" id="editTelefono" placeholder="Tu Teléfono">
                 </div>
+                <div class="form-group">
+                    <label for="editTitulo">Título / Profesión</label>
+                    <input type="text" id="editTitulo" placeholder="Ej. Desarrollador Web Full Stack">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="editNivelEducativo">Nivel Educativo</label>
+                    <select id="editNivelEducativo" class="input-reg">
+                        <option value="">Cargando niveles...</option>
+                    </select>
+                </div>
+
                 <div class="form-group full-width">
                     <label for="editDireccion">Dirección Exacta</label>
                     <input type="text" id="editDireccion" placeholder="Ej. Residencial Los Robles, Casa 12">
                 </div>
+
+                <!-- SECCIÓN DE HABILIDADES -->
                 <div class="form-group full-width">
-                    <label for="editTitulo">Título Profesional</label>
-                    <input type="text" id="editTitulo" placeholder="Ej. Desarrollador Web Full Stack">
+                    <label>Habilidades Técnicas</label>
+                    <div id="contenedorHabilidades" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; max-height: 160px; overflow-y: auto; padding: 15px; border: 1px solid #d1d5db; border-radius: 8px; background-color: #f9fafb;">
+                        Cargando habilidades...
+                    </div>
                 </div>
+
+                <!-- SECCIÓN COMBOBOX DE IDIOMAS Y NIVELES -->
                 <div class="form-group full-width">
-                    <label for="editSobreMi">Sobre mí</label>
-                    <textarea id="editSobreMi" rows="4" placeholder="Escribe una breve descripción profesional..."></textarea>
+                    <label>Idiomas</label>
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <select id="selectIdiomaNuevo" class="input-reg" style="flex: 2;">
+                            <option value="">Seleccione un idioma...</option>
+                        </select>
+                        <select id="selectNivelNuevo" class="input-reg" style="flex: 1;">
+                            <option value="Básico">Básico</option>
+                            <option value="Intermedio">Intermedio</option>
+                            <option value="Avanzado">Avanzado</option>
+                            <option value="Nativo">Nativo</option>
+                        </select>
+                        <button type="button" id="btnAgregarIdioma" class="btn-primary" style="padding: 10px 15px; border-radius: 8px;"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <!-- Lista visual de idiomas agregados -->
+                    <ul id="listaIdiomasModal" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; border: 1px solid #d1d5db; border-radius: 8px; background-color: #f9fafb; padding: 10px; min-height: 50px;">
+                        <li style="color:#666; font-style:italic;">No hay idiomas seleccionados.</li>
+                    </ul>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="editSobreMi">Sobre mí (Descripción)</label>
+                    <textarea id="editSobreMi" rows="3" placeholder="Escribe una breve descripción profesional..."></textarea>
                 </div>
                 
                 <button type="submit" id="btnGuardarPerfil" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. NUEVO MODAL: AÑADIR EXPERIENCIA -->
+    <div id="modalExperiencia" class="modal" style="display: none;">
+        <div class="modal-content modal-editar">
+            <span class="close" id="closeExperiencia">&times;</span>
+            <h2 style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-briefcase"></i> Añadir Experiencia</h2>
+            
+            <form id="formExperiencia">
+                <div class="form-group full-width">
+                    <label for="expCargo">Cargo / Puesto *</label>
+                    <input type="text" id="expCargo" required placeholder="Ej. Desarrollador Web">
+                </div>
+                <div class="form-group full-width">
+                    <label for="expEmpresa">Empresa *</label>
+                    <input type="text" id="expEmpresa" required placeholder="Ej. Tech Solutions S.A.">
+                </div>
+                <div class="form-group">
+                    <label for="expFechaInicio">Fecha de Inicio *</label>
+                    <input type="date" id="expFechaInicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="expFechaFin">Fecha de Fin (Dejar vacío si es actual)</label>
+                    <input type="date" id="expFechaFin">
+                </div>
+                <div class="form-group full-width">
+                    <label for="expDescripcion">Descripción de Funciones</label>
+                    <textarea id="expDescripcion" rows="4" placeholder="Describe tus responsabilidades, logros o tareas principales..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Experiencia</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. NUEVO MODAL: AÑADIR REFERENCIA -->
+    <div id="modalReferencia" class="modal" style="display: none;">
+        <div class="modal-content modal-editar">
+            <span class="close" id="closeReferencia">&times;</span>
+            <h2 style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-address-book"></i> Añadir Referencia</h2>
+            
+            <form id="formReferencia">
+                <div class="form-group full-width">
+                    <label for="refNombre">Nombre del Contacto *</label>
+                    <input type="text" id="refNombre" required placeholder="Ej. Ing. Carlos Martínez">
+                </div>
+                <div class="form-group">
+                    <label for="refCargo">Cargo del Contacto *</label>
+                    <input type="text" id="refCargo" required placeholder="Ej. Gerente de TI">
+                </div>
+                <div class="form-group">
+                    <label for="refEmpresa">Empresa *</label>
+                    <input type="text" id="refEmpresa" required placeholder="Ej. Tech Solutions S.A.">
+                </div>
+                <div class="form-group">
+                    <label for="refTelefono">Teléfono *</label>
+                    <input type="tel" id="refTelefono" required placeholder="Ej. +505 8888 8888">
+                </div>
+                <div class="form-group">
+                    <label for="refCorreo">Correo Electrónico</label>
+                    <input type="email" id="refCorreo" placeholder="Ej. carlos@empresa.com">
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Referencia</button>
             </form>
         </div>
     </div>

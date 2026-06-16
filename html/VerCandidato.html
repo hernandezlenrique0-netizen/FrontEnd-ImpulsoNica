@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpulsoNica - Perfil del Candidato</title>
+    <link rel="stylesheet" href="../Styles.css">
+    <!-- Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body style="background-color: #f1f5f9;"> 
+    <header>
+        <nav class="navbar" style="position: relative;">
+            <!-- Botón para regresar al perfil de empresa -->
+            <a href="/html/PEmpresa.html" class="back-btn" title="Volver a mis vacantes">
+                <img src="/imgn/BackB.webp" alt="Atrás">
+            </a>
+            
+            <span class="brand-name" style="position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap;">Currículum del Candidato</span>
+            
+            <!-- Logo a la derecha con altura controlada -->
+            <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo" class="logo-header" style="height: 50px;">
+        </nav>
+    </header>
+
+    <main class="vacante-container" id="cvContainer" style="max-width: 900px; margin: 40px auto;">
+        <!-- El JavaScript inyectará el diseño del CV aquí -->
+        <div style="text-align: center; padding: 50px;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #0066d5;"></i>
+            <p style="margin-top: 15px; color: #555; font-size: 1.2rem;">Cargando currículum...</p>
+        </div>
+    </main>
+
+    <!-- Scripts necesarios -->
+    <script src="../Scripts/auth.js"></script>
+    <script src="../Scripts/verCandidato.js"></script>
+</body>
+
+</html>

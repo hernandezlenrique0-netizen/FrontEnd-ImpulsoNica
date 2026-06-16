@@ -351,13 +351,14 @@ body.home .menu .cta {
 }
 
 body.home .menu a {
-    color: #1e417b;
+    color: var(--primary-blue);
     text-decoration: none;
-    font-size: 0.96rem;
-    font-weight: 700;
-    transition: color 0.2s ease;
+    font-size: 1.2rem;
+    font-weight: 800;
     padding: 0.5rem;
-    /* espacio interno */
+    
+    justify-content: space-between;
+    
 }
 
 body.home hr {
@@ -712,7 +713,7 @@ body.home .footer-text p {
 
 }
 
-/* Estilos para el modal de inicio de sesión */
+/* Estilos para el modal genérico (inicio de sesión, etc.) */
 .modal {
     display: none;
     position: fixed;
@@ -737,6 +738,7 @@ body.home .footer-text p {
     max-width: 400px;
     text-align: center;
 }
+
 .perfil-select {
     width: 40%;
     padding: 8px;
@@ -1386,22 +1388,33 @@ body.desempleo .btn-postular:hover {
     font-weight: 500;
 }
 
-/* Estilos para el Modal de Edición */
+/* ==========================================================================
+   Modificaciones para el Modal de Edición (PCandidato)
+   ========================================================================== */
 .modal-editar {
-    max-width: 600px;
-    width: 90%;
+    max-width: 650px;
+    width: 95%;
+    margin: auto !important; /* Anula el margin: 15% auto problemático */
+    max-height: 90vh; /* Para evitar desborde vertical en pantallas pequeñas */
+    overflow-y: auto; /* Permite scroll interno */
+    padding: 30px;
+    text-align: left; /* Corrige el centrado heredado */
+    position: relative;
+    border-radius: 12px;
 }
 
 .modal-editar h2 {
     display: flex;
     align-items: center;
     gap: 10px;
+    color: #0f2b5d;
+    margin-bottom: 25px;
 }
 
 #formEditarPerfil {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    gap: 20px;
 }
 
 .form-group {
@@ -1416,30 +1429,41 @@ body.desempleo .btn-postular:hover {
 .form-group label {
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: var(--text-dark);
+    color: #444;
+    font-size: 14px;
 }
 
+/* Estilos actualizados para Inputs, Textareas y Selects */
 .form-group input,
-.form-group textarea {
-    padding: 12px;
-    border: 1px solid #ccc;
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    box-sizing: border-box; /* Fundamental para evitar desbordes */
+    padding: 12px 15px;
+    border: 1px solid #d1d5db;
     border-radius: 8px;
     font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+    font-size: 15px;
+    background-color: #f9fafb;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
-    border-color: var(--primary-blue);
+    border-color: #0066d5;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 102, 213, 0.15);
 }
 
 #btnGuardarPerfil {
     grid-column: 1 / -1;
-    padding: 12px;
-    font-size: 1.1rem;
-    margin-top: 1rem;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+    border-radius: 8px;
 }
 
 /* Botón Editar en el Navbar */
@@ -1851,3 +1875,613 @@ tbody tr:nth-child(even) {
         display: none;
     }
 }
+
+/* ==========================================================================
+   Estilos para el Modal de Registro
+   ========================================================================== */
+
+/* Fondo oscuro semitransparente (Overlay) */
+.modal-overlay-reg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px); /* Efecto de desenfoque moderno */
+    animation: fadeInReg 0.3s ease-out;
+}
+
+/* Contenedor principal del modal */
+.modal-content-reg {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 420px; /* Ancho máximo para pantallas grandes */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: slideUpReg 0.4s ease-out;
+}
+
+/* Botón de cerrar (X) */
+.close-btn-reg {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    line-height: 1;
+}
+
+.close-btn-reg:hover {
+    color: #dc3545; /* Rojo al pasar el ratón */
+}
+
+/* Título del modal */
+.modal-title-reg {
+    color: #0f2b5d; /* Azul oscuro de ImpulsoNica */
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Grupo de inputs (para separación) */
+.form-group-reg {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Etiquetas (Labels) */
+.form-group-reg label {
+    display: block;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Inputs y Selects */
+.input-reg {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #333;
+    box-sizing: border-box; /* Evita que el padding rompa el ancho del 100% */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9fafb;
+}
+
+.input-reg:focus {
+    outline: none;
+    border-color: #0066d5;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(0, 102, 213, 0.15); /* Resplandor azul al enfocar */
+}
+
+/* Botón Principal */
+.btn-submit-reg {
+    width: 100%;
+    padding: 14px;
+    background-color: #0066d5; /* Azul principal */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.btn-submit-reg:hover {
+    background-color: #0052aa; /* Azul más oscuro al pasar el ratón */
+}
+
+.btn-submit-reg:active {
+    transform: scale(0.98); /* Pequeño efecto de clic */
+}
+
+.btn-submit-reg:disabled {
+    background-color: #93bced;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Animaciones */
+@keyframes fadeInReg {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUpReg {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividad para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .modal-content-reg {
+        padding: 20px;
+    }
+    .modal-title-reg {
+        font-size: 22px;
+    }
+}
+
+
+
+
+/* ==========================================================================
+ESTILOS DEL DROPDOWN DE PERFIL (NAVBAR)
+========================================================================== */
+.user-profile-container {
+position: relative;
+display: inline-flex;
+align-items: center;
+margin-left: 15px;
+}
+
+.profile-avatar {
+width: 42px;
+height: 42px;
+border-radius: 50%;
+object-fit: cover;
+cursor: pointer;
+border: 2px solid var(--primary-blue);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+background: #fff;
+}
+
+.profile-avatar:hover {
+transform: scale(1.05);
+box-shadow: 0 4px 10px rgba(0, 75, 135, 0.2);
+}
+
+.profile-dropdown {
+position: absolute;
+top: 60px;
+right: 0;
+background: #ffffff;
+border-radius: 12px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+width: 260px;
+display: none; /* Oculto por defecto */
+flex-direction: column;
+z-index: 9999;
+overflow: hidden;
+animation: fadeInDrop 0.2s ease-out forwards;
+border: 1px solid #eef5fc;
+}
+
+.profile-dropdown.active {
+display: flex;
+}
+
+@keyframes fadeInDrop {
+from { opacity: 0; transform: translateY(-10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-header {
+display: flex;
+align-items: center;
+padding: 15px 20px;
+background: #f8f9fa;
+gap: 15px;
+}
+
+.dropdown-header img {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+object-fit: cover;
+border: 1px solid #ccc;
+}
+
+.drop-info {
+display: flex;
+flex-direction: column;
+overflow: hidden;
+}
+
+.drop-info h4 {
+margin: 0;
+color: #0f2b5d;
+font-size: 15px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.drop-info p {
+margin: 0;
+color: #666;
+font-size: 13px;
+font-weight: 500;
+}
+
+.profile-dropdown hr.drop-divider {
+margin: 0 !important;
+border: none !important;
+border-top: 1px solid #e5e7eb !important;
+background: transparent !important;
+height: 1px !important;
+}
+
+.profile-dropdown a {
+padding: 12px 20px;
+color: #444 !important;
+text-decoration: none;
+font-size: 15px !important;
+font-weight: 600 !important;
+display: flex;
+align-items: center;
+gap: 12px;
+transition: background 0.2s ease, color 0.2s ease;
+}
+
+.profile-dropdown a i {
+color: #0066d5;
+width: 20px;
+text-align: center;
+font-size: 1.1rem;
+}
+
+.profile-dropdown a:hover {
+background: #f1f5f9;
+color: #0066d5 !important;
+}
+
+/* En móviles, centrar el perfil en el menú de hamburguesa */
+@media (max-width: 1050px) {
+.user-profile-container {
+margin: 15px auto;
+justify-content: center;
+}
+.profile-dropdown {
+top: 50px;
+right: 50%;
+transform: translateX(50%);
+}
+.profile-dropdown.active {
+animation: none;
+}
+}
+
+/* ==========================================================================
+NUEVOS ESTILOS DEL PANEL DE ADMINISTRACIÓN (TIPO SPA)
+==========================================================================  */
+.admin-body { margin: 0; padding: 0; font-family: 'Arial', sans-serif; }
+
+.admin-layout {
+display: flex;
+min-height: 100vh;
+background-color: #f1f5f9;
+}
+
+.admin-sidebar {
+width: 260px;
+background-color: #0f2b5d;
+color: white;
+display: flex;
+flex-direction: column;
+box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+z-index: 10;
+}
+
+.sidebar-header {
+padding: 30px 20px;
+text-align: center;
+border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* STREAMING_CHUNK:Estilizando botones interactivos... */
+.sidebar-nav {
+display: flex;
+flex-direction: column;
+padding: 20px 0;
+flex: 1;
+}
+
+.sidebar-nav .tab-btn {
+background: none;
+border: none;
+color: #a3c2e6;
+padding: 15px 25px;
+text-align: left;
+font-size: 1.05rem;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.sidebar-nav .tab-btn i {
+width: 20px;
+text-align: center;
+}
+
+.sidebar-nav .tab-btn:hover {
+color: white;
+background-color: rgba(255,255,255,0.05);
+}
+
+.sidebar-nav .tab-btn.active {
+color: white;
+background-color: rgba(255,255,255,0.15);
+border-left: 4px solid #4ea8de;
+font-weight: bold;
+}
+
+/* STREAMING_CHUNK:Estilizando área principal y transiciones... */
+.sidebar-footer {
+padding: 20px;
+border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-volver {
+display: block;
+color: white;
+text-decoration: none;
+padding: 10px;
+text-align: center;
+background-color: rgba(255,255,255,0.1);
+border-radius: 6px;
+transition: background 0.3s;
+}
+
+.btn-volver:hover { background-color: #dc3545; }
+
+/* Contenido Principal */
+.admin-content-area {
+flex: 1;
+padding: 40px;
+overflow-y: auto;
+}
+
+.seccion-titulo {
+color: #0f2b5d;
+border-bottom: 2px solid #eef5fc;
+padding-bottom: 10px;
+margin-bottom: 30px;
+margin-top: 0;
+}
+
+/* Lógica del Single Page Application (Ocultar/Mostrar) */
+.tab-pane {
+display: none;
+animation: fadeIn 0.4s ease-in-out;
+}
+
+.tab-pane.active {
+display: block;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* Contenedor seguro para los gráficos de Chart.js */
+.chart-container-large {
+background: white;
+padding: 25px;
+border-radius: 12px;
+box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+position: relative;
+height: 60vh;
+width: 100%;
+}
+
+/* ESTILOS DE MODALES (VENTANAS EMERGENTES) */
+
+.modal {
+display: none;
+position: fixed;
+z-index: 1000;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.5);
+backdrop-filter: blur(4px);
+align-items: center;
+justify-content: center;
+}
+
+.modal-content {
+background-color: #fff;
+padding: 30px;
+border-radius: 12px;
+box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+width: 90%;
+max-width: 600px;
+position: relative;
+max-height: 90vh;
+overflow-y: auto;
+animation: fadeInModal 0.3s ease-in-out;
+}
+
+@keyframes fadeInModal {
+from { opacity: 0; transform: translateY(-20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.close {
+color: #aaa;
+position: absolute;
+top: 15px;
+right: 20px;
+font-size: 28px;
+font-weight: bold;
+cursor: pointer;
+transition: color 0.3s;
+}
+
+.close:hover, .close:focus {
+color: #dc3545;
+text-decoration: none;
+}
+
+/* STREAMING_CHUNK:Estilos para los formularios dentro del modal... */
+.modal-editar form {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 15px;
+}
+
+.form-group {
+display: flex;
+flex-direction: column;
+}
+
+.form-group.full-width {
+grid-column: 1 / -1;
+}
+
+.form-group label {
+margin-bottom: 5px;
+color: #0f2b5d;
+font-weight: bold;
+font-size: 0.9rem;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 6px;
+font-size: 1rem;
+font-family: inherit;
+transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+border-color: #0066d5;
+outline: none;
+box-shadow: 0 0 5px rgba(0, 102, 213, 0.2);
+}
+
+
+
+/* ==========================================================================
+ESTILOS PARA VER CV DE CANDIDATO (DISEÑO LIMPIO)
+========================================================================== */
+.cv-card {
+background: #ffffff;
+border-radius: 12px;
+box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+overflow: hidden;
+max-width: 900px;
+margin: 0 auto;
+}
+
+.cv-header {
+background: linear-gradient(135deg, #0f2b5d, #0066d5);
+padding: 40px;
+color: white;
+display: flex;
+align-items: center;
+gap: 30px;
+flex-wrap: wrap;
+}
+
+.cv-avatar {
+width: 140px;
+height: 140px;
+border-radius: 50%;
+object-fit: cover;
+border: 4px solid white;
+box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.cv-header-info { flex: 1; min-width: 250px; }
+.cv-header-info h1 { margin: 0 0 10px 0; font-size: 2.5rem; letter-spacing: 1px; }
+.cv-header-info h3 { margin: 0 0 15px 0; font-weight: 300; font-size: 1.4rem; color: #e0f2fe; }
+
+.cv-contact-bar { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.95rem; }
+
+.cv-body {
+padding: 40px;
+display: grid;
+grid-template-columns: 2fr 1fr;
+gap: 40px;
+}
+
+.cv-section-title {
+color: #0066d5;
+border-bottom: 2px solid #eef5fc;
+padding-bottom: 10px;
+margin-bottom: 20px;
+margin-top: 0;
+}
+
+.cv-text-block { color: #444; line-height: 1.8; text-align: justify; margin-bottom: 30px; }
+.cv-list { list-style: none; padding: 0; color: #555; line-height: 2; margin-bottom: 30px; }
+
+/* Botones de Acción (WhatsApp, Contratar, Rechazar) */
+.cv-actions-bar {
+display: flex;
+justify-content: flex-end;
+flex-wrap: wrap;
+gap: 15px;
+padding: 20px 40px;
+background: #f8fafc;
+border-top: 1px solid #e2e8f0;
+}
+
+.btn-whatsapp {
+background-color: #25D366;
+color: white;
+padding: 10px 20px;
+border-radius: 8px;
+text-decoration: none;
+font-weight: bold;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+transition: background 0.3s;
+}
+.btn-whatsapp:hover { background-color: #1ebe57; color: white; }
+
+.btn-contratar {
+background-color: #0f2b5d;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+transition: background 0.3s;
+}
+.btn-contratar:hover { background-color: #081836; }
+
+.btn-rechazar {
+background-color: #dc3545;
+color: white;
+padding: 10px 20px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+font-weight: bold;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+transition: background 0.3s;
+}
+.btn-rechazar:hover { background-color: #c82333; }

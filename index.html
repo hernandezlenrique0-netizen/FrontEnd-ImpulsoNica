@@ -6,6 +6,8 @@
     <title>ImpulsoNica</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Styles.css">
+    <!-- Iconos para el menú desplegable -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="home">
@@ -21,8 +23,8 @@
 
             <div class="menu">
                 <a href="#">Inicio</a>
-                <a href="html/Empleos.html">Buscar empleo</a>
-                <a href="#">Publicar vacante</a>
+                <a href="html/Empleos.html" id="navBuscarEmpleo">Buscar empleo</a>
+                <a href="#" id="navPublicarVacante">Publicar vacante</a>
                 <a href="html/AboutUs.html">Acerca de Nosotros</a>
                 <a href="#" id="linkLogin">Inicia sesión</a>
                 <a href="#" class="cta" id="btnOpenRegister">Regístrate</a>
@@ -34,29 +36,10 @@
         <div class="contenido">
             <h1>Conectamos talento y empresas</h1>
             <h3>Encuentra tu camino hacia nuevas oportunidades laborales.</h3>
-            <form class="form-busqueda">
-                <select name="rubro" class="buscador-select">
-                    <option value="">Todos los rubros</option>
-                    <option value="tecnologia">Tecnología</option>
-                    <option value="salud">Salud</option>
-                    <option value="educacion">Educación</option>
-                    <option value="servicios">Servicios</option>
-                </select>
-                <select name="ubicacion" class="buscador-select">
-                    <option value="">Ubicación</option>
-                    <option value="managua">Managua</option>
-                    <option value="leon">León</option>
-                    <option value="granada">Granada</option>
-                    <option value="masaya">Masaya</option>
-                </select>
-                <button type="submit" class="boton-select">
-                    <img src="imgn/SearchB.webp" class="img-botn" alt="Buscar">
-                </button>
-            </form>
         </div>
     </section>
     <main>
-        <section class="crearcuentas">
+        <section class="crearcuentas" id="seccionCrearCuentas">
             <div class="Content-cards">
                 <article class="Card1">
                     <div class="cards">
@@ -92,14 +75,18 @@
                     <h2>Empresas destacadas</h2>
                 </div>
                 <div class="EmpresasDestacadas">
-                    <div class="cardlogos"><img src="/imgn/LogoBanpro.jpg" title="Logo Banpro" alt="Logo Banpro"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoCasaPellas.png" title="Logo Casa Pellas"
-                            alt="Logo Casa Pellas"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoCyB.png" title="Logo Seguridad CyB"
-                            alt="Logo Seguridad CyB"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoTigo.jpg" title="Logo Tigo" alt="Logo Tigo"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoSinsa.png" title="Logo Sinsa" alt="Logo Sinsa"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoClaro.jpg" title="Logo Claro" alt="Logo Claro"></div>
+                    <!-- Envolvemos cada tarjeta en un enlace con la variable '?empresa=Nombre' -->
+                    <a href="/html/Empleos.html?empresa=Banpro" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoBanpro.jpg" title="Logo Banpro" alt="Logo Banpro"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Casa Pellas" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoCasaPellas.png" title="Logo Casa Pellas" alt="Logo Casa Pellas"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Seguridad CyB" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoCyB.png" title="Logo Seguridad CyB" alt="Logo Seguridad CyB"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Tigo" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoTigo.jpg" title="Logo Tigo" alt="Logo Tigo"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Sinsa" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoSinsa.png" title="Logo Sinsa" alt="Logo Sinsa"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Claro" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoClaro.jpg" title="Logo Claro" alt="Logo Claro"></a>
                 </div>
             </aside>
         </section>
