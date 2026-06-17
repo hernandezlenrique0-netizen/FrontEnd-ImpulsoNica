@@ -25,6 +25,11 @@
             </div>
 
             <button type="button" class="btn-editar" id="btnAbrirEdicion" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 1.05rem; padding: 12px; margin-top: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fas fa-pen"></i> Editar Perfil</button>
+<<<<<<< HEAD
+=======
+            
+            <button type="button" id="btnEliminarCuenta" style="width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 1.05rem; padding: 12px; margin-top: 15px; border-radius: 8px; background-color: #dc3545; color: white; border: none; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: background 0.3s;"><i class="fas fa-user-times"></i> Eliminar Cuenta</button>
+>>>>>>> DeveloperJuan
         </aside>
 
         <!-- Columna derecha: Información y Currículum -->
@@ -90,9 +95,40 @@
                     </ul>
                 </section>
             </div>
+
+            <!-- TABLA DE POSTULACIONES INTEGRADA AL DISEÑO -->
+            <div class="cv-container" style="margin-top: 20px;">
+                <section class="cv-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--light-blue); padding-bottom: 0.8rem; margin-bottom: 1.5rem;">
+                        <h3 style="border: none; padding: 0; margin: 0;"><i class="fas fa-paper-plane"></i> Mis Postulaciones Recientes</h3>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr style="background-color: #0f2b5d; color: white;">
+                                    <th style="padding: 12px; border-top-left-radius: 8px;">Vacante</th>
+                                    <th style="padding: 12px;">Empresa</th>
+                                    <th style="padding: 12px;">Fecha solicitud</th>
+                                    <th style="padding: 12px;">Estado</th>
+                                    <th style="padding: 12px; border-top-right-radius: 8px; text-align: center;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaPostulaciones">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: #666; font-style: italic; padding: 20px;">
+                                        Aún no te has postulado a ninguna oferta.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
         </section>
     </main>
 
+<<<<<<< HEAD
     <hr>
     <section class="contenedor-tabla">
         <h3>Mis Postulaciones Recientes</h3>
@@ -116,6 +152,9 @@
     </section>
 
     <!-- MODAL PARA EDITAR PERFIL ACTUALIZADO -->
+=======
+    <!-- 1. MODAL PARA EDITAR PERFIL GENERAL -->
+>>>>>>> DeveloperJuan
     <div id="modalEditarPerfil" class="modal" style="display: none;">
         <div class="modal-content modal-editar">
             <span class="close" id="closeEditar">&times;</span>
@@ -218,6 +257,70 @@
                 </div>
                 
                 <button type="submit" id="btnGuardarPerfil" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. NUEVO MODAL: AÑADIR EXPERIENCIA -->
+    <div id="modalExperiencia" class="modal" style="display: none;">
+        <div class="modal-content modal-editar">
+            <span class="close" id="closeExperiencia">&times;</span>
+            <h2 style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-briefcase"></i> Añadir Experiencia</h2>
+            
+            <form id="formExperiencia">
+                <div class="form-group full-width">
+                    <label for="expCargo">Cargo / Puesto *</label>
+                    <input type="text" id="expCargo" required placeholder="Ej. Desarrollador Web">
+                </div>
+                <div class="form-group full-width">
+                    <label for="expEmpresa">Empresa *</label>
+                    <input type="text" id="expEmpresa" required placeholder="Ej. Tech Solutions S.A.">
+                </div>
+                <div class="form-group">
+                    <label for="expFechaInicio">Fecha de Inicio *</label>
+                    <input type="date" id="expFechaInicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="expFechaFin">Fecha de Fin (Dejar vacío si es actual)</label>
+                    <input type="date" id="expFechaFin">
+                </div>
+                <div class="form-group full-width">
+                    <label for="expDescripcion">Descripción de Funciones</label>
+                    <textarea id="expDescripcion" rows="4" placeholder="Describe tus responsabilidades, logros o tareas principales..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Experiencia</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. NUEVO MODAL: AÑADIR REFERENCIA -->
+    <div id="modalReferencia" class="modal" style="display: none;">
+        <div class="modal-content modal-editar">
+            <span class="close" id="closeReferencia">&times;</span>
+            <h2 style="color: #0f2b5d; margin-bottom: 20px;"><i class="fas fa-address-book"></i> Añadir Referencia</h2>
+            
+            <form id="formReferencia">
+                <div class="form-group full-width">
+                    <label for="refNombre">Nombre del Contacto *</label>
+                    <input type="text" id="refNombre" required placeholder="Ej. Ing. Carlos Martínez">
+                </div>
+                <div class="form-group">
+                    <label for="refCargo">Cargo del Contacto *</label>
+                    <input type="text" id="refCargo" required placeholder="Ej. Gerente de TI">
+                </div>
+                <div class="form-group">
+                    <label for="refEmpresa">Empresa *</label>
+                    <input type="text" id="refEmpresa" required placeholder="Ej. Tech Solutions S.A.">
+                </div>
+                <div class="form-group">
+                    <label for="refTelefono">Teléfono *</label>
+                    <input type="tel" id="refTelefono" required placeholder="Ej. +505 8888 8888">
+                </div>
+                <div class="form-group">
+                    <label for="refCorreo">Correo Electrónico</label>
+                    <input type="email" id="refCorreo" placeholder="Ej. carlos@empresa.com">
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top:15px; width:100%;">Guardar Referencia</button>
             </form>
         </div>
     </div>

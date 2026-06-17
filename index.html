@@ -24,7 +24,11 @@
             <div class="menu">
                 <a href="#">Inicio</a>
                 <a href="html/Empleos.html" id="navBuscarEmpleo">Buscar empleo</a>
+<<<<<<< HEAD
                 <a href="#" id="navPublicarVacante">Publicar vacante</a>
+=======
+                <a href="html/PEmpresa.html" id="navPublicarVacante">Publicar vacante</a>
+>>>>>>> DeveloperJuan
                 <a href="html/AboutUs.html">Acerca de Nosotros</a>
                 <a href="#" id="linkLogin">Inicia sesión</a>
                 <a href="#" class="cta" id="btnOpenRegister">Regístrate</a>
@@ -46,7 +50,7 @@
                         <img src="imgn/cv.png" class="Imagen" alt="Candidato">
                         <h3 class="card-title">¿Eres Candidato?</h3>
                         <p class="card-text">Regístrate y busca empleo</p>
-                        <a href="#" class="btn1">Crear cuenta</a>
+                        <a href="#" class="btn1" id="btnOpenRegister">Crear cuenta</a>
                     </div>
                 </article>
                 <article class="Card2">
@@ -54,7 +58,7 @@
                         <img src="imgn/Empresa.png" class="Imagen" alt="Empresa">
                         <h3 class="card-title">¿Eres Empresa?</h3>
                         <p class="card-text">Regístrate y publica tus vacantes</p>
-                        <a href="#" class="btn1">Crear cuenta</a>
+                        <a href="#" class="btn1" id="btnOpenRegister">Crear cuenta</a>
                     </div>
                 </article>
             </div>
@@ -75,14 +79,18 @@
                     <h2>Empresas destacadas</h2>
                 </div>
                 <div class="EmpresasDestacadas">
-                    <div class="cardlogos"><img src="/imgn/LogoBanpro.jpg" title="Logo Banpro" alt="Logo Banpro"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoCasaPellas.png" title="Logo Casa Pellas"
-                            alt="Logo Casa Pellas"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoCyB.png" title="Logo Seguridad CyB"
-                            alt="Logo Seguridad CyB"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoTigo.jpg" title="Logo Tigo" alt="Logo Tigo"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoSinsa.png" title="Logo Sinsa" alt="Logo Sinsa"></div>
-                    <div class="cardlogos"><img src="/imgn/LogoClaro.jpg" title="Logo Claro" alt="Logo Claro"></div>
+                    <!-- Envolvemos cada tarjeta en un enlace con la variable '?empresa=Nombre' -->
+                    <a href="/html/Empleos.html?empresa=Banpro" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoBanpro.jpg" title="Logo Banpro" alt="Logo Banpro"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Casa Pellas" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoCasaPellas.png" title="Logo Casa Pellas" alt="Logo Casa Pellas"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Seguridad CyB" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoCyB.png" title="Logo Seguridad CyB" alt="Logo Seguridad CyB"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Tigo" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoTigo.jpg" title="Logo Tigo" alt="Logo Tigo"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Sinsa" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoSinsa.png" title="Logo Sinsa" alt="Logo Sinsa"></a>
+                    
+                    <a href="/html/Empleos.html?empresa=Claro" class="cardlogos" style="display:block; text-decoration:none;"><img src="/imgn/LogoClaro.jpg" title="Logo Claro" alt="Logo Claro"></a>
                 </div>
             </aside>
         </section>

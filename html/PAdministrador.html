@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImpulsoNica - Perfil Administrador</title>
+    <!-- Actualizamos el rompe-caché para que lea tus nuevos estilos -->
+    <link rel="stylesheet" href="../Styles.css?v=7.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="pcandidato">
+    <main class="perfil-container">
+        <!-- Columna Izquierda: Acciones -->
+        <aside class="perfil-left">
+            <div class="admin-foto-container">
+                <img src="/imgn/cv.png" alt="Foto Admin" class="admin-foto-img" id="fotoPerfil">
+                
+                <button class="admin-btn-foto" id="btnCambiarFoto" title="Cambiar foto">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <input type="file" id="inputFoto" accept="image/png, image/jpeg, image/jpg, image/webp" class="admin-file-input">
+            </div>
+
+            <!-- Botones de Acción -->
+            <a href="/html/admin.html" class="btn-primary admin-btn-action">
+                <i class="fas fa-chart-line"></i> Ir al Dashboard DW
+            </a>
+            
+            <button type="button" onclick="cerrarSesionApp(event)" class="admin-btn-action btn-admin-logout">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+            </button>
+        </aside>
+
+        <!-- Columna Derecha: Información -->
+        <section class="perfil-right">
+            <div class="perfil-header">
+                <h2 id="lblNombreAdmin">Cargando perfil... ⏳</h2>
+                <p class="titulo-profesional"><i class="fas fa-shield-alt"></i> Super Administrador del Sistema</p>
+                
+                <div class="admin-datos-grid">
+                    <p><i class="fas fa-envelope"></i> <strong>Correo Electrónico:</strong> <span id="lblCorreo">Cargando...</span></p>
+                    <p><i class="fas fa-phone"></i> <strong>Teléfono:</strong> <span id="lblTelefono">No especificado</span></p>
+                    <p><i class="fas fa-database"></i> <strong>Nivel de Acceso:</strong> Control Total (Data Warehouse y Transaccional)</p>
+                </div>
+            </div>
+
+            <div class="cv-container">
+                <section class="cv-section">
+                    <h3 class="admin-tools-header"><i class="fas fa-tools"></i> Herramientas Administrativas</h3>
+                    
+                    <div class="admin-tools-grid">
+                        
+                        <!-- Tarjeta DW -->
+                        <div class="admin-tool-card">
+                            <i class="fas fa-chart-pie admin-tool-icon"></i>
+                            <h4 class="admin-tool-title">Data Warehouse</h4>
+                            <p class="admin-tool-desc">Analiza el rendimiento global de la plataforma.</p>
+                            <a href="/html/admin.html" class="admin-tool-link">Abrir Panel BI</a>
+                        </div>
+                        
+                        <!-- Tarjeta Módulo Futuro -->
+                        <div class="admin-tool-card admin-tool-card-disabled">
+                            <i class="fas fa-users-cog admin-tool-icon-disabled"></i>
+                            <h4 class="admin-tool-title">Gestión de Usuarios</h4>
+                            <p class="admin-tool-desc">Módulo en construcción para futuras versiones.</p>
+                            <span class="admin-badge-disabled">Próximamente</span>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../Scripts/auth.js?v=7"></script>
+    <script src="../Scripts/padministrador.js?v=7"></script>
+</body>
+</html>

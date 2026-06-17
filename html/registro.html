@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- Modal de Registro (Se inyecta dinámicamente) -->
 <div id="registerModal" class="modal-overlay-reg" style="display: none;">
     <div class="modal-content-reg">
@@ -5,6 +6,21 @@
         
         <h2 class="modal-title-reg"><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
         
+=======
+<!-- Estructura HTML del Modal -->
+<div id="registerModal" class="modal-overlay-reg" style="display: none;">
+    <div class="modal-content-reg">
+        <!-- Botón de cerrar integrado para mayor seguridad -->
+        <span class="close close-btn-reg" onclick="document.getElementById('registerModal').style.display='none'">&times;</span>
+        
+        <h2 class="modal-title-reg"><i class="fas fa-user-plus"></i> Crear Cuenta</h2>
+        
+        <!-- Contenedor para mensajes de error amigables (Oculto por defecto) -->
+        <div id="regAlertError" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center; font-size: 0.9rem; border: 1px solid #f5c6cb;">
+            <i class="fas fa-exclamation-circle"></i> <span id="regAlertText">Error</span>
+        </div>
+
+>>>>>>> DeveloperJuan
         <div class="form-group-reg">
             <label for="registerUserType">¿Qué perfil deseas crear?</label>
             <select id="registerUserType" class="input-reg">
@@ -12,16 +28,40 @@
                 <option value="empresa">Soy Empresa (Busco talento)</option>
             </select>
         </div>
+<<<<<<< HEAD
         
         <div class="form-group-reg">
             <label for="regCorreo">Correo electrónico</label>
+=======
+
+        <!-- NUEVO CAMPO: Nombre (Dinámico) -->
+        <div class="form-group-reg">
+            <label for="regNombre" id="lblRegNombre">Nombre Completo <span style="color:#dc3545;">*</span></label>
+            <input type="text" id="regNombre" class="input-reg" placeholder="Ej. Juan Pérez" required>
+        </div>
+        
+        <div class="form-group-reg">
+            <label for="regCorreo">Correo electrónico <span style="color:#dc3545;">*</span></label>
+>>>>>>> DeveloperJuan
             <input type="email" id="regCorreo" class="input-reg" placeholder="ejemplo@correo.com" required>
         </div>
         
         <div class="form-group-reg">
+<<<<<<< HEAD
             <label for="regPassword">Contraseña</label>
             <input type="password" id="regPassword" class="input-reg" placeholder="Crea una contraseña segura" required>
         </div>
+=======
+            <label for="regPassword">Contraseña <span style="color:#dc3545;">*</span></label>
+            <input type="password" id="regPassword" class="input-reg" placeholder="Crea una contraseña segura" required>
+        </div>
+
+        <!-- NUEVO CAMPO: Confirmar Contraseña -->
+        <div class="form-group-reg">
+            <label for="regPasswordConfirm">Confirmar Contraseña <span style="color:#dc3545;">*</span></label>
+            <input type="password" id="regPasswordConfirm" class="input-reg" placeholder="Repite tu contraseña" required>
+        </div>
+>>>>>>> DeveloperJuan
         
         <button id="btnRegister" class="btn-submit-reg">Registrarse</button>
     </div>
