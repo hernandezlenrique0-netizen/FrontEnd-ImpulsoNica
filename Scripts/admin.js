@@ -1,21 +1,71 @@
-const API_URL_DASHBOARD = 'http://127.0.0.1:8000/api/dashboard';
+const API_URL_DASHBOARD = 'http://20.10.8.172:8000/api/dashboard';
 
 document.addEventListener('DOMContentLoaded', () => {
     inicializarTabs();
     cargarDatosDashboard();
+    inicializarSidebarMobile();
 });
+
+// --- FUNCIÓN PARA EL MENÚ MÓVIL ---
+function inicializarSidebarMobile() {
+    const btnToggle = document.getElementById('btnToggleSidebar');
+    const btnClose = document.getElementById('btnCloseSidebar');
+    const sidebar = document.getElementById('adminSidebar');
+    const overlay = document.getElementById('adminOverlay');
+
+    function toggleMenu() {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+        // Bloquea el scroll del fondo cuando el menú está abierto
+        document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+    }
+
+    function closeMenu() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.style.overflow = ''; 
+    }
+
+    if (btnToggle) btnToggle.addEventListener('click', toggleMenu);
+    if (btnClose) btnClose.addEventListener('click', closeMenu);
+    if (overlay) overlay.addEventListener('click', closeMenu); 
+}
 
 function inicializarTabs() {
     const botones = document.querySelectorAll('.tab-btn');
     const pestanas = document.querySelectorAll('.tab-pane');
+    const sidebar = document.getElementById('adminSidebar');
+    const overlay = document.getElementById('adminOverlay');
 
     botones.forEach(boton => {
         boton.addEventListener('click', () => {
+            // 1. Quitamos la clase 'active' de todos
             botones.forEach(b => b.classList.remove('active'));
             pestanas.forEach(p => p.classList.remove('active'));
+            
+            // 2. Se la ponemos solo al que tocaste
             boton.classList.add('active');
             const idPanel = boton.getAttribute('data-tab');
             document.getElementById(idPanel).classList.add('active');
+            
+            // 3. Si estamos en un dispositivo móvil, cerramos el menú
+            if (window.innerWidth <= 900) {
+                if(sidebar) sidebar.classList.remove('open');
+                if(overlay) overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // 👇 MAGIA: Teletransporte ULTRA agresivo hacia arriba 👇
+            setTimeout(() => {
+                // Sube la ventana principal
+                window.scrollTo(0, 0); 
+                document.documentElement.scrollTop = 0; 
+                document.body.scrollTop = 0; 
+                
+                // Respaldo extra por si el contenedor principal tiene su propio scroll
+                const layout = document.querySelector('.admin-layout');
+                if (layout) layout.scrollTop = 0;
+            }, 10);
         });
     });
 }
@@ -39,16 +89,13 @@ async function cargarDatosDashboard() {
 
         const data = await response.json();
         
-        // Cargar KPIs
         actualizarKPIs(data.ofertas_por_sector);
 
-        // Dibujar Básicos
         dibujarGraficaSectores(data.ofertas_por_sector);
         dibujarGraficaUbicaciones(data.ofertas_por_ubicacion);
         if (data.ofertas_por_mes) dibujarGraficaMeses(data.ofertas_por_mes);
         if (data.ofertas_por_modalidad) dibujarGraficaModalidad(data.ofertas_por_modalidad);
 
-        // Dibujar Nuevos Avanzados
         if (data.top_empresas) dibujarTopEmpresas(data.top_empresas);
         if (data.tipos_empleo) dibujarTiposEmpleo(data.tipos_empleo);
         if (data.salarios_sector) dibujarSalariosSector(data.salarios_sector);
@@ -74,7 +121,7 @@ function actualizarKPIs(datosSector) {
     document.getElementById('kpiSalario').textContent = `C$ ${salarioGlobal}`;
 }
 
-// --- GRÁFICOS BÁSICOS ---
+// --- GRÁFICOS ---
 function dibujarGraficaSectores(datos) {
     const ctx = document.getElementById('graficaSectores').getContext('2d');
     new Chart(ctx, {
@@ -126,17 +173,15 @@ function dibujarGraficaModalidad(datos) {
     });
 }
 
-// --- NUEVOS GRÁFICOS AVANZADOS ---
-
 function dibujarTopEmpresas(datos) {
     const ctx = document.getElementById('graficaEmpresas').getContext('2d');
     new Chart(ctx, {
-        type: 'bar', // Gráfico de barras horizontales
+        type: 'bar',
         data: {
             labels: datos.map(i => i.empresakey__nombreempresa || 'Confidencial'),
             datasets: [{ label: 'Total Vacantes', data: datos.map(i => i.total_vacantes || 0), backgroundColor: '#0f2b5d' }]
         },
-        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' } // indexAxis 'y' las hace horizontales
+        options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
     });
 }
 
@@ -179,7 +224,7 @@ function dibujarTiemposCierre(datos) {
 function dibujarRequisitos(datos) {
     const ctx = document.getElementById('graficaRequisitos').getContext('2d');
     new Chart(ctx, {
-        type: 'polarArea', // Gráfico polar (muy elegante para medir niveles de algo)
+        type: 'polarArea',
         data: {
             labels: datos.map(i => i.sectorkey__nombresector || 'Sin Sector'),
             datasets: [{ label: 'Promedio de Requisitos', data: datos.map(i => parseFloat(i.promedio_requisitos || 0).toFixed(1)), backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)'] }]

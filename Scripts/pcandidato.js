@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://20.10.8.172:8000/api';
 let perfilActual = {};
 let idiomasSeleccionados = []; // Arreglo para guardar dinámicamente {id, nombre, nivel}
 
@@ -122,7 +122,7 @@ async function cargarDatosPerfil() {
 
             // Foto
             if (data.datos.foto_url) {
-                document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
+                document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://20.10.8.172:8000${data.datos.foto_url}`;
             }
 
             // Llamamos a las postulaciones justo después de cargar el perfil

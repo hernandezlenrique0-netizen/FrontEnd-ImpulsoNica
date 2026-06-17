@@ -3,7 +3,8 @@
 // =====================================================================
 (function() {
     const ruta = window.location.pathname.toLowerCase();
-    const rol = localStorage.getItem('user_type'); // 'candidato', 'empresa' o 'admin'
+    // Limpiamos espacios y pasamos a minúsculas para evitar fallos exactos
+    const rol = localStorage.getItem('user_type')?.trim().toLowerCase(); 
 
     // 1. Proteger perfil de Candidato
     if ((ruta.includes('pcandidato.html') || ruta.includes('vercandidato.html')) && rol !== 'candidato' && rol !== 'empresa') {
@@ -15,16 +16,16 @@
         window.location.replace(rol === 'candidato' ? '/html/PCandidato.html' : '/index.html');
     }
 
-    // 3. Proteger Panel de Administrador (Dashboard DW)
-    if (ruta.includes('admin.html') && rol !== 'admin') {
+    // 3. Proteger Panel de Administrador (Dashboard DW) y Perfil Admin
+    if ((ruta.includes('admin.html') || ruta.includes('padministrador.html')) && rol !== 'admin') { 
         if (rol === 'candidato') window.location.replace('/html/PCandidato.html');
         else if (rol === 'empresa') window.location.replace('/html/PEmpresa.html');
         else window.location.replace('/index.html');
     }
 })();
 
-// URL base de tu API
-const API_URL_AUTH = 'http://127.0.0.1:8000/api';
+// 👇 IP ACTUALIZADA PARA QUE FUNCIONE DESDE CUALQUIER CELULAR O PC 👇
+const API_URL_AUTH = 'http://20.10.8.172:8000/api';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. PRIMERO: Inyectamos los modales si no existen en la página
@@ -122,7 +123,7 @@ function mostrarErrorRegistro(mensaje) {
         alertText.textContent = mensaje;
         alertError.style.display = 'block';
     } else {
-        alert(mensaje); // Respaldo si no encuentran el div
+        alert(mensaje);
     }
 }
 
@@ -187,7 +188,6 @@ function inicializarEventosAuth() {
             btnLogin.disabled = true;
 
             try {
-                // Usamos la ruta original /token/ que devuelve el access, refresh y tipo
                 const response = await fetch(`${API_URL_AUTH}/token/`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -197,7 +197,8 @@ function inicializarEventosAuth() {
                 const data = await response.json();
 
                 if (response.ok) {
-                    const rolDetectado = data.rol || data.tipo || "candidato"; 
+                    const rolBruto = data.rol || data.tipo || "candidato"; 
+                    const rolDetectado = rolBruto.trim().toLowerCase();
 
                     localStorage.setItem('auth_token', data.access);
                     localStorage.setItem('refresh_token', data.refresh);
@@ -206,10 +207,10 @@ function inicializarEventosAuth() {
                     if(modalLogin) modalLogin.style.display = "none";
                     actualizarMenuNavegacion();
 
-                    // Redirecciones
+                    // Redirecciones actualizadas
                     if (rolDetectado === "candidato") window.location.href = "/html/PCandidato.html";
                     else if (rolDetectado === "empresa") window.location.href = "/html/PEmpresa.html";
-                    else if (rolDetectado === "admin") window.location.href = "/html/admin.html";
+                    else if (rolDetectado === "admin") window.location.href = "/html/PAdministrador.html";
                     else window.location.reload();
 
                 } else {
@@ -224,7 +225,7 @@ function inicializarEventosAuth() {
             }
         }
 
-        // --- 4. LÓGICA DE REGISTRO CON NUEVAS VALIDACIONES ---
+        // --- 4. LÓGICA DE REGISTRO ---
         if (e.target.closest('#btnRegister')) {
             e.preventDefault();
             const btnRegister = e.target.closest('#btnRegister');
@@ -236,7 +237,7 @@ function inicializarEventosAuth() {
             const password = document.getElementById('regPassword')?.value;
             const passwordConfirm = document.getElementById('regPasswordConfirm')?.value;
             
-            // Obtener el apellido (si es candidato, lo leemos; si es empresa, lo ignoramos)
+            // Obtener el apellido
             const apellidoInput = document.getElementById('regApellido');
             const apellido = apellidoInput && apellidoInput.closest('.form-group-reg').style.display !== 'none' 
                                 ? apellidoInput.value.trim() 
@@ -246,12 +247,10 @@ function inicializarEventosAuth() {
             const alertError = document.getElementById('regAlertError');
             if (alertError) alertError.style.display = 'none';
 
-            // VALIDACIÓN 1: Campos vacíos (Exigimos el apellido si es candidato)
             if (!nombre || !correo || !password || !passwordConfirm || (tipo === 'candidato' && !apellido)) {
                 return mostrarErrorRegistro("Por favor, completa todos los campos obligatorios.");
             }
 
-            // VALIDACIÓN 2: Contraseñas no coinciden
             if (password !== passwordConfirm) {
                 return mostrarErrorRegistro("Las contraseñas no coinciden. Verifícalas y vuelve a intentarlo.");
             }
@@ -265,7 +264,7 @@ function inicializarEventosAuth() {
                     correo: correo, 
                     password: password, 
                     nombre: nombre,
-                    apellido: apellido, // SE ENVÍA EL APELLIDO AL BACKEND
+                    apellido: apellido, 
                     email: correo 
                 };
 
@@ -278,7 +277,6 @@ function inicializarEventosAuth() {
                 const data = await response.json();
 
                 if (!response.ok) {
-                    // TRADUCTOR DE ERRORES: Capturar el error crudo de SQL y suavizarlo
                     const errorMsg = data.error ? data.error.toLowerCase() : '';
                     if (errorMsg.includes('unique') || errorMsg.includes('duplicate') || errorMsg.includes('violation')) {
                         throw new Error(`El correo "${correo}" ya se encuentra registrado. Por favor, intenta iniciar sesión.`);
@@ -286,19 +284,17 @@ function inicializarEventosAuth() {
                     throw new Error(data.error || "Ocurrió un error al registrar la cuenta.");
                 }
 
-                // Registro Exitoso
                 alert("¡Cuenta creada exitosamente! Ya puedes iniciar sesión en ImpulsoNica.");
                 
                 if(regModal) regModal.style.display = 'none';
                 
-                // Limpiar formulario para el próximo uso
+                // Limpiar formulario
                 document.getElementById('regNombre').value = '';
                 if(apellidoInput) apellidoInput.value = '';
                 document.getElementById('regCorreo').value = '';
                 document.getElementById('regPassword').value = '';
                 document.getElementById('regPasswordConfirm').value = '';
 
-                // Abrimos automáticamente la ventana de login
                 if (modalLogin) modalLogin.style.display = "flex";
 
             } catch (error) {
@@ -312,39 +308,62 @@ function inicializarEventosAuth() {
 }
 
 // =================================================================
-// 4. BARRA DE NAVEGACIÓN Y PERFIL
+// REFRESCAR TOKEN SILENCIOSAMENTE (Magia anti-cierres automáticos)
+// =================================================================
+async function intentarRefrescarTokenAuth() {
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) return false;
+    try {
+        const response = await fetch(`${API_URL_AUTH}/token/refresh/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh: refreshToken })
+        });
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('auth_token', data.access);
+            return true;
+        }
+    } catch (e) { 
+        console.error("Error al refrescar token:", e); 
+    } 
+    return false;
+}
+
+// =================================================================
+// 4. BARRA DE NAVEGACIÓN Y PERFIL (PREVIENE CACHÉ Y EXPULSIONES)
 // =================================================================
 async function actualizarMenuNavegacion() {
-    const token = localStorage.getItem('auth_token');
-    const rol = localStorage.getItem('user_type');
+    let token = localStorage.getItem('auth_token');
+    const rol = localStorage.getItem('user_type')?.trim().toLowerCase();
     
-    // Buscar dónde inyectar el menú
     const menuDestino = document.querySelector('.menu') || document.querySelector('.nav-links') || document.querySelector('.navbar');
     const linkLogin = document.getElementById('linkLogin');
     const btnOpenRegister = document.getElementById('btnOpenRegister');
 
     if (token && rol) {
-        // Ocultar botones de login y registro si existen
         if (linkLogin) linkLogin.style.display = 'none';
         if (btnOpenRegister) btnOpenRegister.style.display = 'none';
 
-        // Detectar si estamos en una página de perfil
         const isProfilePage = window.location.pathname.toLowerCase().includes('pcandidato.html') || 
                               window.location.pathname.toLowerCase().includes('pempresa.html') || 
-                              window.location.pathname.toLowerCase().includes('admin.html');
+                              window.location.pathname.toLowerCase().includes('admin.html') ||
+                              window.location.pathname.toLowerCase().includes('padministrador.html');
 
         if (isProfilePage) {
             return; 
         } else if (menuDestino) {
             if (!document.getElementById('profileDropdownContainer')) {
                 
-                // Determinar rutas y etiquetas según el rol
                 let profileLink = '/html/PCandidato.html';
                 let roleName = 'Candidato';
+                let extraAdminLink = ''; 
                 
                 if (rol === 'admin') {
-                    profileLink = '/html/admin.html';
+                    // 👇 CAMBIO AQUÍ: Ahora Mi Perfil apunta a PAdministrador.html y el botón de DW se crea 👇
+                    profileLink = '/html/PAdministrador.html'; 
                     roleName = 'Administrador';
+                    extraAdminLink = `<a href="/html/admin.html" style="color: #4ea8de; font-weight: bold;"><i class="fas fa-chart-line"></i> Panel Gerencial (DW)</a>`;
                 } else if (rol === 'empresa') {
                     profileLink = '/html/PEmpresa.html';
                     roleName = 'Empresa';
@@ -352,7 +371,6 @@ async function actualizarMenuNavegacion() {
                 
                 const defaultAvatar = "/imgn/cv.png"; 
 
-                // Crear el contenedor del menú desplegable
                 const profileDiv = document.createElement('div');
                 profileDiv.id = 'profileDropdownContainer';
                 profileDiv.className = 'user-profile-container';
@@ -367,6 +385,8 @@ async function actualizarMenuNavegacion() {
                             </div>
                         </div>
                         <hr class="drop-divider">
+                        <!-- Inyectamos el botón de Dashboard si existe -->
+                        ${extraAdminLink}
                         <a href="${profileLink}"><i class="fas fa-user-circle"></i> Mi Perfil</a>
                         <a href="#" onclick="cerrarSesionApp(event)"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
@@ -374,23 +394,36 @@ async function actualizarMenuNavegacion() {
                 menuDestino.appendChild(profileDiv);
 
                 try {
-                    const response = await fetch(`${API_URL_AUTH}/mi-perfil/`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
+                    let response = await fetch(`${API_URL_AUTH}/mi-perfil/`, {
+                        headers: { 'Authorization': `Bearer ${token}` },
+                        cache: 'no-cache'
                     });
+
+                    // Si el token expiró (401), intentamos salvar la sesión con el refresh
+                    if (response.status === 401) {
+                        const refrescado = await intentarRefrescarTokenAuth();
+                        if (refrescado) {
+                            token = localStorage.getItem('auth_token'); 
+                            response = await fetch(`${API_URL_AUTH}/mi-perfil/`, {
+                                headers: { 'Authorization': `Bearer ${token}` },
+                                cache: 'no-cache'
+                            });
+                        }
+                    }
 
                     if (response.ok) {
                         const data = await response.json();
                         if (data.datos) {
                             if (data.datos.foto_url) {
-                                const fullUrl = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
+                                const fullUrl = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://20.10.8.172:8000${data.datos.foto_url}`;
                                 document.getElementById('navAvatarBtn').src = fullUrl;
                                 document.getElementById('dropAvatarImg').src = fullUrl;
                             }
                             const fullName = data.datos.nombre ? `${data.datos.nombre} ${data.datos.apellido}` : (data.datos.nombreempresa || 'Usuario ImpulsoNica');
                             document.getElementById('dropUserName').textContent = fullName;
                         }
-                    } else if (response.status === 404 || response.status === 401) {
-                        // Limpiar sesión fantasma si la BD fue borrada
+                    } else if (response.status === 401) {
+                        // Solo destruimos la sesión si es un error estricto de autorización
                         localStorage.removeItem('auth_token');
                         localStorage.removeItem('user_type');
                         localStorage.removeItem('refresh_token');

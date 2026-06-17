@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://20.10.8.172:8000/api';
 let perfilActual = {};
 let requisitosSeleccionados = [];
 let empleoEditandoId = null; 
@@ -40,7 +40,7 @@ async function cargarDatosPerfil() {
             setTexto('lblTipoEmpresa', data.datos.tipo_empresa_nombre ? `Empresa ${data.datos.tipo_empresa_nombre}` : 'No especificado');
             setTexto('lblUbicacion', [data.datos.municipio_nombre, data.datos.departamento_nombre].filter(Boolean).join(', ') || 'Ubicación no especificada');
 
-            if (data.datos.foto_url) document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
+            if (data.datos.foto_url) document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://20.10.8.172:8000${data.datos.foto_url}`;
             
             cargarMisVacantes();
         } else if(data.tipo === 'candidato') {

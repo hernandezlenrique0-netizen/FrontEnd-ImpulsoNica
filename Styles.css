@@ -2485,3 +2485,253 @@ gap: 8px;
 transition: background 0.3s;
 }
 .btn-rechazar:hover { background-color: #c82333; }
+
+
+
+/* ==========================================================================
+ESTILOS PARA PANEL GERENCIAL (ADMIN) - RESPONSIVO MÓVIL
+========================================================================== */
+.admin-mobile-header {
+display: none;
+background: #0f2b5d;
+color: white;
+padding: 15px 20px;
+align-items: center;
+gap: 15px;
+box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+position: sticky;
+top: 0;
+z-index: 900;
+}
+.admin-mobile-header h2 { margin: 0; font-size: 1.5rem; }
+.hamburger-admin {
+background: transparent;
+border: none;
+color: white;
+font-size: 1.6rem;
+cursor: pointer;
+}
+
+.admin-overlay {
+display: none;
+position: fixed;
+top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(0,0,0,0.5);
+z-index: 998;
+backdrop-filter: blur(2px);
+}
+
+.close-sidebar-mobile {
+display: none;
+position: absolute;
+top: 15px; right: 15px;
+background: transparent;
+border: none;
+color: #8bb9e6;
+font-size: 1.5rem;
+cursor: pointer;
+}
+.close-sidebar-mobile:hover { color: white; }
+
+@media (max-width: 900px) {
+.admin-mobile-header { display: flex; }
+.admin-layout { flex-direction: column; }
+
+/* Convertir el panel en un menú lateral deslizable */
+.admin-sidebar {
+    position: fixed;
+    left: -300px; /* Escondido por defecto */
+    top: 0;
+    height: 100vh;
+    width: 280px;
+    z-index: 999;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+}
+.admin-sidebar.open { left: 0; } /* Clase que lo hace aparecer */
+.admin-overlay.active { display: block; }
+.close-sidebar-mobile { display: block; }
+
+.admin-content-area {
+    padding: 15px; 
+    width: 100%;
+    min-height: calc(100vh - 60px);
+}
+
+
+}
+/* =========================================
+   CORRECCIÓN DE PESTAÑAS (PANEL ADMIN)
+   ========================================= */
+.tab-pane {
+    display: none !important; /* Desaparece la caja por completo, no deja huecos */
+}
+
+.tab-pane.active {
+    display: block !important; /* Solo la activa toma espacio */
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ... existing code ... */
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(15px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* STREAMING_CHUNK: Clases extraídas y organizadas para el Perfil de Administrador /
+/ ==========================================================================
+ESTILOS PERFIL ADMINISTRADOR (Limpio)
+========================================================================== */
+.admin-foto-container {
+position: relative;
+width: 180px;
+height: 180px;
+margin: 0 auto 15px;
+}
+
+.admin-foto-img {
+width: 100%;
+height: 100%;
+border-radius: 50%;
+object-fit: cover;
+border: 3px solid #0066d5;
+}
+
+.admin-btn-foto {
+position: absolute;
+bottom: 5px;
+right: 10px;
+background-color: #0066d5;
+color: white;
+border: none;
+border-radius: 50%;
+width: 40px;
+height: 40px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+transition: background 0.3s;
+}
+
+.admin-btn-foto:hover {
+background-color: #004b9b;
+}
+
+.admin-file-input {
+display: none;
+}
+
+.admin-btn-action {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 8px;
+font-size: 1.05rem;
+padding: 12px;
+margin-top: 15px;
+border-radius: 8px;
+text-decoration: none;
+width: 100%;
+box-sizing: border-box;
+}
+
+.btn-admin-logout {
+background-color: #dc3545;
+color: white;
+border: none;
+cursor: pointer;
+box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+transition: background 0.3s;
+}
+
+.btn-admin-logout:hover {
+background-color: #c82333;
+}
+
+.admin-datos-grid {
+display: grid;
+grid-template-columns: 1fr;
+gap: 15px;
+margin-top: 20px;
+}
+
+.admin-tools-header {
+border-bottom: 2px solid #8bb9e6;
+padding-bottom: 0.8rem;
+margin-bottom: 1.5rem;
+}
+
+.admin-tools-grid {
+display: grid;
+/* Cambiado a auto-fit para que sea responsivo en teléfonos automáticamente */
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 20px;
+}
+
+.admin-tool-card {
+background: #f8fafc;
+padding: 20px;
+border-radius: 8px;
+text-align: center;
+border: 1px solid #eef5fc;
+transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.admin-tool-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.admin-tool-card-disabled {
+opacity: 0.7;
+}
+
+.admin-tool-card-disabled:hover {
+transform: none; /* Quitamos la animación a las tarjetas deshabilitadas */
+box-shadow: none;
+}
+
+.admin-tool-icon {
+font-size: 2.5rem;
+color: #0066d5;
+margin-bottom: 10px;
+}
+
+.admin-tool-icon-disabled {
+font-size: 2.5rem;
+color: #6c757d;
+margin-bottom: 10px;
+}
+
+.admin-tool-title {
+color: #0f2b5d;
+margin-bottom: 10px;
+}
+
+.admin-tool-desc {
+font-size: 0.9rem;
+color: #666;
+margin-bottom: 15px;
+}
+
+.admin-tool-link {
+color: #8bb9e6;
+font-weight: bold;
+text-decoration: none;
+}
+
+.admin-badge-disabled {
+background: #e9ecef;
+color: #6c757d;
+padding: 5px 10px;
+border-radius: 12px;
+font-size: 0.8rem;
+}

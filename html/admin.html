@@ -5,16 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImpulsoNica - Panel Gerencial BI</title>
-    <link rel="stylesheet" href="../Styles.css">
+    
+    <!-- EL TRUCO ANTI-CACHÉ ACTUALIZADO -->
+    <link rel="stylesheet" href="../Styles.css?v=6.0">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="admin-body">
     
+    <!-- CABECERA MÓVIL Y FONDO OSCURO -->
+    <div class="admin-mobile-header">
+        <button id="btnToggleSidebar" class="hamburger-admin"><i class="fas fa-bars"></i></button>
+        <h2>Impulso<span style="color: #4ea8de;">Nica</span> <span style="font-size: 0.9rem; color: #8bb9e6;">DW</span></h2>
+    </div>
+    <div id="adminOverlay" class="admin-overlay"></div>
+
     <div class="admin-layout">
-        <!-- BARRA LATERAL -->
-        <aside class="admin-sidebar" style="overflow-y: auto;">
+        <!-- BARRA LATERAL (Sin position relative inline) -->
+        <aside class="admin-sidebar" id="adminSidebar" style="overflow-y: auto;">
+            
+            <button id="btnCloseSidebar" class="close-sidebar-mobile"><i class="fas fa-times"></i></button>
+
             <div class="sidebar-header">
                 <h2>Impulso<span style="color: #4ea8de;">Nica</span></h2>
                 <p style="color: #8bb9e6; font-size: 0.9rem; margin-top: 5px;">Panel Gerencial (DW)</p>
@@ -36,11 +49,12 @@
                 <button class="tab-btn" data-tab="tab-salarios"><i class="fas fa-money-bill-wave"></i> Salarios por Sector</button>
                 <button class="tab-btn" data-tab="tab-tiempos"><i class="fas fa-stopwatch"></i> Tiempos de Cierre</button>
                 <button class="tab-btn" data-tab="tab-requisitos"><i class="fas fa-list-check"></i> Exigencia por Sector</button>
-            </nav>
 
-            <div class="sidebar-footer">
-                <a href="/index.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Salir al Inicio</a>
-            </div>
+                <!-- BOTÓN SALIR MOVIDO AQUÍ PARA QUE FLUYA NORMALMENTE -->
+                <div style="padding: 20px 25px 30px 25px;">
+                    <a href="/index.html" class="btn-volver" style="display: block; width: 100%; text-align: center;"><i class="fas fa-arrow-left"></i> Salir al Inicio</a>
+                </div>
+            </nav>
         </aside>
 
         <!-- ÁREA PRINCIPAL -->
@@ -89,8 +103,8 @@
         </main>
     </div>
 
-    <!-- Scripts -->
-    <script src="../Scripts/auth.js"></script>
-    <script src="../Scripts/admin.js"></script>
+    <!-- Scripts CON ROMPE CACHÉ -->
+    <script src="../Scripts/auth.js?v=6"></script>
+    <script src="../Scripts/admin.js?v=6"></script>
 </body>
 </html>

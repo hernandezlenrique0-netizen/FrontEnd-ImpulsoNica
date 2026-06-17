@@ -1,5 +1,5 @@
 // URL base de tu API en Django
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://20.10.8.172:8000/api';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
