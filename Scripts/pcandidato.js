@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-const API_URL = 'http://127.0.0.1:8000/api';
-let perfilActual = {};
-let idiomasSeleccionados = []; // Arreglo para guardar dinámicamente 
-=======
 const API_URL = 'http://20.10.8.172:8000/api';
 let perfilActual = {};
 let idiomasSeleccionados = []; // Arreglo para guardar dinámicamente {id, nombre, nivel}
->>>>>>> DeveloperJuan
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarDatosPerfil();
@@ -14,18 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     inicializarEventosEdicion();
     inicializarEventosExperienciaYReferencias();
     inicializarSubidaImagen();
-<<<<<<< HEAD
-});
-
-
-=======
     inicializarBorradoCuenta();
 });
 
 // =====================================================================
 // FUNCIONES AUXILIARES
 // =====================================================================
->>>>>>> DeveloperJuan
 const setTexto = (id, texto) => {
     const el = document.getElementById(id);
     if (el) el.textContent = texto;
@@ -46,14 +34,9 @@ const getValorSelect = (id) => {
     return (el && el.value !== '') ? parseInt(el.value) : null;
 };
 
-<<<<<<< HEAD
-// 1. CARGAR DATOS DEL PERFIL (INCLUYENDO EXPERIENCIA Y REFERENCIAS)
-
-=======
 // =====================================================================
 // 1. CARGAR DATOS DEL PERFIL (INCLUYENDO EXPERIENCIA Y REFERENCIAS)
 // =====================================================================
->>>>>>> DeveloperJuan
 async function cargarDatosPerfil() {
     let token = localStorage.getItem('auth_token');
     if (!token) return window.location.href = "/index.html";
@@ -96,19 +79,11 @@ async function cargarDatosPerfil() {
             if (listaExp) {
                 listaExp.innerHTML = data.datos.experiencias?.length 
                     ? data.datos.experiencias.map(exp => `
-<<<<<<< HEAD
-                        <div class="cv-item" style="position:relative;">
-                            <button onclick="eliminarExperiencia(${exp.experienciaid})" style="position:absolute; right:0; top:0; background:none; border:none; color:#dc3545; cursor:pointer;" title="Eliminar Experiencia"><i class="fas fa-trash"></i></button>
-                            <h4 style="padding-right: 25px;">${exp.cargo}</h4>
-                            <span class="cv-lugar">${exp.empresa} | ${exp.fechainicio} al ${exp.fechafin || 'Presente'}</span>
-                            <p>${exp.descripcion || ''}</p>
-=======
                         <div class="cv-item" style="position:relative; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #eef5fc;">
                             <button onclick="eliminarExperiencia(${exp.experienciaid})" style="position:absolute; right:0; top:0; background:none; border:none; color:#dc3545; cursor:pointer;" title="Eliminar Experiencia"><i class="fas fa-trash"></i></button>
                             <h4 style="padding-right: 25px; margin:0 0 5px 0; color:#0f2b5d;">${exp.cargo}</h4>
                             <span class="cv-lugar" style="color:#666; font-size:0.9rem; font-weight:bold;">${exp.empresa} | ${exp.fechainicio} al ${exp.fechafin || 'Presente'}</span>
                             <p style="margin:5px 0 0 0; color:#444; font-size:0.9rem;">${exp.descripcion || ''}</p>
->>>>>>> DeveloperJuan
                         </div>
                     `).join('')
                     : '<p style="color: #666; font-style: italic;">No hay experiencia laboral registrada.</p>';
@@ -119,19 +94,11 @@ async function cargarDatosPerfil() {
             if (listaRef) {
                 listaRef.innerHTML = data.datos.referencias?.length 
                     ? data.datos.referencias.map(ref => `
-<<<<<<< HEAD
-                        <div class="cv-item" style="position:relative;">
-                            <button onclick="eliminarReferencia(${ref.referenciaid})" style="position:absolute; right:0; top:0; background:none; border:none; color:#dc3545; cursor:pointer;" title="Eliminar Referencia"><i class="fas fa-trash"></i></button>
-                            <h4 style="padding-right: 25px;">${ref.nombrecontacto}</h4>
-                            <span class="cv-lugar">${ref.cargo || 'Cargo no especificado'} - ${ref.empresa || 'Empresa no especificada'}</span>
-                            <p><i class="fas fa-phone"></i> ${ref.telefono} | <i class="fas fa-envelope"></i> ${ref.correo || 'Sin correo registrado'}</p>
-=======
                         <div class="cv-item" style="position:relative; margin-bottom:15px; padding-bottom:15px; border-bottom:1px solid #eef5fc;">
                             <button onclick="eliminarReferencia(${ref.referenciaid})" style="position:absolute; right:0; top:0; background:none; border:none; color:#dc3545; cursor:pointer;" title="Eliminar Referencia"><i class="fas fa-trash"></i></button>
                             <h4 style="padding-right: 25px; margin:0 0 5px 0; color:#0f2b5d;">${ref.nombrecontacto}</h4>
                             <span class="cv-lugar" style="color:#666; font-size:0.9rem;">${ref.cargo || 'Cargo no especificado'} - ${ref.empresa || 'Empresa no especificada'}</span>
                             <p style="margin:5px 0 0 0; color:#444; font-size:0.9rem;"><i class="fas fa-phone"></i> ${ref.telefono} | <i class="fas fa-envelope"></i> ${ref.correo || 'Sin correo'}</p>
->>>>>>> DeveloperJuan
                         </div>
                     `).join('')
                     : '<p style="color: #666; font-style: italic;">No hay referencias registradas.</p>';
@@ -155,16 +122,11 @@ async function cargarDatosPerfil() {
 
             // Foto
             if (data.datos.foto_url) {
-<<<<<<< HEAD
-                document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
-            }
-=======
                 document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://20.10.8.172:8000${data.datos.foto_url}`;
             }
 
             // Llamamos a las postulaciones justo después de cargar el perfil
             cargarMisPostulaciones();
->>>>>>> DeveloperJuan
         }
     } catch (error) { console.error('Error al cargar perfil:', error); }
 }
@@ -186,14 +148,6 @@ async function intentarRefrescarToken() {
     } catch (e) {} return false;
 }
 
-<<<<<<< HEAD
-
-// 2. LÓGICA DE CATÁLOGOS E IDIOMAS DINÁMICOS
-
-async function inicializarCatalogos() {
-    await cargarSelect(`${API_URL}/generos/`, 'editGenero', 'Seleccione su Género...');
-    await cargarSelect(`${API_URL}/estadosciviles/`, 'editEstadoCivil', 'Seleccione su Estado Civil...'); // NUEVO CATALOGO
-=======
 // =====================================================================
 // 1.5. CARGAR TABLA DE POSTULACIONES DEL CANDIDATO
 // =====================================================================
@@ -293,7 +247,6 @@ async function cargarMisPostulaciones() {
 async function inicializarCatalogos() {
     await cargarSelect(`${API_URL}/generos/`, 'editGenero', 'Seleccione su Género...');
     await cargarSelect(`${API_URL}/estadosciviles/`, 'editEstadoCivil', 'Seleccione su Estado Civil...'); 
->>>>>>> DeveloperJuan
     await cargarSelect(`${API_URL}/nacionalidades/`, 'editNacionalidad', 'Seleccione su Nacionalidad...');
     await cargarSelect(`${API_URL}/departamentos/`, 'editDepartamento', 'Seleccione un Departamento...');
     await cargarSelect(`${API_URL}/cat-niveleseducativos/`, 'editNivelEducativo', 'Seleccione su Nivel...');
@@ -320,11 +273,7 @@ async function cargarSelect(url, selectId, defaultText) {
         const data = await res.json();
         el.innerHTML = `<option value="">${defaultText}</option>`;
         data.forEach(item => {
-<<<<<<< HEAD
-            const id = item.id || item.departamentoid || item.municipioid || item.nacionalidadid || item.generoid || item.estadocivilid || item.niveleducativoid || item.idiomaid || Object.values(item)[0];
-=======
             const id = item.id || item.municipioid || item.departamentoid || item.nacionalidadid || item.generoid || item.estadocivilid || item.niveleducativoid || item.idiomaid || item.sectorid || item.tipoempresaid || Object.values(item)[0];
->>>>>>> DeveloperJuan
             const nombre = item.nombre || item.descripcion || Object.values(item)[1];
             el.add(new Option(nombre, id));
         });
@@ -388,19 +337,6 @@ document.getElementById('btnAgregarIdioma')?.addEventListener('click', () => {
     selectIdiom.value = ""; 
 });
 
-<<<<<<< HEAD
-// 3. LÓGICA DE MODALES: EXPERIENCIA Y REFERENCIAS
-
-function inicializarEventosExperienciaYReferencias() {
-    // Abrir Modales con verificación de seguridad
-    document.getElementById('btnAgregarExperiencia')?.addEventListener('click', () => {
-        const formExp = document.getElementById('formExperiencia');
-        if (formExp) formExp.reset();
-        
-        const modalExp = document.getElementById('modalExperiencia');
-        if (modalExp) modalExp.style.display = 'flex';
-        else alert("Falta el HTML del modal de experiencia en PCandidato.html");
-=======
 // =====================================================================
 // 3. LÓGICA DE MODALES: EXPERIENCIA Y REFERENCIAS
 // =====================================================================
@@ -410,31 +346,12 @@ function inicializarEventosExperienciaYReferencias() {
         const formExp = document.getElementById('formExperiencia');
         if (formExp) formExp.reset();
         document.getElementById('modalExperiencia').style.display = 'flex';
->>>>>>> DeveloperJuan
     });
     
     document.getElementById('btnAgregarReferencia')?.addEventListener('click', () => {
         const formRef = document.getElementById('formReferencia');
         if (formRef) formRef.reset();
-<<<<<<< HEAD
-        
-        const modalRef = document.getElementById('modalReferencia');
-        if (modalRef) modalRef.style.display = 'flex';
-        else alert("Falta el HTML del modal de referencias en PCandidato.html");
-    });
-
-    // Cerrar Modales de forma segura
-    document.getElementById('closeExperiencia')?.addEventListener('click', () => {
-        const modal = document.getElementById('modalExperiencia');
-        if(modal) modal.style.display = 'none';
-    });
-    
-    document.getElementById('closeReferencia')?.addEventListener('click', () => {
-        const modal = document.getElementById('modalReferencia');
-        if(modal) modal.style.display = 'none';
-=======
         document.getElementById('modalReferencia').style.display = 'flex';
->>>>>>> DeveloperJuan
     });
 
     // Cerrar al clickear fuera
@@ -446,12 +363,6 @@ function inicializarEventosExperienciaYReferencias() {
     // Submits de formularios
     document.getElementById('formExperiencia')?.addEventListener('submit', async (e) => {
         e.preventDefault();
-<<<<<<< HEAD
-        if (!perfilActual.curriculum_id) return alert("Error: No se encontró tu ID de Currículum. Guarda tu perfil primero.");
-        
-        const payload = {
-            curriculumid: perfilActual.curriculum_id,
-=======
         
         // CORRECCIÓN: Buscar todas las formas posibles del ID del currículum
         const idCV = perfilActual.curriculumid || perfilActual.CurriculumId || perfilActual.curriculum_id;
@@ -460,7 +371,6 @@ function inicializarEventosExperienciaYReferencias() {
         
         const payload = {
             curriculumid: idCV,
->>>>>>> DeveloperJuan
             empresa: getValor('expEmpresa'),
             cargo: getValor('expCargo'),
             fechainicio: getValor('expFechaInicio'),
@@ -482,12 +392,6 @@ function inicializarEventosExperienciaYReferencias() {
 
     document.getElementById('formReferencia')?.addEventListener('submit', async (e) => {
         e.preventDefault();
-<<<<<<< HEAD
-        if (!perfilActual.curriculum_id) return alert("Error: No se encontró tu ID de Currículum. Guarda tu perfil primero.");
-        
-        const payload = {
-            curriculumid: perfilActual.curriculum_id,
-=======
         
         // CORRECCIÓN: Buscar todas las formas posibles del ID del currículum
         const idCV = perfilActual.curriculumid || perfilActual.CurriculumId || perfilActual.curriculum_id;
@@ -496,7 +400,6 @@ function inicializarEventosExperienciaYReferencias() {
         
         const payload = {
             curriculumid: idCV,
->>>>>>> DeveloperJuan
             nombrecontacto: getValor('refNombre'),
             cargo: getValor('refCargo'),
             empresa: getValor('refEmpresa'),
@@ -542,15 +445,9 @@ window.eliminarReferencia = async function(id) {
     } catch (err) { alert("Error al eliminar la referencia."); }
 };
 
-<<<<<<< HEAD
-
-// 4. LÓGICA DEL MODAL DE EDICIÓN DEL PERFIL GENERAL
-
-=======
 // =====================================================================
 // 4. LÓGICA DEL MODAL DE EDICIÓN DEL PERFIL GENERAL
 // =====================================================================
->>>>>>> DeveloperJuan
 function inicializarEventosEdicion() {
     const modal = document.getElementById('modalEditarPerfil');
     const btnAbrir = document.getElementById('btnAbrirEdicion');
@@ -601,15 +498,9 @@ function inicializarEventosEdicion() {
     });
 }
 
-<<<<<<< HEAD
-
-// 5. GUARDAR CAMBIOS (PERFIL)
-
-=======
 // =====================================================================
 // 5. GUARDAR CAMBIOS (PERFIL)
 // =====================================================================
->>>>>>> DeveloperJuan
 async function guardarCambiosPerfil() {
     const btnGuardar = document.getElementById('btnGuardarPerfil');
     const habsSeleccionadas = Array.from(document.querySelectorAll('input[name="habs_candidato"]:checked')).map(cb => parseInt(cb.value));
@@ -652,38 +543,22 @@ async function guardarCambiosPerfil() {
     finally { btnGuardar.textContent = "Guardar Cambios"; btnGuardar.disabled = false; }
 }
 
-<<<<<<< HEAD
-
-// 6. SUBIDA DE IMAGEN
-
-=======
 // =====================================================================
 // 6. SUBIDA DE IMAGEN
 // =====================================================================
->>>>>>> DeveloperJuan
 function inicializarSubidaImagen() {
     document.getElementById('btnCambiarFoto')?.addEventListener('click', () => document.getElementById('inputFoto').click());
     document.getElementById('inputFoto')?.addEventListener('change', async (e) => {
         const archivo = e.target.files[0];
         if (!archivo) return;
-<<<<<<< HEAD
-=======
         
         // Vista previa inmediata
->>>>>>> DeveloperJuan
         const reader = new FileReader();
         reader.onload = (e) => { document.getElementById('fotoPerfil').src = e.target.result; };
         reader.readAsDataURL(archivo);
 
         const formData = new FormData();
         formData.append('imagen', archivo); 
-<<<<<<< HEAD
-        try {
-            await fetch(`${API_URL}/upload-imagen/`, { method: 'POST', headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }, body: formData });
-            cargarDatosPerfil(); 
-        } catch (error) { alert("No se pudo subir la imagen."); }
-    });
-=======
         
         try {
             const response = await fetch(`${API_URL}/upload-imagen/`, { 
@@ -743,5 +618,4 @@ function inicializarBorradoCuenta() {
             }
         });
     }
->>>>>>> DeveloperJuan
 }

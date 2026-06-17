@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-(function protegerRutasPrivadas() {
-    const path = window.location.pathname.toLowerCase();
-    const token = localStorage.getItem('auth_token');
-    const userType = localStorage.getItem('user_type');
-
-    const esPerfilCandidato = path.includes('pcandidato.html');
-    const esPerfilEmpresa = path.includes('pempresa.html');
-
-    // 1. Si NO hay sesión y trata de entrar a cualquier perfil, lo sacamos al inicio
-    if ((esPerfilCandidato || esPerfilEmpresa) && !token) {
-        window.location.replace('/index.html');
-        return;
-    }
-
-    // 2. Si es EMPRESA intentando entrar al perfil de CANDIDATO
-    if (esPerfilCandidato && userType === 'empresa') {
-        window.location.replace('/html/PEmpresa.html');
-        return;
-    }
-
-    // 3. Si es CANDIDATO intentando entrar al perfil de EMPRESA
-    if (esPerfilEmpresa && userType === 'candidato') {
-        window.location.replace('/html/PCandidato.html');
-        return;
-    }
-})();
-
-
-const API_URL_AUTH = 'http://127.0.0.1:8000/api';
-=======
 // =====================================================================
 // GUARDIÁN DE RUTAS (Bloqueo instantáneo de vistas no autorizadas)
 // =====================================================================
@@ -57,7 +26,6 @@ const API_URL_AUTH = 'http://127.0.0.1:8000/api';
 
 // 👇 IP ACTUALIZADA PARA QUE FUNCIONE DESDE CUALQUIER CELULAR O PC 👇
 const API_URL_AUTH = 'http://20.10.8.172:8000/api';
->>>>>>> DeveloperJuan
 
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. PRIMERO: Inyectamos los modales si no existen en la página
@@ -109,8 +77,6 @@ async function inyectarModalRegistro() {
     }
 }
 
-<<<<<<< HEAD
-=======
 // --- CAMBIO DE ETIQUETA DINÁMICA DEL REGISTRO (Candidato vs Empresa) ---
 document.addEventListener('change', (e) => {
     if (e.target && e.target.id === 'registerUserType') {
@@ -161,7 +127,6 @@ function mostrarErrorRegistro(mensaje) {
     }
 }
 
->>>>>>> DeveloperJuan
 // --- FUNCIÓN 3: Darle vida a los botones (Delegación de Eventos) ---
 function inicializarEventosAuth() {
     // Escuchamos TODOS los clics de la página
@@ -188,16 +153,12 @@ function inicializarEventosAuth() {
         if (e.target.closest('#btnOpenRegister')) {
             e.preventDefault();
             const regModal = document.getElementById('registerModal');
-<<<<<<< HEAD
-            if (regModal) regModal.style.display = 'flex';
-=======
             if (regModal) {
                 regModal.style.display = 'flex';
                 // Forzar la creación/ajuste del campo Apellido al abrir por primera vez
                 const selectTipo = document.getElementById('registerUserType');
                 if (selectTipo) selectTipo.dispatchEvent(new Event('change', { bubbles: true }));
             }
->>>>>>> DeveloperJuan
         }
 
         const regModal = document.getElementById('registerModal');
@@ -215,24 +176,15 @@ function inicializarEventosAuth() {
             e.preventDefault();
             const btnLogin = e.target.closest('#btnLogin');
             
-<<<<<<< HEAD
-            const usuario = document.getElementById("correo").value;
-            const clave = document.getElementById("password").value;
-=======
             const usuario = document.getElementById("loginCorreo")?.value || document.getElementById("correo")?.value;
             const clave = document.getElementById("loginPassword")?.value || document.getElementById("password")?.value;
->>>>>>> DeveloperJuan
 
             if (!usuario || !clave) {
                 alert("Por favor, ingresa tu correo y contraseña.");
                 return;
             }
 
-<<<<<<< HEAD
-            btnLogin.innerText = "Iniciando...";
-=======
             btnLogin.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Iniciando...';
->>>>>>> DeveloperJuan
             btnLogin.disabled = true;
 
             try {
@@ -245,20 +197,6 @@ function inicializarEventosAuth() {
                 const data = await response.json();
 
                 if (response.ok) {
-<<<<<<< HEAD
-                    const rolDetectado = data.rol || "candidato"; 
-
-                    localStorage.setItem('auth_token', data.access);
-                    localStorage.setItem('user_type', rolDetectado);
-
-                    alert("¡Inicio de sesión exitoso!");
-                    if(modalLogin) modalLogin.style.display = "none";
-                    actualizarMenuNavegacion();
-
-                    if (rolDetectado === "candidato") window.location.href = "/html/PCandidato.html";
-                    else if (rolDetectado === "empresa") window.location.href = "/html/PEmpresa.html";
-                    else if (rolDetectado === "admin") window.location.href = "/html/admin.html";
-=======
                     const rolBruto = data.rol || data.tipo || "candidato"; 
                     const rolDetectado = rolBruto.trim().toLowerCase();
 
@@ -274,7 +212,6 @@ function inicializarEventosAuth() {
                     else if (rolDetectado === "empresa") window.location.href = "/html/PEmpresa.html";
                     else if (rolDetectado === "admin") window.location.href = "/html/PAdministrador.html";
                     else window.location.reload();
->>>>>>> DeveloperJuan
 
                 } else {
                     alert("Error al iniciar sesión: Revisa tus credenciales.");
@@ -293,30 +230,6 @@ function inicializarEventosAuth() {
             e.preventDefault();
             const btnRegister = e.target.closest('#btnRegister');
             
-<<<<<<< HEAD
-            // Buscamos los datos usando los IDs del registro.html
-            const userType = document.getElementById("registerUserType")?.value;
-            const correo = document.getElementById("regCorreo")?.value;
-            const password = document.getElementById("regPassword")?.value;
-            
-            if (!correo || !password) {
-                alert("Por favor completa tu correo y contraseña para registrarte.");
-                return;
-            }
-
-            btnRegister.innerText = "Registrando...";
-            btnRegister.disabled = true;
-            
-            try {
-                const response = await fetch(`${API_URL_AUTH}/registro/`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        tipo: userType,
-                        email: correo,
-                        password: password
-                    })
-=======
             // Recolectar datos
             const tipo = document.getElementById('registerUserType')?.value;
             const nombre = document.getElementById('regNombre')?.value.trim();
@@ -359,27 +272,10 @@ function inicializarEventosAuth() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
->>>>>>> DeveloperJuan
                 });
 
                 const data = await response.json();
 
-<<<<<<< HEAD
-                if (response.ok) {
-                    alert("¡Registro exitoso! Ya puedes iniciar sesión con tu nueva cuenta.");
-                    if(regModal) regModal.style.display = "none";
-                    
-                    // Abrimos automáticamente la ventana de login para que entre
-                    if (modalLogin) modalLogin.style.display = "flex";
-                } else {
-                    alert(`Error al registrar: ${data.error || 'Revisa los datos.'}`);
-                }
-            } catch (error) {
-                console.error('Error de red:', error);
-                alert("Error de conexión con el servidor.");
-            } finally {
-                btnRegister.innerText = "Registrarse";
-=======
                 if (!response.ok) {
                     const errorMsg = data.error ? data.error.toLowerCase() : '';
                     if (errorMsg.includes('unique') || errorMsg.includes('duplicate') || errorMsg.includes('violation')) {
@@ -405,20 +301,12 @@ function inicializarEventosAuth() {
                 mostrarErrorRegistro(error.message);
             } finally {
                 btnRegister.textContent = "Registrarse";
->>>>>>> DeveloperJuan
                 btnRegister.disabled = false;
             }
         }
     });
 }
 
-<<<<<<< HEAD
-async function actualizarMenuNavegacion() {
-    const token = localStorage.getItem('auth_token');
-    const rol = localStorage.getItem('user_type');
-    
-    // Buscar dónde inyectar el menú
-=======
 // =================================================================
 // REFRESCAR TOKEN SILENCIOSAMENTE (Magia anti-cierres automáticos)
 // =================================================================
@@ -449,37 +337,11 @@ async function actualizarMenuNavegacion() {
     let token = localStorage.getItem('auth_token');
     const rol = localStorage.getItem('user_type')?.trim().toLowerCase();
     
->>>>>>> DeveloperJuan
     const menuDestino = document.querySelector('.menu') || document.querySelector('.nav-links') || document.querySelector('.navbar');
     const linkLogin = document.getElementById('linkLogin');
     const btnOpenRegister = document.getElementById('btnOpenRegister');
 
     if (token && rol) {
-<<<<<<< HEAD
-        // Ocultar botones de login y registro si existen
-        if (linkLogin) linkLogin.style.display = 'none';
-        if (btnOpenRegister) btnOpenRegister.style.display = 'none';
-
-        // Detectar si estamos en una página de perfil
-        const isProfilePage = window.location.pathname.toLowerCase().includes('pcandidato.html') || 
-                              window.location.pathname.toLowerCase().includes('pempresa.html') || 
-                              window.location.pathname.toLowerCase().includes('admin.html');
-
-        if (isProfilePage) {
-            // ESTAMOS EN EL PERFIL: Vista 100% limpia sin menús (Estilo CV)
-            return; 
-        } else if (menuDestino) {
-            // NO ESTAMOS EN EL PERFIL: Mostramos el menú desplegable con el avatar
-            if (!document.getElementById('profileDropdownContainer')) {
-                
-                // Determinar rutas y etiquetas según el rol
-                let profileLink = '/html/PCandidato.html';
-                let roleName = 'Candidato';
-                
-                if (rol === 'admin') {
-                    profileLink = '/html/admin.html';
-                    roleName = 'Administrador';
-=======
         if (linkLogin) linkLogin.style.display = 'none';
         if (btnOpenRegister) btnOpenRegister.style.display = 'none';
 
@@ -502,7 +364,6 @@ async function actualizarMenuNavegacion() {
                     profileLink = '/html/PAdministrador.html'; 
                     roleName = 'Administrador';
                     extraAdminLink = `<a href="/html/admin.html" style="color: #4ea8de; font-weight: bold;"><i class="fas fa-chart-line"></i> Panel Gerencial (DW)</a>`;
->>>>>>> DeveloperJuan
                 } else if (rol === 'empresa') {
                     profileLink = '/html/PEmpresa.html';
                     roleName = 'Empresa';
@@ -510,10 +371,6 @@ async function actualizarMenuNavegacion() {
                 
                 const defaultAvatar = "/imgn/cv.png"; 
 
-<<<<<<< HEAD
-                // Crear el contenedor del menú desplegable (Avatar + Menú oculto)
-=======
->>>>>>> DeveloperJuan
                 const profileDiv = document.createElement('div');
                 profileDiv.id = 'profileDropdownContainer';
                 profileDiv.className = 'user-profile-container';
@@ -528,38 +385,14 @@ async function actualizarMenuNavegacion() {
                             </div>
                         </div>
                         <hr class="drop-divider">
-<<<<<<< HEAD
-=======
                         <!-- Inyectamos el botón de Dashboard si existe -->
                         ${extraAdminLink}
->>>>>>> DeveloperJuan
                         <a href="${profileLink}"><i class="fas fa-user-circle"></i> Mi Perfil</a>
                         <a href="#" onclick="cerrarSesionApp(event)"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
                     </div>
                 `;
                 menuDestino.appendChild(profileDiv);
 
-<<<<<<< HEAD
-                // Hacer una petición rápida a tu BD para traer el nombre real y la foto de perfil
-                try {
-                    const response = await fetch(`${API_URL_AUTH}/mi-perfil/`, {
-                        headers: { 'Authorization': `Bearer ${token}` }
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        if (data.datos) {
-                            // Actualizar Foto si existe
-                            if (data.datos.foto_url) {
-                                const fullUrl = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
-                                document.getElementById('navAvatarBtn').src = fullUrl;
-                                document.getElementById('dropAvatarImg').src = fullUrl;
-                            }
-                            // Actualizar Nombre
-                            const fullName = data.datos.nombre ? `${data.datos.nombre} ${data.datos.apellido}` : (data.datos.nombreempresa || 'Usuario ImpulsoNica');
-                            document.getElementById('dropUserName').textContent = fullName;
-                        }
-=======
                 try {
                     let response = await fetch(`${API_URL_AUTH}/mi-perfil/`, {
                         headers: { 'Authorization': `Bearer ${token}` },
@@ -595,7 +428,6 @@ async function actualizarMenuNavegacion() {
                         localStorage.removeItem('user_type');
                         localStorage.removeItem('refresh_token');
                         window.location.reload(); 
->>>>>>> DeveloperJuan
                     }
                 } catch (error) {
                     console.error("Error obteniendo datos del perfil para el navbar:", error);
@@ -605,39 +437,6 @@ async function actualizarMenuNavegacion() {
     }
 }
 
-<<<<<<< HEAD
-// --- FUNCIONES GLOBALES PARA EL MENÚ DESPLEGABLE ---
-
-// 1. Abrir/cerrar el menú al dar clic en el Avatar
-window.toggleProfileMenu = function(e) {
-    e.preventDefault();
-    const drop = document.getElementById('profileDropdown');
-    if (drop) {
-        drop.classList.toggle('active');
-    }
-}
-
-// 2. Función para cerrar sesión y borrar caché
-window.cerrarSesionApp = function(e) {
-    e.preventDefault();
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('token');
-    localStorage.removeItem('access');
-    localStorage.removeItem('user_type');
-    
-    // Redirigir siempre a la página principal de manera segura
-    window.location.href = '/index.html'; 
-}
-
-// 3. Cerrar el menú automáticamente si se hace clic afuera de él
-window.addEventListener('click', function(e) {
-    const profileDiv = document.querySelector('.user-profile-container');
-    const drop = document.getElementById('profileDropdown');
-    
-    // Si el menú existe y el clic NO fue dentro del contenedor del perfil, lo cerramos
-    if (profileDiv && drop && !profileDiv.contains(e.target)) {
-        drop.classList.remove('active');
-=======
 // Funciones globales de UI de la sesión
 window.toggleProfileMenu = function(event) {
     event.stopPropagation();
@@ -658,6 +457,5 @@ window.addEventListener('click', (e) => {
     const profileDiv = document.querySelector('.user-profile-container');
     if (profileDiv && dropdown && !profileDiv.contains(e.target)) {
         dropdown.classList.remove('active');
->>>>>>> DeveloperJuan
     }
 });

@@ -51,7 +51,6 @@ function inicializarSubidaImagen() {
         const formData = new FormData();
         formData.append('imagen', archivo); 
         try {
-            // 👇 CORRECCIÓN AQUÍ: Barra estricta al final 👇
             const res = await fetch(`${API_URL}/upload-imagen/`, { 
                 method: 'POST', 
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }, 

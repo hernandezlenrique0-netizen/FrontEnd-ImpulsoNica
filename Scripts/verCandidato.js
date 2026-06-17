@@ -55,7 +55,7 @@ async function cargarPerfilCompletoCandidato() {
         let fotoUrl = "/imgn/cv.png"; 
         const urlBD = cand.fotoperfilurl || cand.FotoPerfilUrl;
         if (urlBD) {
-            fotoUrl = urlBD.startsWith('http') ? urlBD : `http://127.0.0.1:8000${urlBD}`;
+            fotoUrl = urlBD.startsWith('http') ? urlBD : `http://20.10.8.172:8000${urlBD}`;
         }
 
         // Buscar el ID real del Currículum

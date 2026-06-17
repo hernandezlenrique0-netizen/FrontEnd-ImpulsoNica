@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vacantes Publicadas - ImpulsoNica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="admin">
+    <!-- Sidebar lateral -->
+    <aside class="sidebar">
+        <nav>
+            <div class="brand">
+                <img src="/imgn/LogoImpulsoNica.png" alt="ImpulsoNica logo">
+
+                <span class="logo-text">Impulso<span class="text-blue">Nica</span></span>
+            </div>
+            <a href="/html/admin.html">Inicio</a>
+            <a href="/html/candidatosAdmi.html">Candidatos</a>
+            <a href="/html/empresasAdmi.html">Empresas</a>
+            <a href="#" class="active">Vacantes</a>
+            <a href="/html/postulacionesAdmi.html">Postulaciones</a>
+            <a href="/index.html">Cerrar sesión</a>
+        </nav>
+    </aside>
+    <!-- Contenido principal -->
+    <main class="dashboard">
+        <header>
+            <h1>Vacantes Publicadas</h1>
+            <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        </header>
+
+        <section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Empresa</th>
+                        <th>Modalidad</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Desarrollador Web</td>
+                        <td>Claro Nicaragua</td>
+                        <td>Remoto</td>
+                        <td>Activa</td>
+                    </tr>
+                    <tr>
+                        <td>Asesor de Ventas</td>
+                        <td>Tigo</td>
+                        <td>Presencial</td>
+                        <td>Activa</td>
+                    </tr>
+                    <tr>
+                        <td>Analista Financiero</td>
+                        <td>Banpro</td>
+                        <td>Híbrido</td>
+                        <td>Activa</td>
+                    </tr>
+                    <tr>
+                        <td>Diseñador Gráfico</td>
+                        <td>La Colonia</td>
+                        <td>Presencial</td>
+                        <td>Expirada</td>
+                    </tr>
+                </tbody>
+            </table>
+            <section class="charts">
+                <div class="chart-box"><canvas id="graficoVacantesModalidad"></canvas></div>
+                <div class="chart-box"><canvas id="graficoVacantesEstado"></canvas></div>
+            </section>
+        </section>
+    </main>
+
+    <script>
+        // Función para alternar el menú lateral en dispositivos móviles//
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        }
+
+        // Gráfico de vacantes por modalidad
+        new Chart(document.getElementById('graficoVacantesModalidad'), {
+            type: 'pie',
+            data: {
+                labels: ['Presencial', 'Remoto', 'Híbrido'],
+                datasets: [{
+                    data: [20, 10, 5],
+                    backgroundColor: ['#007bff', '#6f42c1', '#ffc107']
+                }]
+            }
+        });
+        // Gráfico de vacantes por estado
+        new Chart(document.getElementById('graficoVacantesEstado'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Activas', 'Expiradas'],
+                datasets: [{
+                    data: [25, 5],
+                    backgroundColor: ['#007bff', '#6c757d']
+                }]
+            }
+        });
+    </script>
+</body>
+
+</html>
