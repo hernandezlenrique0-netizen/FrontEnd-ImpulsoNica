@@ -1,4 +1,4 @@
-const API_URL = 'http://20.10.8.172:8000/api';
+const API_URL = 'http://127.0.0.1:8000/api';
 let perfilActual = {};
 let requisitosSeleccionados = [];
 let empleoEditandoId = null; 
@@ -40,7 +40,7 @@ async function cargarDatosPerfil() {
             setTexto('lblTipoEmpresa', data.datos.tipo_empresa_nombre ? `Empresa ${data.datos.tipo_empresa_nombre}` : 'No especificado');
             setTexto('lblUbicacion', [data.datos.municipio_nombre, data.datos.departamento_nombre].filter(Boolean).join(', ') || 'Ubicación no especificada');
 
-            if (data.datos.foto_url) document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://20.10.8.172:8000${data.datos.foto_url}`;
+            if (data.datos.foto_url) document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
             
             cargarMisVacantes();
         } else if(data.tipo === 'candidato') {
@@ -320,9 +320,12 @@ async function cargarMisVacantes() {
     const lista = document.getElementById('listaMisVacantes');
     
     try {
-        const res = await fetch(`${API_URL}/empleos/?empresaid=${idEmpresa}`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` } });
+        const res = await fetch(`${API_URL}/empleos/?empresaid=${idEmpresa}&page_size=50`, { 
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` } 
+        });
         if (res.ok) {
-            const data = await res.json();
+            const rawData = await res.json();
+            const data = Array.isArray(rawData) ? rawData : (rawData.results || []);
             if (data.length === 0) return lista.innerHTML = '<p style="color: #666; font-style: italic;">Aún no has publicado vacantes.</p>';
 
             lista.innerHTML = data.map(v => `
@@ -467,8 +470,8 @@ window.verPostulantes = async function(empleoId) {
                         <p style="margin: 3px 0 0 0; font-size: 0.85rem; color:#666;">Fecha Postulación: ${p.fechapostulacion ? p.fechapostulacion.split('T')[0] : 'N/A'}</p>
                         <span style="font-size: 0.75rem; background: #eef5fc; color: #0066d5; padding: 3px 8px; border-radius: 12px; display:inline-block; margin-top:5px; font-weight:bold;">${nombreEstado}</span>
                     </div>
-                    <button onclick="window.location.href='/html/VerCandidato.html?id=${candidatoID}'" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; cursor: pointer;">
-                        <i class="fas fa-file-alt"></i> Ver Perfil / CV
+                    <button onclick="window.location.href='/html/VerCandidato.html?id=${candidatoID}&post=${p.postulacionid || p.id}'" class="btn-primary" style="padding: 8px 15px; font-size: 0.85rem; cursor: pointer;">
+                    <i class="fas fa-file-alt"></i> Ver Perfil / CV
                     </button>
                 </div>
             `;

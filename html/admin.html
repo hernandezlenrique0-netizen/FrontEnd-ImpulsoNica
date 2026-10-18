@@ -4,107 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ImpulsoNica - Panel Gerencial BI</title>
-    
-    <!-- EL TRUCO ANTI-CACHÉ ACTUALIZADO -->
-    <link rel="stylesheet" href="../Styles.css?v=6.0">
-    
+    <title>ImpulsoNica - Panel Gerencial BI (Azure Cloud DW)</title>
+    <link rel="stylesheet" href="../Styles.css?v=8.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="admin-body">
     
-    <!-- CABECERA MÓVIL Y FONDO OSCURO -->
     <div class="admin-mobile-header">
         <button id="btnToggleSidebar" class="hamburger-admin"><i class="fas fa-bars"></i></button>
-        <h2>Impulso<span style="color: #4ea8de;">Nica</span> <span style="font-size: 0.9rem; color: #8bb9e6;">DW</span></h2>
+        <h2>Impulso<span style="color: #4ea8de;">Nica</span> <span style="font-size: 0.9rem; color: #8bb9e6;">Cloud DW</span></h2>
     </div>
     <div id="adminOverlay" class="admin-overlay"></div>
 
     <div class="admin-layout">
-        <!-- BARRA LATERAL (Sin position relative inline) -->
         <aside class="admin-sidebar" id="adminSidebar" style="overflow-y: auto;">
-            
             <button id="btnCloseSidebar" class="close-sidebar-mobile"><i class="fas fa-times"></i></button>
 
             <div class="sidebar-header">
                 <h2>Impulso<span style="color: #4ea8de;">Nica</span></h2>
-                <p style="color: #8bb9e6; font-size: 0.9rem; margin-top: 5px;">Panel Gerencial (DW)</p>
+                <p style="color: #8bb9e6; font-size: 0.9rem; margin-top: 5px;">Azure SQL + Cosmos DB DW</p>
             </div>
             
             <nav class="sidebar-nav">
-                <!-- Básicos -->
                 <button class="tab-btn active" data-tab="tab-resumen"><i class="fas fa-home"></i> Resumen de KPIs</button>
-                <button class="tab-btn" data-tab="tab-sectores"><i class="fas fa-industry"></i> Ofertas por Sector</button>
+                <button class="tab-btn" data-tab="tab-sectores"><i class="fas fa-industry"></i> Ofertas y Vistas por Sector</button>
                 <button class="tab-btn" data-tab="tab-ubicaciones"><i class="fas fa-map-marked-alt"></i> Ubicaciones</button>
                 <button class="tab-btn" data-tab="tab-meses"><i class="fas fa-calendar-alt"></i> Evolución Mensual</button>
                 <button class="tab-btn" data-tab="tab-modalidades"><i class="fas fa-laptop-house"></i> Modalidades</button>
                 
-                <!-- NUEVOS (Avanzados) -->
-                <div style="padding: 10px 25px; margin-top: 15px; font-size: 0.8rem; color: #8bb9e6; text-transform: uppercase; letter-spacing: 1px;">Métricas Avanzadas</div>
+                <div style="padding: 10px 25px; margin-top: 15px; font-size: 0.8rem; color: #8bb9e6; text-transform: uppercase; letter-spacing: 1px;">Analítica Avanzada & NoSQL</div>
                 
                 <button class="tab-btn" data-tab="tab-empresas"><i class="fas fa-building"></i> Top Empresas</button>
                 <button class="tab-btn" data-tab="tab-tipos"><i class="fas fa-file-contract"></i> Tipos de Contrato</button>
                 <button class="tab-btn" data-tab="tab-salarios"><i class="fas fa-money-bill-wave"></i> Salarios por Sector</button>
-                <button class="tab-btn" data-tab="tab-tiempos"><i class="fas fa-stopwatch"></i> Tiempos de Cierre</button>
+                <button class="tab-btn" data-tab="tab-tiempos"><i class="fas fa-stopwatch"></i> Vigencia de Ofertas</button>
                 <button class="tab-btn" data-tab="tab-requisitos"><i class="fas fa-list-check"></i> Exigencia por Sector</button>
+                <button class="tab-btn" data-tab="tab-telemetria"><i class="fas fa-satellite-dish"></i> Telemetría Cosmos DB</button>
+                <button class="tab-btn" data-tab="tab-educacion"><i class="fas fa-user-graduate"></i> Talento por Educación</button>
 
-                <!-- BOTÓN SALIR MOVIDO AQUÍ PARA QUE FLUYA NORMALMENTE -->
                 <div style="padding: 20px 25px 30px 25px;">
                     <a href="/index.html" class="btn-volver" style="display: block; width: 100%; text-align: center;"><i class="fas fa-arrow-left"></i> Salir al Inicio</a>
                 </div>
             </nav>
         </aside>
 
-        <!-- ÁREA PRINCIPAL -->
         <main class="admin-content-area">
             
             <div id="tab-resumen" class="tab-pane active">
-                <h1 class="seccion-titulo">Visión Global</h1>
-                <div class="kpi-grid">
-                    <div class="kpi-card kpi-vacantes"><h3>Total Vacantes DW</h3><h1 id="kpiVacantes"><i class="fas fa-spinner fa-spin"></i></h1></div>
-                    <div class="kpi-card kpi-postulaciones"><h3>Total Postulaciones</h3><h1 id="kpiPostulaciones"><i class="fas fa-spinner fa-spin"></i></h1></div>
-                    <div class="kpi-card kpi-salario"><h3>Salario Promedio Global</h3><h1 id="kpiSalario"><i class="fas fa-spinner fa-spin"></i></h1></div>
+                <h1 class="seccion-titulo">Visión Global del Data Warehouse Híbrido (SQL + NoSQL)</h1>
+                <div class="kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                    <div class="card"><h3 style="color:#0066d5;">Total Plazas Vacantes</h3><p id="kpiVacantes"><i class="fas fa-spinner fa-spin"></i></p></div>
+                    <div class="card"><h3 style="color:#28a745;">Total Postulaciones</h3><p id="kpiPostulaciones"><i class="fas fa-spinner fa-spin"></i></p></div>
+                    <div class="card"><h3 style="color:#2a9d8f;">Salario Promedio Global</h3><p id="kpiSalario"><i class="fas fa-spinner fa-spin"></i></p></div>
+                    <div class="card"><h3 style="color:#6f42c1;">Eventos Telemetría (Cosmos DB)</h3><p id="kpiTelemetria"><i class="fas fa-spinner fa-spin"></i></p></div>
+                    <div class="card"><h3 style="color:#198754;">Contrataciones Exitosas</h3><p id="kpiExitosas"><i class="fas fa-spinner fa-spin"></i></p></div>
+                    <div class="card"><h3 style="color:#dc3545;">Reportes de Seguridad</h3><p id="kpiIncidentes"><i class="fas fa-spinner fa-spin"></i></p></div>
                 </div>
             </div>
 
-            <div id="tab-sectores" class="tab-pane"><h1 class="seccion-titulo">Ofertas por Sector</h1><div class="chart-container-large"><canvas id="graficaSectores"></canvas></div></div>
+            <div id="tab-sectores" class="tab-pane"><h1 class="seccion-titulo">Vacantes, Postulaciones y Vistas Web/App por Sector</h1><div class="chart-container-large"><canvas id="graficaSectores"></canvas></div></div>
             <div id="tab-ubicaciones" class="tab-pane"><h1 class="seccion-titulo">Ofertas por Departamento</h1><div class="chart-container-large" style="max-width: 600px; margin: 0 auto;"><canvas id="graficaUbicaciones"></canvas></div></div>
             <div id="tab-meses" class="tab-pane"><h1 class="seccion-titulo">Evolución Mensual de Vacantes</h1><div class="chart-container-large"><canvas id="graficaMeses"></canvas></div></div>
             <div id="tab-modalidades" class="tab-pane"><h1 class="seccion-titulo">Distribución de Modalidades de Trabajo</h1><div class="chart-container-large" style="max-width: 600px; margin: 0 auto;"><canvas id="graficaModalidad"></canvas></div></div>
-
-            <!-- NUEVAS PESTAÑAS (AVANZADAS) -->
-            <div id="tab-empresas" class="tab-pane">
-                <h1 class="seccion-titulo">Top 10 Empresas Contratistas</h1>
-                <div class="chart-container-large"><canvas id="graficaEmpresas"></canvas></div>
-            </div>
-
-            <div id="tab-tipos" class="tab-pane">
-                <h1 class="seccion-titulo">Ofertas por Tipo de Contrato</h1>
-                <div class="chart-container-large" style="max-width: 600px; margin: 0 auto;"><canvas id="graficaTipos"></canvas></div>
-            </div>
-
-            <div id="tab-salarios" class="tab-pane">
-                <h1 class="seccion-titulo">Competitividad Salarial por Sector</h1>
-                <div class="chart-container-large"><canvas id="graficaSalarios"></canvas></div>
-            </div>
-
-            <div id="tab-tiempos" class="tab-pane">
-                <h1 class="seccion-titulo">Días Promedio para Cerrar una Vacante</h1>
-                <div class="chart-container-large"><canvas id="graficaTiempos"></canvas></div>
-            </div>
-
-            <div id="tab-requisitos" class="tab-pane">
-                <h1 class="seccion-titulo">Nivel de Exigencia (Promedio de Requisitos)</h1>
-                <div class="chart-container-large" style="max-width: 600px; margin: 0 auto;"><canvas id="graficaRequisitos"></canvas></div>
-            </div>
+            <div id="tab-empresas" class="tab-pane"><h1 class="seccion-titulo">Top 10 Empresas Contratistas</h1><div class="chart-container-large"><canvas id="graficaEmpresas"></canvas></div></div>
+            <div id="tab-tipos" class="tab-pane"><h1 class="seccion-titulo">Ofertas por Tipo de Contrato</h1><div class="chart-container-large" style="max-width: 600px; margin: 0 auto;"><canvas id="graficaTipos"></canvas></div></div>
+            <div id="tab-salarios" class="tab-pane"><h1 class="seccion-titulo">Competitividad Salarial por Sector</h1><div class="chart-container-large"><canvas id="graficaSalarios"></canvas></div></div>
+            <div id="tab-tiempos" class="tab-pane"><h1 class="seccion-titulo">Días Promedio de Vigencia por Sector</h1><div class="chart-container-large"><canvas id="graficaTiempos"></canvas></div></div>
+            <div id="tab-requisitos" class="tab-pane"><h1 class="seccion-titulo">Nivel de Exigencia (Promedio de Requisitos)</h1><div class="chart-container-large" style="max-width: 600px; margin: 0 auto;"><canvas id="graficaRequisitos"></canvas></div></div>
+            <div id="tab-telemetria" class="tab-pane"><h1 class="seccion-titulo">Eventos de Telemetría NoSQL (Azure Cosmos DB)</h1><div class="chart-container-large"><canvas id="graficaTelemetria"></canvas></div></div>
+            <div id="tab-educacion" class="tab-pane"><h1 class="seccion-titulo">Distribución de Candidatos por Nivel Educativo</h1><div class="chart-container-large"><canvas id="graficaEducacion"></canvas></div></div>
 
         </main>
     </div>
 
-    <!-- Scripts CON ROMPE CACHÉ -->
-    <script src="../Scripts/auth.js?v=6"></script>
-    <script src="../Scripts/admin.js?v=6"></script>
+    <script src="../Scripts/auth.js?v=8"></script>
+    <script src="../Scripts/admin.js?v=8"></script>
 </body>
 </html>

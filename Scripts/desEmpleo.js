@@ -1,4 +1,4 @@
-const API_URL = 'http://20.10.8.172:8000/api';
+const API_URL = 'http://127.0.0.1:8000/api';
 const params = new URLSearchParams(window.location.search);
 const empleoId = params.get('id');
 
@@ -41,7 +41,7 @@ async function cargarDetallesEmpleo() {
         
         let logoUrl = "/imgn/CompanyA.webp"; 
         const fotoUrl = objEmpresa.fotoperfilurl || objEmpresa.FotoPerfilUrl;
-        if (fotoUrl) logoUrl = fotoUrl.startsWith('http') ? fotoUrl : `http://20.10.8.172:8000${fotoUrl}`;
+        if (fotoUrl) logoUrl = fotoUrl.startsWith('http') ? fotoUrl : `http://127.0.0.1:8000${fotoUrl}`;
 
         let ubicacion = "Nicaragua";
         const idMuniObj = empleo.municipioid || empleo.MunicipioId;

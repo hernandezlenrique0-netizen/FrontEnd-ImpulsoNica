@@ -1,4 +1,4 @@
-const API_URL_DASHBOARD = 'http://20.10.8.172:8000/api/dashboard';
+const API_URL_DASHBOARD = 'http://127.0.0.1:8000/api/dashboard';
 
 document.addEventListener('DOMContentLoaded', () => {
     inicializarTabs();
@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
     inicializarSidebarMobile();
 });
 
-// --- FUNCIÓN PARA EL MENÚ MÓVIL ---
 function inicializarSidebarMobile() {
     const btnToggle = document.getElementById('btnToggleSidebar');
     const btnClose = document.getElementById('btnCloseSidebar');
@@ -16,7 +15,6 @@ function inicializarSidebarMobile() {
     function toggleMenu() {
         sidebar.classList.toggle('open');
         overlay.classList.toggle('active');
-        // Bloquea el scroll del fondo cuando el menú está abierto
         document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
     }
 
@@ -39,30 +37,23 @@ function inicializarTabs() {
 
     botones.forEach(boton => {
         boton.addEventListener('click', () => {
-            // 1. Quitamos la clase 'active' de todos
             botones.forEach(b => b.classList.remove('active'));
             pestanas.forEach(p => p.classList.remove('active'));
             
-            // 2. Se la ponemos solo al que tocaste
             boton.classList.add('active');
             const idPanel = boton.getAttribute('data-tab');
             document.getElementById(idPanel).classList.add('active');
             
-            // 3. Si estamos en un dispositivo móvil, cerramos el menú
             if (window.innerWidth <= 900) {
                 if(sidebar) sidebar.classList.remove('open');
                 if(overlay) overlay.classList.remove('active');
                 document.body.style.overflow = '';
             }
 
-            // 👇 MAGIA: Teletransporte ULTRA agresivo hacia arriba 👇
             setTimeout(() => {
-                // Sube la ventana principal
                 window.scrollTo(0, 0); 
                 document.documentElement.scrollTop = 0; 
                 document.body.scrollTop = 0; 
-                
-                // Respaldo extra por si el contenedor principal tiene su propio scroll
                 const layout = document.querySelector('.admin-layout');
                 if (layout) layout.scrollTop = 0;
             }, 10);
@@ -89,18 +80,19 @@ async function cargarDatosDashboard() {
 
         const data = await response.json();
         
-        actualizarKPIs(data.ofertas_por_sector);
+        actualizarKPIs(data.ofertas_por_sector, data.kpis_globales_dw);
 
         dibujarGraficaSectores(data.ofertas_por_sector);
         dibujarGraficaUbicaciones(data.ofertas_por_ubicacion);
         if (data.ofertas_por_mes) dibujarGraficaMeses(data.ofertas_por_mes);
         if (data.ofertas_por_modalidad) dibujarGraficaModalidad(data.ofertas_por_modalidad);
-
         if (data.top_empresas) dibujarTopEmpresas(data.top_empresas);
         if (data.tipos_empleo) dibujarTiposEmpleo(data.tipos_empleo);
         if (data.salarios_sector) dibujarSalariosSector(data.salarios_sector);
         if (data.dias_abierta) dibujarTiemposCierre(data.dias_abierta);
         if (data.requisitos_sector) dibujarRequisitos(data.requisitos_sector);
+        if (data.telemetria_cosmos) dibujarTelemetriaCosmos(data.telemetria_cosmos);
+        if (data.candidatos_educacion) dibujarEducacionCandidatos(data.candidatos_educacion);
 
     } catch (error) {
         console.error("Error en el Dashboard:", error);
@@ -108,7 +100,7 @@ async function cargarDatosDashboard() {
     }
 }
 
-function actualizarKPIs(datosSector) {
+function actualizarKPIs(datosSector, kpisExtra = {}) {
     let totalVacantes = 0, totalPostulaciones = 0, sumaSalarios = 0, contSalarios = 0;
     datosSector.forEach(item => {
         totalVacantes += item.total_vacantes || 0;
@@ -119,9 +111,18 @@ function actualizarKPIs(datosSector) {
     document.getElementById('kpiVacantes').textContent = totalVacantes;
     document.getElementById('kpiPostulaciones').textContent = totalPostulaciones;
     document.getElementById('kpiSalario').textContent = `C$ ${salarioGlobal}`;
+
+    if (document.getElementById('kpiTelemetria')) {
+        document.getElementById('kpiTelemetria').textContent = kpisExtra.total_eventos_telemetria ?? 0;
+    }
+    if (document.getElementById('kpiExitosas')) {
+        document.getElementById('kpiExitosas').textContent = kpisExtra.postulaciones_exitosas ?? 0;
+    }
+    if (document.getElementById('kpiIncidentes')) {
+        document.getElementById('kpiIncidentes').textContent = kpisExtra.total_incidentes_seguridad ?? 0;
+    }
 }
 
-// --- GRÁFICOS ---
 function dibujarGraficaSectores(datos) {
     const ctx = document.getElementById('graficaSectores').getContext('2d');
     new Chart(ctx, {
@@ -129,8 +130,9 @@ function dibujarGraficaSectores(datos) {
         data: {
             labels: datos.map(i => i.sectorkey__nombresector || 'Sin Sector'),
             datasets: [
-                { label: 'Vacantes', data: datos.map(i => i.total_vacantes || 0), backgroundColor: 'rgba(0, 102, 213, 0.7)' },
-                { label: 'Postulaciones', data: datos.map(i => i.total_postulaciones || 0), backgroundColor: 'rgba(40, 167, 69, 0.7)' }
+                { label: 'Plazas Vacantes', data: datos.map(i => i.total_vacantes || 0), backgroundColor: 'rgba(0, 102, 213, 0.7)' },
+                { label: 'Postulaciones Recibidas', data: datos.map(i => i.total_postulaciones || 0), backgroundColor: 'rgba(40, 167, 69, 0.7)' },
+                { label: 'Vistas en Cosmos DB', data: datos.map(i => i.total_vistas_mongo || 0), backgroundColor: 'rgba(111, 66, 193, 0.7)' }
             ]
         },
         options: { responsive: true, maintainAspectRatio: false }
@@ -215,7 +217,7 @@ function dibujarTiemposCierre(datos) {
         type: 'bar',
         data: {
             labels: datos.map(i => i.sectorkey__nombresector || 'Sin Sector'),
-            datasets: [{ label: 'Días promedio para llenar vacante', data: datos.map(i => parseFloat(i.promedio_dias || 0).toFixed(1)), backgroundColor: '#e76f51' }]
+            datasets: [{ label: 'Días promedio de vigencia', data: datos.map(i => parseFloat(i.promedio_dias || 0).toFixed(1)), backgroundColor: '#e76f51' }]
         },
         options: { responsive: true, maintainAspectRatio: false }
     });
@@ -228,6 +230,35 @@ function dibujarRequisitos(datos) {
         data: {
             labels: datos.map(i => i.sectorkey__nombresector || 'Sin Sector'),
             datasets: [{ label: 'Promedio de Requisitos', data: datos.map(i => parseFloat(i.promedio_requisitos || 0).toFixed(1)), backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)'] }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+}
+
+function dibujarTelemetriaCosmos(datos) {
+    const el = document.getElementById('graficaTelemetria');
+    if (!el) return;
+    new Chart(el.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: datos.map(i => `${i.tipoeventokey__nombreevento} (${i.tipoeventokey__plataformaorigen})`),
+            datasets: [{ label: 'Eventos Capturados en Cosmos DB', data: datos.map(i => i.total_eventos || 0), backgroundColor: '#6f42c1' }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+}
+
+function dibujarEducacionCandidatos(datos) {
+    const el = document.getElementById('graficaEducacion');
+    if (!el) return;
+    new Chart(el.getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: datos.map(i => i.niveleducativo || 'No Especificado'),
+            datasets: [
+                { label: 'Total Candidatos', data: datos.map(i => i.total_candidatos || 0), backgroundColor: '#0066d5' },
+                { label: 'Años Experiencia Promedio', data: datos.map(i => parseFloat(i.experiencia_promedio || 0).toFixed(1)), backgroundColor: '#ffc107' }
+            ]
         },
         options: { responsive: true, maintainAspectRatio: false }
     });

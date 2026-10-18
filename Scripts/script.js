@@ -1,4 +1,4 @@
-const API_URL = 'http://20.10.8.172:8000/api';
+const API_URL = 'http://127.0.0.1:8000/api';
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -140,14 +140,15 @@ async function cargarEmpleosRecientes() {
     `;
 
     try {
-        const response = await fetch(`${API_URL}/empleos/`, {
+        const response = await fetch(`${API_URL}/empleos/?page_size=3`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         });
 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-        const data = await response.json();
+        const rawData = await response.json();
+        const data = Array.isArray(rawData) ? rawData : (rawData.results || []);
         contenedorOfertas.innerHTML = ''; // Limpiamos el mensaje de carga
 
         const empleosMostrar = data.slice(0, 3); // Solo 3 recientes
@@ -195,3 +196,117 @@ async function cargarEmpleosRecientes() {
         `;
     }
 }
+
+// ... existing code ...
+
+/* ==========================================================================
+   INTEGRACIÓN MONGODB (NoSQL) - API ENDPOINTS
+   ========================================================================== */
+
+// Ajusta esta URL según donde esté corriendo tu API de Django (ej. en local o producción)
+const NOSQL_API_BASE = 'http://127.0.0.1:8000/api/v1';
+
+/**
+ * Envía un registro de actividad a MongoDB.
+ * Ideal para medir vistas, clics y tiempos en pantalla.
+ */
+async function registrarActividadNoSQL(tipo_evento, actor, objetivo, tiempo_pantalla = 0) {
+    try {
+        const response = await fetch(`${NOSQL_API_BASE}/telemetria/actividad/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                tipo_evento: tipo_evento,
+                actor: actor, // Ej: { tipo: 'Candidato', sql_id: 105 }
+                objetivo: objetivo, // Ej: { tipo: 'Vacante', sql_id: 892 }
+                plataforma_origen: 'Web',
+                tiempo_en_pantalla_segundos: tiempo_pantalla
+            }),
+            keepalive: true // <-- AÑADIDO: Evita que el navegador cancele la petición si cambias de página
+        });
+        
+        if (!response.ok) throw new Error("Error en la petición NoSQL");
+        console.log(`✅ Telemetría registrada [MongoDB]: ${tipo_evento}`);
+    } catch (error) {
+        console.error("❌ Error guardando telemetría:", error);
+    }
+}
+
+/**
+ * Guarda las búsquedas de los usuarios para análisis multidimensional posterior.
+ */
+async function guardarHistorialNoSQL(termino, filtros, resultados_count, usuario_id = null) {
+    try {
+        const payload = {
+            termino_principal: termino,
+            filtros_aplicados: filtros,
+            resultados_encontrados: resultados_count
+        };
+        
+        if (usuario_id) {
+                payload.usuario_sql_id = parseInt(usuario_id);
+            }
+
+            await fetch(`${NOSQL_API_BASE}/historial-busqueda/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+                keepalive: true // <-- AÑADIDO: Fundamental para registros analíticos
+            });
+            console.log(`✅ Búsqueda guardada en Historial [MongoDB]: "${termino}"`);
+        } catch (error) {
+        console.error("❌ Error guardando historial de búsqueda:", error);
+    }
+}
+
+// ==========================================================================
+// CAPTURA AUTOMÁTICA DE EVENTOS EN LA INTERFAZ
+// ==========================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Capturar búsquedas en la página de inicio (index.html) o Empleos.html
+    const botonBuscar = document.querySelector('.boton-select');
+    const inputBuscador = document.querySelector('.buscador-select');
+    
+    if (botonBuscar && inputBuscador) {
+        botonBuscar.addEventListener('click', () => {
+            const termino = inputBuscador.value.trim();
+            if (termino) {
+                // Obtenemos ID de usuario si está logueado (puedes adaptar esto a tu sistema de sesión/auth.js)
+                const userId = localStorage.getItem('usuario_sql_id') || null; 
+                
+                // Llamamos a la API NoSQL
+                guardarHistorialNoSQL(termino, { origen: window.location.pathname }, 0, userId);
+            }
+        });
+    }
+
+    // 2. Capturar telemetría al ver una Vacante (Página DesEmpleo.html)
+    // Suponiendo que la clase body.desempleo indica que estamos viendo una vacante
+    if (document.body.classList.contains('desempleo')) {
+        // Obtenemos parámetros falsos o de la URL para el ejemplo
+        const params = new URLSearchParams(window.location.search);
+        const vacanteId = params.get('id') || 999; // ID de la vacante de prueba
+        const userId = localStorage.getItem('usuario_sql_id') || null;
+        
+        let actor = userId ? { tipo: 'Candidato', sql_id: parseInt(userId) } : { tipo: 'Visitante', sql_id: 0 };
+        let objetivo = { tipo: 'Vacante', sql_id: parseInt(vacanteId) };
+        
+        // Iniciamos un contador para ver cuánto tiempo se queda en la pantalla
+        const tiempoInicio = Date.now();
+        
+        // Enviamos el evento cuando el usuario cierra o cambia de página
+        window.addEventListener('beforeunload', () => {
+            const tiempoEnPantalla = Math.floor((Date.now() - tiempoInicio) / 1000); // en segundos
+            
+            // Usamos 'keepalive: true' a través de sendBeacon o un fetch especial si es al cerrar,
+            // pero para simplificar, registraremos el evento "VISTA_VACANTE" al cargar
+        });
+        
+        // Registro inmediato al abrir la página:
+        registrarActividadNoSQL('VISTA_VACANTE', actor, objetivo, 0);
+    }
+});

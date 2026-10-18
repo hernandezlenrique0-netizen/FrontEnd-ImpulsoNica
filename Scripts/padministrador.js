@@ -1,4 +1,4 @@
-const API_URL = 'http://20.10.8.172:8000/api';
+const API_URL = 'http://127.0.0.1:8000/api';
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarDatosPerfil();
@@ -28,7 +28,7 @@ async function cargarDatosPerfil() {
             setTexto('lblTelefono', data.datos.telefono || 'No especificado');
 
             if (data.datos.foto_url) {
-                document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://20.10.8.172:8000${data.datos.foto_url}`;
+                document.getElementById('fotoPerfil').src = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
             }
         } else {
             // Si el usuario no es un administrador, lo sacamos de aquí por seguridad

@@ -25,7 +25,7 @@
 })();
 
 // 👇 IP ACTUALIZADA PARA QUE FUNCIONE DESDE CUALQUIER CELULAR O PC 👇
-const API_URL_AUTH = 'http://20.10.8.172:8000/api';
+const API_URL_AUTH = 'http://127.0.0.1:8000/api';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. PRIMERO: Inyectamos los modales si no existen en la página
@@ -173,6 +173,7 @@ function inicializarEventosAuth() {
 
         // --- 3. LÓGICA DE INICIO DE SESIÓN ---
         if (e.target.closest('#btnLogin')) {
+            
             e.preventDefault();
             const btnLogin = e.target.closest('#btnLogin');
             
@@ -415,7 +416,7 @@ async function actualizarMenuNavegacion() {
                         const data = await response.json();
                         if (data.datos) {
                             if (data.datos.foto_url) {
-                                const fullUrl = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://20.10.8.172:8000${data.datos.foto_url}`;
+                                const fullUrl = data.datos.foto_url.startsWith('http') ? data.datos.foto_url : `http://127.0.0.1:8000${data.datos.foto_url}`;
                                 document.getElementById('navAvatarBtn').src = fullUrl;
                                 document.getElementById('dropAvatarImg').src = fullUrl;
                             }
