@@ -536,6 +536,18 @@ async function guardarCambiosPerfil() {
 
         if (!response.ok) throw new Error("Error al actualizar el perfil.");
 
+        fetch('http://127.0.0.1:8000/api/v1/telemetria/actividad/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        tipo_evento: 'ACTUALIZACION_PERFIL_CANDIDATO',
+        actor: { tipo: 'Candidato', sql_id: parseInt(localStorage.getItem('usuario_sql_id')) || 0 },
+        objetivo: { tipo: 'Perfil', sql_id: parseInt(localStorage.getItem('usuario_sql_id')) || 0 },
+        plataforma_origen: 'Web',
+        tiempo_en_pantalla_segundos: 25
+    })
+}).catch(() => {});
+
         alert("¡Perfil actualizado con éxito!");
         document.getElementById('modalEditarPerfil').style.display = 'none';
         cargarDatosPerfil(); 

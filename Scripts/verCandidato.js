@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://20.51.194.8:8000/api';
 const params = new URLSearchParams(window.location.search);
 const candidatoId = params.get('id');
 const postulacionId = params.get('post');
@@ -55,7 +55,7 @@ async function cargarPerfilCompletoCandidato() {
         let fotoUrl = "/imgn/cv.png"; 
         const urlBD = cand.fotoperfilurl || cand.FotoPerfilUrl;
         if (urlBD) {
-            fotoUrl = urlBD.startsWith('http') ? urlBD : `http://127.0.0.1:8000${urlBD}`;
+            fotoUrl = urlBD.startsWith('http') ? urlBD : `http://20.51.194.8:8000${urlBD}`;
         }
 
         // Buscar el ID real del Currículum
@@ -63,7 +63,7 @@ async function cargarPerfilCompletoCandidato() {
         if (cand.curriculumid && typeof cand.curriculumid === 'object') {
             curriculumId = cand.curriculumid.curriculumid || cand.curriculumid.id;
         } else {
-            curriculumId = cand.curriculumid || cand.CurriculumId;
+            curriculumId = cand.curriculumid || cand.CurriculumId;  
         }
 
         let experiencias = [];
@@ -277,11 +277,34 @@ async function cargarPerfilCompletoCandidato() {
     }
 }
 
+const NOSQL_URL_CV = 'http://20.51.194.8:8000/api/v1';
+const tiempoInicioCV = Date.now();
+
+// Registrar que la empresa abrió el CV del candidato en Cosmos DB
+document.addEventListener('DOMContentLoaded', () => {
+    if (candidatoId) {
+        const empresaSqlId = parseInt(localStorage.getItem('usuario_sql_id')) || 0;
+        fetch(`${NOSQL_URL_CV}/telemetria/actividad/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                tipo_evento: 'DESCARGA_CV',
+                actor: { tipo: 'Empresa', sql_id: empresaSqlId },
+                objetivo: { tipo: 'Candidato', sql_id: parseInt(candidatoId) },
+                plataforma_origen: 'Web',
+                tiempo_en_pantalla_segundos: 15
+            }),
+            keepalive: true
+        }).catch(() => {});
+    }
+});
+
 window.cambiarEstadoPostulacion = async function(estadoDeseado) {
     if(!postulacionId) return alert("Error: No se ha identificado la postulación.");
     if(!confirm(`¿Estás completamente seguro que deseas marcar a este candidato como: ${estadoDeseado.toUpperCase()}?`)) return;
 
     const token = localStorage.getItem('auth_token');
+    const empresaSqlId = parseInt(localStorage.getItem('usuario_sql_id')) || 0;
     
     try {
         const resEst = await fetch(`${API_URL}/cat-estados/`, { headers: { 'Authorization': `Bearer ${token}` }});
@@ -301,12 +324,39 @@ window.cambiarEstadoPostulacion = async function(estadoDeseado) {
         });
         
         if(!resPut.ok) throw new Error("Ocurrió un error en el servidor al intentar actualizar.");
+
+        // 1. Registrar evento de decisión en Cosmos DB
+        const segundosRevision = Math.max(5, Math.floor((Date.now() - tiempoInicioCV) / 1000));
+        await fetch(`${NOSQL_URL_CV}/telemetria/actividad/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                tipo_evento: `RESOLUCION_${estadoDeseado.toUpperCase()}`,
+                actor: { tipo: 'Empresa', sql_id: empresaSqlId },
+                objetivo: { tipo: 'Candidato', sql_id: parseInt(candidatoId) },
+                plataforma_origen: 'Web',
+                tiempo_en_pantalla_segundos: segundosRevision
+            })
+        }).catch(() => {});
+
+        // 2. Enviar notificación en tiempo real al Candidato en Cosmos DB
+        await fetch(`${NOSQL_URL_CV}/notificaciones/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                receptor_sql_id: parseInt(candidatoId),
+                tipo_alerta: 'ACTUALIZACION_POSTULACION',
+                titulo: `Actualización de tu postulación: ${estadoDeseado}`,
+                mensaje: `Una empresa ha revisado tu Currículum y actualizó el estado de tu postulación a "${estadoDeseado}".`,
+                data_extra: { postulacion_sql_id: parseInt(postulacionId), estado: estadoDeseado, origen: 'Web' }
+            })
+        }).catch(() => {});
         
-        alert(`✅ ¡El candidato ha sido ${estadoDeseado} exitosamente!`);
+        alert(` ¡El candidato ha sido marcado como ${estadoDeseado} y notificado en tiempo real!`);
         window.location.href = "/html/PEmpresa.html";
 
     } catch(error) {
         console.error(error);
         alert("Error: " + error.message);
     }
-}
+};

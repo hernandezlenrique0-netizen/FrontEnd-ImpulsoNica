@@ -25,7 +25,7 @@
 })();
 
 // 👇 IP ACTUALIZADA PARA QUE FUNCIONE DESDE CUALQUIER CELULAR O PC 👇
-const API_URL_AUTH = 'http://127.0.0.1:8000/api';
+const API_URL_AUTH = 'http://20.51.194.8:8000/api';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. PRIMERO: Inyectamos los modales si no existen en la página
@@ -78,44 +78,70 @@ async function inyectarModalRegistro() {
 }
 
 // --- CAMBIO DE ETIQUETA DINÁMICA DEL REGISTRO (Candidato vs Empresa) ---
+// --- CARGAR CATÁLOGOS PARA EL FORMULARIO DE SOLICITUD EMPRESARIAL ---
+let catalogosRegistroCargados = false;
+async function cargarCatalogosSolicitudEmpresa() {
+    if (catalogosRegistroCargados) return;
+    try {
+        const [resSec, resTipo, resMuni] = await Promise.all([
+            fetch(`${API_URL_AUTH}/cat-sectores/`),
+            fetch(`${API_URL_AUTH}/cat-tiposempresa/`),
+            fetch(`${API_URL_AUTH}/municipios/`)
+        ]);
+        const sectores = await resSec.json();
+        const tipos = await resTipo.json();
+        const municipios = await resMuni.json();
+
+        const selSec = document.getElementById('regSectorEmpresa');
+        const selTipo = document.getElementById('regTipoEmpresa');
+        const selMuni = document.getElementById('regMunicipioEmpresa');
+
+        if (selSec) sectores.forEach(s => selSec.add(new Option(s.nombre, s.sectorid || s.id)));
+        if (selTipo) tipos.forEach(t => selTipo.add(new Option(t.nombre, t.tipoempresaid || t.id)));
+        if (selMuni) municipios.forEach(m => selMuni.add(new Option(m.nombre, m.municipioid || m.id)));
+
+        catalogosRegistroCargados = true;
+    } catch (e) {
+        console.error("Error cargando catálogos de solicitud empresarial:", e);
+    }
+}
+
+// --- CAMBIO DE INTERFAZ DINÁMICA DEL REGISTRO (Candidato vs Solicitud de Empresa) ---
 document.addEventListener('change', (e) => {
     if (e.target && e.target.id === 'registerUserType') {
+        const esEmpresa = e.target.value === 'empresa';
         const lblRegNombre = document.getElementById('lblRegNombre');
         const regNombreInput = document.getElementById('regNombre');
-        let formGroupApellido = document.getElementById('groupRegApellido');
+        const formGroupApellido = document.getElementById('groupRegApellido');
+        const camposEmpresa = document.getElementById('camposSolicitudEmpresa');
+        const camposPass = document.getElementById('camposPasswordCandidato');
+        const avisoEmpresa = document.getElementById('avisoValidacionEmpresa');
+        const btnRegister = document.getElementById('btnRegister');
+        const tituloModal = document.getElementById('tituloModalRegistro');
 
-        if (lblRegNombre && regNombreInput) {
-            if (e.target.value === 'empresa') {
-                lblRegNombre.innerHTML = 'Nombre de la Empresa <span style="color:#dc3545;">*</span>';
-                regNombreInput.placeholder = "Ej. Grupo Pellas S.A.";
-                
-                // Ocultar campo de apellido si es empresa
-                if (formGroupApellido) formGroupApellido.style.display = 'none';
-            } else {
-                lblRegNombre.innerHTML = 'Nombre <span style="color:#dc3545;">*</span>';
-                regNombreInput.placeholder = "Ej. Juan";
-                
-                // Mostrar campo de apellido si es candidato
-                if (formGroupApellido) {
-                    formGroupApellido.style.display = 'block';
-                } else {
-                    // Crear el campo apellido dinámicamente si no existe en el HTML
-                    formGroupApellido = document.createElement('div');
-                    formGroupApellido.className = 'form-group-reg';
-                    formGroupApellido.id = 'groupRegApellido';
-                    formGroupApellido.innerHTML = `
-                        <label for="regApellido" id="lblRegApellido">Apellido <span style="color:#dc3545;">*</span></label>
-                        <input type="text" id="regApellido" class="input-reg" placeholder="Ej. Pérez" required>
-                    `;
-                    // Insertarlo justo después del campo de Nombre
-                    regNombreInput.parentElement.insertAdjacentElement('afterend', formGroupApellido);
-                }
-            }
+        if (esEmpresa) {
+            cargarCatalogosSolicitudEmpresa();
+            if (tituloModal) tituloModal.innerHTML = '<i class="fas fa-building"></i> Solicitud de Empresa';
+            if (lblRegNombre) lblRegNombre.innerHTML = 'Razón Social / Nombre de la Empresa <span style="color:#dc3545;">*</span>';
+            if (regNombreInput) regNombreInput.placeholder = "Ej. Grupo Pellas S.A.";
+            if (formGroupApellido) formGroupApellido.style.display = 'none';
+            if (camposEmpresa) camposEmpresa.style.display = 'block';
+            if (camposPass) camposPass.style.display = 'none';
+            if (avisoEmpresa) avisoEmpresa.style.display = 'block';
+            if (btnRegister) btnRegister.textContent = "Enviar Solicitud de Validación";
+        } else {
+            if (tituloModal) tituloModal.innerHTML = '<i class="fas fa-user-plus"></i> Crear Cuenta';
+            if (lblRegNombre) lblRegNombre.innerHTML = 'Nombre <span style="color:#dc3545;">*</span>';
+            if (regNombreInput) regNombreInput.placeholder = "Ej. Juan";
+            if (formGroupApellido) formGroupApellido.style.display = 'block';
+            if (camposEmpresa) camposEmpresa.style.display = 'none';
+            if (camposPass) camposPass.style.display = 'block';
+            if (avisoEmpresa) avisoEmpresa.style.display = 'none';
+            if (btnRegister) btnRegister.textContent = "Registrarse";
         }
     }
 });
 
-// Función auxiliar para pintar el error en el HTML
 function mostrarErrorRegistro(mensaje) {
     const alertError = document.getElementById('regAlertError');
     const alertText = document.getElementById('regAlertText');
@@ -141,12 +167,8 @@ function inicializarEventosAuth() {
 
         const modalLogin = document.getElementById('loginModal');
         if (modalLogin) {
-            if (e.target.closest('.close') && e.target.closest('#loginModal')) {
-                modalLogin.style.display = 'none';
-            }
-            if (e.target === modalLogin) {
-                modalLogin.style.display = 'none';
-            }
+            if (e.target.closest('.close') && e.target.closest('#loginModal')) modalLogin.style.display = 'none';
+            if (e.target === modalLogin) modalLogin.style.display = 'none';
         }
 
         // --- 2. ABRIR Y CERRAR MODAL DE REGISTRO ---
@@ -155,7 +177,6 @@ function inicializarEventosAuth() {
             const regModal = document.getElementById('registerModal');
             if (regModal) {
                 regModal.style.display = 'flex';
-                // Forzar la creación/ajuste del campo Apellido al abrir por primera vez
                 const selectTipo = document.getElementById('registerUserType');
                 if (selectTipo) selectTipo.dispatchEvent(new Event('change', { bubbles: true }));
             }
@@ -163,12 +184,8 @@ function inicializarEventosAuth() {
 
         const regModal = document.getElementById('registerModal');
         if (regModal) {
-            if (e.target.closest('.close') && e.target.closest('#registerModal')) {
-                regModal.style.display = 'none';
-            }
-            if (e.target === regModal) {
-                regModal.style.display = 'none';
-            }
+            if (e.target.closest('.close') && e.target.closest('#registerModal')) regModal.style.display = 'none';
+            if (e.target === regModal) regModal.style.display = 'none';
         }
 
         // --- 3. LÓGICA DE INICIO DE SESIÓN ---
@@ -204,6 +221,9 @@ function inicializarEventosAuth() {
                     localStorage.setItem('auth_token', data.access);
                     localStorage.setItem('refresh_token', data.refresh);
                     localStorage.setItem('user_type', rolDetectado);
+                    if (data.usuario_sql_id) {
+                        localStorage.setItem('usuario_sql_id', data.usuario_sql_id);
+                    }
 
                     if(modalLogin) modalLogin.style.display = "none";
                     actualizarMenuNavegacion();
@@ -226,7 +246,7 @@ function inicializarEventosAuth() {
             }
         }
 
-        // --- 4. LÓGICA DE REGISTRO ---
+        // --- 4. LÓGICA DE REGISTRO (CANDIDATO) O SOLICITUD DE VALIDACIÓN (EMPRESA) ---
         if (e.target.closest('#btnRegister')) {
             e.preventDefault();
             const btnRegister = e.target.closest('#btnRegister');
@@ -235,40 +255,54 @@ function inicializarEventosAuth() {
             const tipo = document.getElementById('registerUserType')?.value;
             const nombre = document.getElementById('regNombre')?.value.trim();
             const correo = document.getElementById('regCorreo')?.value.trim();
-            const password = document.getElementById('regPassword')?.value;
-            const passwordConfirm = document.getElementById('regPasswordConfirm')?.value;
-            
-            // Obtener el apellido
-            const apellidoInput = document.getElementById('regApellido');
-            const apellido = apellidoInput && apellidoInput.closest('.form-group-reg').style.display !== 'none' 
-                                ? apellidoInput.value.trim() 
-                                : '';
 
-            // Limpiar alerta previa
             const alertError = document.getElementById('regAlertError');
             if (alertError) alertError.style.display = 'none';
 
-            if (!nombre || !correo || !password || !passwordConfirm || (tipo === 'candidato' && !apellido)) {
-                return mostrarErrorRegistro("Por favor, completa todos los campos obligatorios.");
+            let payload = {
+                tipo: tipo,
+                correo: correo,
+                email: correo,
+                nombre: nombre
+            };
+
+            if (tipo === 'candidato') {
+                const apellido = document.getElementById('regApellido')?.value.trim();
+                const password = document.getElementById('regPassword')?.value;
+                const passwordConfirm = document.getElementById('regPasswordConfirm')?.value;
+
+                if (!nombre || !apellido || !correo || !password || !passwordConfirm) {
+                    return mostrarErrorRegistro("Por favor, completa todos los campos obligatorios.");
+                }
+                if (password !== passwordConfirm) {
+                    return mostrarErrorRegistro("Las contraseñas no coinciden.");
+                }
+                payload.apellido = apellido;
+                payload.password = password;
+            } else {
+                // Validación de campos del formulario de Solicitud de Empresa
+                const ruc = document.getElementById('regRUC')?.value.trim();
+                const telefono = document.getElementById('regTelefonoEmpresa')?.value.trim();
+                const sectorid = document.getElementById('regSectorEmpresa')?.value;
+                const tipoempresaid = document.getElementById('regTipoEmpresa')?.value;
+                const municipioid = document.getElementById('regMunicipioEmpresa')?.value;
+                const direccion = document.getElementById('regDireccionEmpresa')?.value.trim();
+
+                if (!nombre || !ruc || !telefono || !sectorid || !tipoempresaid || !municipioid || !direccion || !correo) {
+                    return mostrarErrorRegistro("Por favor, completa todos los datos corporativos para que el Administrador pueda validar tu empresa.");
+                }
+                payload.ruc = ruc;
+                payload.telefono = telefono;
+                payload.sectorid = parseInt(sectorid);
+                payload.tipoempresaid = parseInt(tipoempresaid);
+                payload.municipioid = parseInt(municipioid);
+                payload.direccion = direccion;
             }
 
-            if (password !== passwordConfirm) {
-                return mostrarErrorRegistro("Las contraseñas no coinciden. Verifícalas y vuelve a intentarlo.");
-            }
-
-            btnRegister.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registrando...';
+            btnRegister.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
             btnRegister.disabled = true;
             
             try {
-                const payload = { 
-                    tipo: tipo, 
-                    correo: correo, 
-                    password: password, 
-                    nombre: nombre,
-                    apellido: apellido, 
-                    email: correo 
-                };
-
                 const response = await fetch(`${API_URL_AUTH}/registro/`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -278,30 +312,28 @@ function inicializarEventosAuth() {
                 const data = await response.json();
 
                 if (!response.ok) {
-                    const errorMsg = data.error ? data.error.toLowerCase() : '';
-                    if (errorMsg.includes('unique') || errorMsg.includes('duplicate') || errorMsg.includes('violation')) {
-                        throw new Error(`El correo "${correo}" ya se encuentra registrado. Por favor, intenta iniciar sesión.`);
-                    }
-                    throw new Error(data.error || "Ocurrió un error al registrar la cuenta.");
+                    throw new Error(data.error || "Ocurrió un error al procesar la solicitud.");
                 }
 
-                alert("¡Cuenta creada exitosamente! Ya puedes iniciar sesión en ImpulsoNica.");
-                
-                if(regModal) regModal.style.display = 'none';
-                
-                // Limpiar formulario
-                document.getElementById('regNombre').value = '';
-                if(apellidoInput) apellidoInput.value = '';
-                document.getElementById('regCorreo').value = '';
-                document.getElementById('regPassword').value = '';
-                document.getElementById('regPasswordConfirm').value = '';
+                if (tipo === 'empresa') {
+                    alert("✅ ¡Solicitud Enviada a ImpulsoNica!\n\n" + data.mensaje);
+                    if (regModal) regModal.style.display = 'none';
+                } else {
+                    alert("¡Cuenta creada exitosamente! Ya puedes iniciar sesión en ImpulsoNica.");
+                    if (regModal) regModal.style.display = 'none';
+                    if (modalLogin) modalLogin.style.display = "flex";
+                }
 
-                if (modalLogin) modalLogin.style.display = "flex";
+                // Limpiar campos
+                ['regNombre', 'regApellido', 'regCorreo', 'regPassword', 'regPasswordConfirm', 'regRUC', 'regTelefonoEmpresa', 'regDireccionEmpresa'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.value = '';
+                });
 
             } catch (error) {
                 mostrarErrorRegistro(error.message);
             } finally {
-                btnRegister.textContent = "Registrarse";
+                btnRegister.textContent = tipo === 'empresa' ? "Enviar Solicitud de Validación" : "Registrarse";
                 btnRegister.disabled = false;
             }
         }
